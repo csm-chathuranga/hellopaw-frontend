@@ -215,20 +215,20 @@ function Home() {
                         </figure>
                        </div>
                      </div>
-                     <div>
+                     {/* <div>
                        <div className="mian_banner_fig">
                          <figure>
                             <img src="/assets/images/banner-fig.png"/>
                         </figure>
                        </div>
-                     </div>
-                     <div>
+                     </div> */}
+                     {/* <div>
                        <div className="mian_banner_fig">
                          <figure>
                             <img src="/assets/images/banner-fig01.png"/>
                         </figure>
                        </div>
-                     </div>
+                     </div> */}
                  </div>
              </div>        
          </div>
