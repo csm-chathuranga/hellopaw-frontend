@@ -1,4 +1,3 @@
-import Header   from "../components/Header";
 function Home() {
     return (
         <div className="main-wrapper">
@@ -7,44 +6,46 @@ function Home() {
              <div className="main_top_bar">
                   <h1><figure><img src="/assets/images/logo.png" style={{height:'80px',color:'#ffff'}}/></figure></h1>
                   <ul className="navigation">
-                      <li><a href="#">Home <i className="fa fa-caret-down"></i></a>
-                        <ul className="sub-menu">
-                          <li><a href="index.html">main home</a></li>
+                      <li><a href="#">Home </a>
+                        {/* <ul className="sub-menu">
+                          <li><a href="index.html">main homess</a></li>
                           <li><a href="index-02.html">Home 02</a></li>
-                        </ul>
+                        </ul> */}
                       </li>
                       <li><a href="#">Pages<i className="fa fa-caret-down"></i></a>
                         <ul className="sub-menu">
                            <li><a href="about-us.html">about us</a></li>
-                           <li><a href="team-page.html">team page</a></li>
-                           <li><a href="team-detail.html">team detail</a></li>
+                           {/* <li><a href="team-page.html">team page</a></li> */}
+                           {/* <li><a href="team-detail.html">team detail</a></li> */}
                            <li><a href="gallery.html">gallery page</a></li>
-                           <li><a href="gallery01.html">gallery02</a></li>
-                           <li><a href="404-page.html">404 page</a></li>
+                           {/* <li><a href="gallery01.html">gallery02</a></li> */}
+                           {/* <li><a href="404-page.html">404 page</a></li> */}
                         </ul>
                       </li>
                       <li><a href="#">Services<i className="fa fa-caret-down"></i></a>
                         <ul className="sub-menu">
-                           <li><a href="service-grid.html">service grid</a></li>
-                           <li><a href="service-grid02.html">service 02</a></li>
-                           <li><a href="service-grid03.html">service 03</a></li>
-                           <li><a href="service-detail.html">service detail</a></li>
+                        <li><a href="service-grid.html"></a> Service </li>
+                        <li><a href="service-grid02.html"> Broading service</a></li>
+                        <li><a href="service-grid02.html"> Grooming service</a></li>
+                        <li><a href="service-grid03.html"> Pet training service</a></li>
+                        <li><a href="service-detail.html"> Veterinarian service</a></li>
+                        <li><a href="service-detail.html"> Pet Cloths service</a></li>
                         </ul>
                       </li>
                       <li><a href="#">Blog <i className="fa fa-caret-down"></i></a>
                          <ul className="sub-menu">
-                           <li><a href="blog-post.html">blog page</a></li>
-                           <li><a href="blog-post-full.html">blog post </a></li>
+                           {/* <li><a href="blog-post.html">blog page</a></li> */}
+                           {/* <li><a href="blog-post-full.html">blog post </a></li> */}
                            <li><a href="blog-post-sidebar.html">blog sidebar</a></li>
                            <li><a href="blog-detail.html">blog detail</a></li>
                         </ul>
                       </li>
-                      <li><a href="#"> Shop<i className="fa fa-caret-down"></i></a>
+                      {/* <li><a href="#"> Shop<i className="fa fa-caret-down"></i></a>
                          <ul className="sub-menu">
                            <li><a href="shop-page.html">shop page</a></li>
                            <li><a href="shop-detail.html">Shop detail</a></li>
                          </ul>
-                        </li>
+                        </li> */}
                       <li><a href="contact-us.html"> Contact Us</a></li>
                   </ul>
                   <div id="kode-responsive-navigation" className="dl-menuwrapper">
@@ -53,46 +54,50 @@ function Home() {
                       <li><a className="active" href="#">Home</a>
                         <ul className="dl-submenu">
                              <li><a href="index.html">main home</a></li>
-                             <li><a href="index-02.html">Home 02</a></li>
+                             {/* <li><a href="index-02.html">Home 02</a></li> */}
                         </ul>
                       </li>
                       <li className="menu-item kode-parent-menu"><a href="#">Pages</a>
                           <ul className="dl-submenu">
                              <li><a href="about-us.html">about us</a></li>
-                             <li><a href="team-page.html">team page</a></li>
-                             <li><a href="team-detail.html">team detail</a></li>
+                             {/* <li><a href="team-page.html">team page</a></li>
+                             <li><a href="team-detail.html">team detail</a></li> */}
                              <li><a href="gallery.html">gallery page</a></li>
-                             <li><a href="gallery01.html">gallery02</a></li>
-                             <li><a href="404-page.html">404 page</a></li>
+                             {/* <li><a href="gallery01.html">gallery02</a></li> */}
+                             {/* <li><a href="404-page.html">404 page</a></li> */}
                              <li><a href="appointment.html">appointment</a></li>
                           </ul>
                       </li>
                       <li className="menu-item kode-parent-menu"><a href="#">Services</a>
                         <ul className="dl-submenu">
-                            <li><a href="service-grid.html">service grid</a></li>
-                           <li><a href="service-grid02.html">service 02</a></li>
-                           <li><a href="service-grid03.html">service 03</a></li>
-                           <li><a href="service-detail.html">service detail</a></li>
+                        <li><a href="service-grid.html"></a> Service </li>
+                        <li><a href="service-grid02.html"> Broading service</a></li>
+                        <li><a href="service-grid02.html"> Grooming service</a></li>
+                        <li><a href="service-grid03.html"> Pet training service</a></li>
+                        <li><a href="service-detail.html"> Veterinarian service</a></li>
+                        <li><a href="service-detail.html"> Pet Cloths service</a></li>
                         </ul>
                       </li>
                       <li className="menu-item kode-parent-menu"><a href="#">blog</a>
                         <ul className="dl-submenu">
-                            <li><a href="blog-post.html">blog page</a></li>
-                           <li><a href="blog-post-full.html">blog post </a></li>
+                            {/* <li><a href="blog-post.html">blog page</a></li>
+                           <li><a href="blog-post-full.html">blog post </a></li> */}
                            <li><a href="blog-post-sidebar.html">blog sidebar</a></li>
                            <li><a href="blog-detail.html">blog detail</a></li>
                         </ul>
                       </li>
                       <li className="menu-item kode-parent-menu"><a href="#">Shop</a>
-                        <ul className="dl-submenu">
+                        {/* <ul className="dl-submenu">
                             <li><a href="shop-page.html">shop page</a></li>
                            <li><a href="shop-detail.html">Shop detail</a></li>
-                        </ul>
+                        </ul> */}
                       </li>
                       <li><a href="contact-us.html">contact Us</a></li>
                     </ul>
                   </div>
-                  <a className="main_button hover-affect" href="appointment.html">Book Appointment</a>
+                  {/* <a className="main_button hover-affect" href="appointment.html">Book Appointment</a> */}
+               <a className="main_button hover-affect" href="https://app.happybaw.com">Login</a>
+                  
               </div>
              </div>   
          </div>
@@ -105,41 +110,43 @@ function Home() {
                    <li><a >Home</a>
                      <ul className="sub-menu">
                         <li><a href="index.html">main home</a></li>
-                       <li><a href="index-02.html">Home 02</a></li>
+                       {/* <li><a href="index-02.html">Home 02</a></li> */}
                      </ul>
                    </li>
                    <li><a >Pages<i className="fa fa-caret-down"></i></a>
                      <ul className="sub-menu">
                         <li><a href="about-us.html">about us</a></li>
-                        <li><a href="team-page.html">team page</a></li>
-                        <li><a href="team-detail.html">team detail</a></li>
+                        {/* <li><a href="team-page.html">team page</a></li>
+                        <li><a href="team-detail.html">team detail</a></li> */}
                         <li><a href="gallery.html">gallery page</a></li>
-                        <li><a href="gallery01.html">gallery02</a></li>
-                        <li><a href="404-page.html">404 page</a></li>
-                        <li><a href="appointment.html">appointment</a></li>
+                        {/* <li><a href="gallery01.html">gallery02</a></li> */}
+                        {/* <li><a href="404-page.html">404 page</a></li>
+                        <li><a href="appointment.html">appointment</a></li> */}
                      </ul>
                    </li>
                    <li><a >Services<i className="fa fa-caret-down"></i></a>
                      <ul className="sub-menu">
-                        <li><a href="service-grid.html">service grid</a></li>
-                        <li><a href="service-grid02.html">service 02</a></li>
-                        <li><a href="service-grid03.html">service 03</a></li>
-                        <li><a href="service-detail.html">service detail</a></li>
+                     <li><a href="service-grid.html"></a> Service </li>
+                        <li><a href="service-grid02.html"> Broading service</a></li>
+                        <li><a href="service-grid02.html"> Grooming service</a></li>
+                        <li><a href="service-grid03.html"> Pet training service</a></li>
+                        <li><a href="service-detail.html"> Veterinarian service</a></li>
+                        <li><a href="service-detail.html"> Pet Cloths service</a></li>
                      </ul>
                    </li>
                    <li><a >Blog</a>
                       <ul className="sub-menu">
-                        <li><a href="blog-post.html">blog page</a></li>
-                        <li><a href="blog-post-full.html">blog post </a></li>
+                        {/* <li><a href="blog-post.html">blog page</a></li>
+                        <li><a href="blog-post-full.html">blog post </a></li> */}
                         <li><a href="blog-post-sidebar.html">blog sidebar</a></li>
                         <li><a href="blog-detail.html">blog detail</a></li>
                      </ul>
                    </li>
                    <li><a > Shop<i className="fa fa-caret-down"></i></a>
-                      <ul className="sub-menu">
+                      {/* <ul className="sub-menu">
                         <li><a href="shop-page.html">shop page</a></li>
                         <li><a href="shop-detail.html">Shop detail</a></li>
-                      </ul>
+                      </ul> */}
                      </li>
                    <li><a href="contact-us.html"> Contact Us</a></li>
                </ul>
@@ -149,46 +156,49 @@ function Home() {
                    <li><a className="active" >Home</a>
                      <ul className="dl-submenu">
                           <li><a href="index.html">main home</a></li>
-                       <li><a href="index-02.html">Home 02</a></li>
+                       {/* <li><a href="index-02.html">Home 02</a></li> */}
                      </ul>
                    </li>
                    <li className="menu-item kode-parent-menu"><a >Pages</a>
                        <ul className="dl-submenu">
                           <li><a href="about-us.html">about us</a></li>
-                          <li><a href="team-page.html">team page</a></li>
-                          <li><a href="team-detail.html">team detail</a></li>
+                          {/* <li><a href="team-page.html">team page</a></li> */}
+                          {/* <li><a href="team-detail.html">team detail</a></li> */}
                           <li><a href="gallery.html">gallery page</a></li>
-                          <li><a href="gallery01.html">gallery02</a></li>
-                          <li><a href="404-page.html">404 page</a></li>
-                           <li><a href="appointment.html">appointment</a></li>
+                          {/* <li><a href="gallery01.html">gallery02</a></li> */}
+                          {/* <li><a href="404-page.html">404 page</a></li> */}
+                           {/* <li><a href="appointment.html">appointment</a></li> */}
                        </ul>
                    </li>
                    <li className="menu-item kode-parent-menu"><a >Services</a>
                      <ul className="dl-submenu">
-                         <li><a href="service-grid.html">service grid</a></li>
-                        <li><a href="service-grid02.html">service 02</a></li>
-                        <li><a href="service-grid03.html">service 03</a></li>
-                        <li><a href="service-detail.html">service detail</a></li>
+                     <li><a href="service-grid.html"></a> Service </li>
+                        <li><a href="service-grid02.html"> Broading service</a></li>
+                        <li><a href="service-grid02.html"> Grooming service</a></li>
+                        <li><a href="service-grid03.html"> Pet training service</a></li>
+                        <li><a href="service-detail.html"> Veterinarian service</a></li>
+                        <li><a href="service-detail.html"> Pet Cloths service</a></li>
                      </ul>
                    </li>
                    <li className="menu-item kode-parent-menu"><a >blog</a>
                      <ul className="dl-submenu">
-                         <li><a href="blog-post.html">blog page</a></li>
-                        <li><a href="blog-post-full.html">blog post </a></li>
+                         {/* <li><a href="blog-post.html">blog page</a></li>
+                        <li><a href="blog-post-full.html">blog post </a></li> */}
                         <li><a href="blog-post-sidebar.html">blog sidebar</a></li>
                         <li><a href="blog-detail.html">blog detail</a></li>
                      </ul>
                    </li>
                    <li className="menu-item kode-parent-menu"><a >Shop</a>
-                     <ul className="dl-submenu">
+                     {/* <ul className="dl-submenu">
                          <li><a href="shop-page.html">shop page</a></li>
                         <li><a href="shop-detail.html">Shop detail</a></li>
-                     </ul>
+                     </ul> */}
                    </li>
                    <li><a href="contact-us.html">contact Us</a></li>
                  </ul>
                </div>
-               <a className="main_button hover-affect" href="appointment.html">Book Appointment</a>
+               {/* <a className="main_button hover-affect" href="appointment.html">Book Appointment</a> */}
+               <a className="main_button hover-affect" href="https://app.happybaw.com">Loging</a>
            </div>
        </div>   
      </div>
@@ -198,10 +208,10 @@ function Home() {
          <div className="custom-container-fluid">
              <div className="main_banner_row">
                  <div className="mian_banner_text">
-                      <h2>Your Pet</h2>
-                      <h1>Our Priority</h1>
-                      <p>Grooming & Supply provides grooming services for all dog and<br/> 
-                         cat breeds. We are fully committed to the health.</p> 
+                      <h3>Your Pet</h3>
+                      <h1>HAPPY BAW</h1>
+                      <p>YOUR PAW-FRIENDLY ONLINE SPACE</p>
+                       
                      <ul className="banner_video">
                          <a className="main_button btn2 hover-affect" >Learn More</a>
                          <a className="play_btn" href="https://www.youtube.com/watch?v=Yzv0gXqoCkc"><i className="fa fa-play-circle"></i>Play Video</a>
@@ -309,7 +319,9 @@ function Home() {
                      <h3>About Us</h3>
                      <h2>We'll Make Your Pets<br/>
                      Really Awesome</h2>
-                     <p>Pawscare is the largest specialty pet retailer of services and solutions for the lifetime needs of pets. At Pawscare, we love pets, and we believe pets make us better people.</p>
+                     <p>Welcome to HappyBaw, where your pet’s well-being comes first. Explore our platform to manage your pet’s health records, connect with top-notch veterinarians, and discover the ultimate in pet care.</p>
+
+
                      <a className="main_button btn2 bdr-clr hover-affect" >Learn More</a>
                  </div>
              </div>
@@ -326,34 +338,34 @@ function Home() {
 
                  <div className="pet_service02_column">
                    <figure>
-                     <img src="/assets/images/service-fig.png" alt=""/>
+                     <img src="/assets/images/newimages/jamie-street-s9Tf1eBDFqw-unsplash.jpg" alt=""/>
                    </figure>
-                   <h5>Veterinary Service</h5>
+                   <h5>Broading Service</h5>
                    <p>Phallus mattie curses orca, in mollie maurist laconia et. The Vestibule outrun libero tor sit amen Phallus mattie curses orca, in mollie maurist laconia et.</p>
                    <a className="main_button btn2 hover-affect" >Learn More</a>
                  </div>
          
                  <div className="pet_service02_column">
                    <figure>
-                     <img src="/assets/images/service-fig01.png" alt=""/>
+                     <img src="/assets/images/newimages/hayffield-l-ZVdZw2p08y4-unsplash.jpg" alt=""/>
                    </figure>
-                   <h5>Veterinary Service</h5>
+                   <h5>Grooming Service</h5>
                    <p>Phallus mattie curses orca, in mollie maurist laconia et. The Vestibule outrun libero tor sit amen Phallus mattie curses orca, in mollie maurist laconia et.</p>
                    <a className="main_button btn2 hover-affect" >Learn More</a>
                  </div>
            
                  <div className="pet_service02_column">
                    <figure>
-                     <img src="/assets/images/service-fig02.png" alt=""/>
+                     <img src="/assets/images/newimages/stainless-images-RUgbGfdma6U-unsplash.jpg" alt=""/>
                    </figure>
-                   <h5>Veterinary Service</h5>
+                   <h5>Pet training Service</h5>
                    <p>Phallus mattie curses orca, in mollie maurist laconia et. The Vestibule outrun libero tor sit amen Phallus mattie curses orca, in mollie maurist laconia et.</p>
                    <a className="main_button btn2 hover-affect" >Learn More</a>
                  </div>
                    
                  <div className="pet_service02_column">
                    <figure>
-                     <img src="/assets/images/service-fig03.png" alt=""/>
+                     <img src="/assets/images/newimages/marina-hanna-ZzEgfT9Fxn4-unsplash.jpg" alt=""/>
                    </figure>
                    <h5>Veterinary Service</h5>
                    <p>Phallus mattie curses orca, in mollie maurist laconia et. The Vestibule outrun libero tor sit amen Phallus mattie curses orca, in mollie maurist laconia et.</p>
@@ -362,18 +374,18 @@ function Home() {
                
                  <div className="pet_service02_column">
                    <figure>
-                     <img src="/assets/images/service-fig04.png" alt=""/>
+                     <img src="/assets/images/newimages/kerwin-elias-7-ToFEHzMNw-unsplash.jpg" alt=""/>
                    </figure>
-                   <h5>Veterinary Service</h5>
+                   <h5>pet Cloths Service</h5>
                    <p>Phallus mattie curses orca, in mollie maurist laconia et. The Vestibule outrun libero tor sit amen Phallus mattie curses orca, in mollie maurist laconia et.</p>
                    <a className="main_button btn2 hover-affect" >Learn More</a>
                  </div>
         
                  <div className="pet_service02_column">
                    <figure>
-                     <img src="/assets/images/service-fig02.png" alt=""/>
+                     <img src="/assets/images/newimages/andrew-pons-QsmGE0P2-B8-unsplash.jpg" alt=""/>
                    </figure>
-                   <h5>Veterinary Service</h5>
+                   <h5>Pet Travelling Service</h5>
                    <p>Phallus mattie curses orca, in mollie maurist laconia et. The Vestibule outrun libero tor sit amen Phallus mattie curses orca, in mollie maurist laconia et.</p>
                    <a className="main_button btn2 hover-affect" >Learn More</a>
                  </div>
