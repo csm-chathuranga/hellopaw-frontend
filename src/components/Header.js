@@ -1,4 +1,6 @@
 
+import { Link, useLocation } from "react-router-dom";
+
 function Header() {
     return (
             <>
@@ -7,7 +9,9 @@ function Header() {
                         <div className="main_top_bar">
                               <h1><figure><img src="/assets/images/logo.png" style={{height:'80px',color:'#ffff'}}/></figure></h1>
                               <ul className="navigation">
-                                  <li><a href="#">Home </a>
+                                  <li>
+                                  <Link  to={'/'}>Home</Link>
+                                    {/* <a href="#"> </a> */}
                                   </li>
                                   <li><a href="#">Pages<i className="fa fa-caret-down"></i></a>
                                     <ul className="sub-menu">
@@ -37,7 +41,7 @@ function Header() {
                                       <li><a href="shop-detail.html">Shop detail</a></li>
                                     </ul>
                                     </li> */}
-                                  <li><a href="contact-us.html"> Contact Us</a></li>
+                                  <li><Link  to={'/contact'}>Contact</Link></li>
                               </ul>
                               <div id="kode-responsive-navigation" className="dl-menuwrapper">
                                 <button className="dl-trigger">Open Menu</button>
@@ -98,7 +102,8 @@ function Header() {
                     <div className="main_top_bar">
                           <h1><figure><img src="/assets/images/top-logo01.png"/></figure></h1>
                             <ul className="navigation">
-                              <li><a >Home</a>
+                              <li>
+                              <li><Link  to={'/'}>Home</Link></li>
                                 <ul className="sub-menu">
                                     <li><a href="index.html">main home</a></li>
                                   {/* <li><a href="index-02.html">Home 02</a></li> */}
@@ -185,7 +190,7 @@ function Header() {
                                     <li><a href="shop-detail.html">Shop detail</a></li>
                                 </ul> */}
                               </li>
-                              <li><a href="contact-us.html">contact Us</a></li>
+                              <li><Link  to={'/contact'}>contact</Link></li>
                             </ul>
                           </div>
                           {/* <a className="main_button hover-affect" href="appointment.html">Book Appointment</a> */}
