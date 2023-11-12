@@ -198,7 +198,7 @@ function Home() {
                  </ul>
                </div>
                {/* <a className="main_button hover-affect" href="appointment.html">Book Appointment</a> */}
-               <a className="main_button hover-affect" href="https://app.happybaw.com">Loging</a>
+               <a className="main_button hover-affect" href="https://app.happybaw.com">Login</a>
            </div>
        </div>   
      </div>
@@ -762,7 +762,7 @@ function Home() {
              </div>
 
              <div className="pet_widget_column">
-               <figure><img src="/assets/images/top-logo.png"/></figure>
+               <figure><img src="/assets/images/top-logo01.png"/></figure>
                <p>ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis </p>
                <ul className="widget_social_share">
                  <li><a className="hover-affect" ><i className="fa fa-facebook"></i></a></li>
