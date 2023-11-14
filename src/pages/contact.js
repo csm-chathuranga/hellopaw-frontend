@@ -1,15 +1,20 @@
 import  Header  from "../components/Header";
+import  Footer  from "../components/Footer";
+
 
 function Contact() {
     return (
+      <>
         <div className="main-wrapper">
             <Header />
-            <div class="sab-banner-wraper">
+
+          {/* <!--sab banner wraper start--> */}
+          <div class="sab-banner-wraper">
             <div class="container">
               <div class="sab-banner-text">
                  <h2>contact us</h2>
                   <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a >Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">contact us </li>
                   </ul>
               </div>
@@ -22,10 +27,42 @@ function Contact() {
                   </svg>
               </div>
           </div>
+          {/* <!--sab banner wraper end--> */}
 
+
+  		    {/* <!--child service  wrap start--> */}
+          <section class="contact_wrapper">
+            <div class="container">
+               <div class="mian_heading">
+                  <h2 class="">Send Us a Message</h2>
+                  <h3 class="">Feel free to contact</h3>
+                </div> 
+                <div class="contact_row">
+          			  <div class="contact_form_column">
+                    <div class="contact_filed">
+                      <input type="type" name="text" placeholder="Name" />
+                      <input type="type" name="text" placeholder="Email" />
+                    </div>
+                    <div class="contact_filed full_width">
+                      <input type="type" name="text" placeholder="Subject"/>
+                    </div>
+                     <div class="contact_filed">
+                      <input type="type" name="text" placeholder="Name" />
+                      <input type="type" name="text" placeholder="Email" />
+                    </div>
+                    <textarea>Message</textarea>
+                    <button class="main_button btn2 bdr-clr hover-affect">Send Message</button>
+                  </div>
+                  
+              </div>  
+            </div>  
+          </section>    
+          {/* <!--pet price table wraper end--> */}
 
           
         </div>
+        <Footer/>
+        </>
       )
 }
 
