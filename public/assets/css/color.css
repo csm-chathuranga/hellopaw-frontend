@@ -1,7 +1,8 @@
-.bdr-clr{
+.bdr-clr {
 	border-color: #272522;
 }
-.btn-clr{
+
+.btn-clr {
 	color-color: #272522;
 }
 
@@ -15,14 +16,14 @@
 .flus_icon,
 .navigation li .sub-menu li a:hover,
 .gallery_icon li a,
-.product_price > a,
+.product_price>a,
 .pet_product_review .pet_product_rating a,
-.service_grid  .pet_service02_column a:hover,
-.pet_service_detail_row.service03 .pet_exercise_text  h4,
+.service_grid .pet_service02_column a:hover,
+.pet_service_detail_row.service03 .pet_exercise_text h4,
 .textarea .search_icon,
 .search-filed .search_icon,
-.mian_banner_text h2{
-	color:#ff8931;
+.mian_banner_text h2 {
+	color: #ff8931;
 }
 
 /*
@@ -39,7 +40,8 @@
 .pet_team_detail_wrap,
 .pet_experience_detail .bar,
 .pet_heart_icon,
-.pet_social_icon li a.active, .pet_social_icon li a:hover,
+.pet_social_icon li a.active,
+.pet_social_icon li a:hover,
 .pet_spinner_list .theme_btn,
 .tabs.pet_tabs_list li.active a,
 .main_header .dl-menuwrapper button,
@@ -54,12 +56,13 @@ button.btn2,
 .sab-banner-wraper,
 .pet-pagination ul li a:hover,
 .image-layer-affect,
-.image-layer-affect:hover:before, 
+.image-layer-affect:hover:before,
 .pet_company_wrap,
 .pet_client_wrap,
-.main_banner:before{
-	background-color:#ff8931;
+.main_banner:before {
+	background-color: #050505;
 }
+
 /*
 	  ============================================================
 		   Border Color
@@ -80,8 +83,8 @@ button.btn2,
 .main_button:hover,
 .pet_price_table_column:hover .pet_price_text .btn2,
 .pet_price_table_column:hover .pet_price_text:after,
-.city_payment_btn a:hover{
-	border-color:#ff8931;
+.city_payment_btn a:hover {
+	border-color: #ff8931;
 }
 
 /*
@@ -95,7 +98,7 @@ button.btn2,
 .pet_service_column figure img,
 .flus_icon,
 .pet_service02_row.service_grid .pet_service02_column,
-.navigation > li > a:before,
+.navigation>li>a:before,
 .gallery_icon,
 .pet_social_icon li a,
 .tabs.pet_tabs_list li.active a,
@@ -104,10 +107,10 @@ button.btn2,
 .navigation li .sub-menu li a,
 .sub-menu,
 .sidebar_widget_search li a,
-.service03  .pet_service_list li a,
+.service03 .pet_service_list li a,
 .contact_serviec .pet_service_column:before,
 .pet-pagination ul li a,
-.image-layer-affect:before, 
+.image-layer-affect:before,
 .widget_social_share li a,
 .pet_service02_column a,
 .main_button,
@@ -116,19 +119,20 @@ button.btn2,
 .pet_price_text:after,
 .pet_service_column figure .hover_img,
 .pet_service_column figure:before,
-.banner_fig_slider a.active{
-	-webkit-transition:all 0.5s ease-in-out;
-	-moz-transition:all 0.5s ease-in-out;
-	-ms-transition:all 0.5s ease-in-out;
-	-o-transition:all 0.5s ease-in-out;
-	transition:all 0.5s ease-in-out;
+.banner_fig_slider a.active {
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-ms-transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
 }
+
 .navigation li .sub-menu li a:before,
 .navigation li .sub-menu li a,
-.navigation li .sub-menu li a:hover{
--webkit-transition:all 0.2s ease-in-out;
-	-moz-transition:all 0.2s ease-in-out;
-	-ms-transition:all 0.2s ease-in-out;
-	-o-transition:all 0.2s ease-in-out;
-	transition:all 0.2s ease-in-out;
+.navigation li .sub-menu li a:hover {
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
 }

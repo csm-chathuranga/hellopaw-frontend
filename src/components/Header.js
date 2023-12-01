@@ -7,7 +7,7 @@ function Header() {
             <div className="main_header">
                         <div className="custom-container-fluid">
                         <div className="main_top_bar">
-                              <h1><figure><img src="/assets/images/logo.png" style={{height:'80px',color:'#ffff'}}/></figure></h1>
+                              <h1><figure><img src="/assets/images/logo2.jpg" style={{height:'80px',color:'#ffff'}}/></figure></h1>
                               <ul className="navigation">
                                   <li>
                                   <Link  to={'/'}>Home</Link>
@@ -82,7 +82,7 @@ function Header() {
                   <div className="main_header fixed">
                   <div className="custom-container-fluid">
                     <div className="main_top_bar">
-                          <h1><figure><img src="/assets/images/top-logo01.png"/></figure></h1>
+                          <h1><figure><img src="/assets/images/logo2.jpg" width={50} height={50}/></figure></h1>
                             <ul className="navigation">
                             <li>
                                   <Link  to={'/'}>Home</Link>
