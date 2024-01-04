@@ -137,10 +137,11 @@ section {
 .main_header {
 	display: flex;
 	flex-direction: column;
-	padding: 50px 40px 0px;
+	padding: 1px 40px 0px;
 	position: absolute;
 	z-index: 2;
 	width: 100%;
+	background-color: white;
 }
 
 .main_top_bar {
@@ -168,7 +169,7 @@ section {
 }
 
 .navigation>li>a {
-	color: #fff;
+	color: #000000;
 	padding: 13px 0px;
 	display: flex;
 	align-items: center;
@@ -203,18 +204,18 @@ section {
 
 .main_button {
 	padding: 6px 40px;
-	border: 2px solid #fff;
+	border: 2px solid #000000;
 	border-radius: 50px;
-	color: #272522;
+	color: #040404;
 	font-weight: 500;
 }
 
 .main_top_bar .main_button {
-	color: #fff;
+	color: #000000;
 }
 
 .main_top_bar .main_button:hover {
-	box-shadow: 0px 0px 6px -1px #fff;
+	box-shadow: 0px 0px 6px -1px #000000;
 }
 
 .btn2 {
@@ -367,7 +368,9 @@ section {
 	width: 100%;
 	border-radius: 0px;
 	transform: rotate(-0deg);
-	background-color: #272522;
+	background-image: url('https://thepet.community/wp-content/uploads/2020/05/bonding-cold-cozy-dog-374845-e1588398801497.jpg');
+	/* background-color: #272522; */
+
 	z-index: -1;
 }
 
@@ -472,10 +475,10 @@ section {
 	position: relative;
 	overflow: hidden;
 	z-index: 1;
-	background-image: url(images/banner-bg01.png);
+	/* background-image: url(images/banner-bg01.png); */
 	background-repeat: no-repeat;
 	background-size: cover;
-	min-height: 900px;
+	/* min-height: 900px; */
 }
 
 .main_banner_row {
