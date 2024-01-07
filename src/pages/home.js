@@ -7,6 +7,8 @@ import { makeStyles } from '@mui/styles';
 import OverflowCard from "./FullImageCard"
 import RecipeReviewCard from "./post"
 import ModeToggle from "./test"
+import FixedBottomNavigation from "../components/popular"
+
 
 // --- Fill Image Card Component Imports --- //
 import {
@@ -70,12 +72,13 @@ function Home() {
             </Grid>
              <Grid item xs={6} >
               <Grid item xs={12}   sx={{mt:2}}>
-                <RecipeReviewCard />
-                <RecipeReviewCard />
+                <RecipeReviewCard img="https://thepet.community/wp-content/uploads/2020/05/erskine-pets-medium.jpg"/>
+                <RecipeReviewCard img="https://thepet.community/wp-content/uploads/2020/05/doghouse-medium.jpg"/>
+                <RecipeReviewCard img="https://thepet.community/wp-content/uploads/2020/05/paws-galore.png"/>
               </Grid>
             </Grid>
           <Grid item xs={3}>
-          popular post
+          <FixedBottomNavigation/>
           </Grid>
           <Grid sx={{mt:2}}>
           </Grid>

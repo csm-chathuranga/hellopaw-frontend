@@ -26,7 +26,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function RecipeReviewCard() {
+export default function RecipeReviewCard({img}) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -52,7 +52,7 @@ export default function RecipeReviewCard() {
       <CardMedia
         component="img"
         height="500"
-        image="https://thepet.community/wp-content/uploads/2020/05/erskine-pets-medium.jpg"
+        image={img}
         alt="Paella dish"
       />
       <CardContent>
