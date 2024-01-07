@@ -1,13 +1,14 @@
 import  PrimarySearchAppBar  from "../components/Header";
 import  Footer  from "../components/Footer";
-import  ResponsiveSidebar  from "../components/Toolbar/sidebar";
+// import  ResponsiveSidebar  from "../components/Toolbar/sidebar";
 import  Search  from "../pages/common/search";
-import {Grid,TextField,Button,Typography,Box} from '@mui/material';
+import {Grid,TextField,Button,Typography,Box,Divider } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import OverflowCard from "./FullImageCard"
+// import OverflowCard from "./FullImageCard"
 import RecipeReviewCard from "./post"
 import ModeToggle from "./test"
 import FixedBottomNavigation from "../components/popular"
+import {mainListItems,secondaryListItems} from "../components/sidebar"
 
 
 // --- Fill Image Card Component Imports --- //
@@ -68,12 +69,16 @@ function Home() {
          <Grid container spacing={2}>
 
             <Grid item xs={3}>
-            sidebar
+              <Grid sx={{position:'fixed'}}>
+                {mainListItems}
+                <Divider sx={{ my: 1 }} />
+                {secondaryListItems}
+            </Grid>
             </Grid>
              <Grid item xs={6} >
               <Grid item xs={12}   sx={{mt:2}}>
-                <RecipeReviewCard img="https://thepet.community/wp-content/uploads/2020/05/erskine-pets-medium.jpg"/>
                 <RecipeReviewCard img="https://thepet.community/wp-content/uploads/2020/05/doghouse-medium.jpg"/>
+                <RecipeReviewCard img="https://thepet.community/wp-content/uploads/2020/05/erskine-pets-medium.jpg"/>
                 <RecipeReviewCard img="https://thepet.community/wp-content/uploads/2020/05/paws-galore.png"/>
               </Grid>
             </Grid>

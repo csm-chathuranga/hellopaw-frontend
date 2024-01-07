@@ -39,7 +39,7 @@ import Link from '@mui/joy/Link';
 
 function App() {
   // const { mode, setMode } = useColorScheme();
-  const [isDarkTheme, setIsDarkTheme] = useState(true);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
   // // const { mode, setMode } = useColorScheme('dark');
   // const toggleTheme = () => {
   //   setIsDarkTheme((prev) => !prev);
