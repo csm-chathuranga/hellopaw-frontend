@@ -1,33 +1,31 @@
-import * as React from 'react';
-import Paper from '@mui/material/Paper';
-import InputBase from '@mui/material/InputBase';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import DirectionsIcon from '@mui/icons-material/Directions';
+import { Container, InputAdornment, TextField } from "@mui/material";
+import { useState } from "react";
+import SearchIcon from "@mui/icons-material/Search";
 
-export default function Search() {
+export default function SearchBar() {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
   return (
-    <Paper
-      component="form"
-      sx={{ p: '4px 8px', display: 'flex', alignItems: 'center', width: 600 }}
-    >
-      <IconButton sx={{ p: '20px' }} aria-label="menu">
-        <MenuIcon />
-      </IconButton>
-      <InputBase
-        sx={{ ml: 1, flex: 1,p:2 }}
-        placeholder="Search Google Maps"
-        inputProps={{ 'aria-label': 'search google maps' }}
+    <Container maxWidth="md" sx={{ mt: 20 }}>
+      <TextField
+        id="search"
+        type="search"
+        label="Search"
+        value={searchTerm}
+        onChange={handleChange}
+        sx={{ width: 600 }}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+        }}
       />
-      <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
-        <SearchIcon />
-      </IconButton>
-      <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-      <IconButton color="primary" sx={{ p: '10px' }} aria-label="directions">
-        <DirectionsIcon />
-      </IconButton>
-    </Paper>
+    </Container>
   );
 }
