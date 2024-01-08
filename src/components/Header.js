@@ -197,7 +197,7 @@ export default function PrimarySearchAppBar() {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            <img src="/assets/images/logo3.png" style={{height:'80px',color:'#ffff'}}/>
+            <img src="/assets/images/logo3.png" style={{height:'50px',color:'#ffff'}}/>
             {/* PetBaw */}
     
 
