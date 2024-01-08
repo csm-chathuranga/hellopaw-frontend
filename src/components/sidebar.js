@@ -9,46 +9,49 @@ import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 export const mainListItems = (
-  <Box sx={{width:'100%'}}>
+  <Box sx={{width:'100%',pt:2}}>
     <ListItemButton>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
-      <ListItemText primary="Dashboard" />
+      <ListItemText primary="Vets" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
         <ShoppingCartIcon />
       </ListItemIcon>
-      <ListItemText primary="Orders" />
+      <ListItemText primary="Grooming" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
-      <ListItemText primary="Customers" />
+      <ListItemText primary="Stores" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
-      <ListItemText primary="Reports" />
+      <ListItemText primary="Walking" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>
-      <ListItemText primary="Integrations" />
+      <ListItemText primary="Training" />
     </ListItemButton>
   </Box>
 );
 
 export const secondaryListItems = (
-  <Box>
-    <ListSubheader component="div" inset>
+  <Box sx={{p:2}}>
+    <Typography sx={{color:'grey'}}>
+      What's new
+    </Typography>
+    {/* <ListSubheader component="div" inset>
       Saved reports
     </ListSubheader>
     <ListItemButton>
@@ -68,6 +71,6 @@ export const secondaryListItems = (
         <AssignmentIcon />
       </ListItemIcon>
       <ListItemText primary="Year-end sale" />
-    </ListItemButton>
+    </ListItemButton> */}
   </Box>
 );

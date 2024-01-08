@@ -261,7 +261,7 @@ export default function PrimarySearchAppBar() {
       <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description" >
       <Box sx={style}>
       <Grid container display={"flex"} justifyContent={"right"} alignItems={"right"}>
-        <CloseIcon sx={{mt:'-10px'}}/>
+        <CloseIcon sx={{mt:'-10px',cursor:'pointer'}} onClick={handleClose}/>
       </Grid>
         
         <Typography component="h1" variant="h5">

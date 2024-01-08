@@ -33,9 +33,9 @@ export default function FixedBottomNavigation() {
   }, [value, setMessages]);
 
   return (
-    <Box sx={{ pb: 7 }} ref={ref}>
+    <Box sx={{ pb: 7,pt:2 }} ref={ref}>
       <CssBaseline />
-      <Typography sx={{fontSize:'18px'}}>Our New Members</Typography>
+      <Typography sx={{fontSize:'18px',color:'#ffff'}}>Our New Members</Typography>
       <List sx={{opacity:0.8}}>
         {messages.map(({ primary, secondary, person }, index) => (
           <ListItem button key={index + person}>
