@@ -22,6 +22,7 @@ import TextField from '@mui/material/TextField';
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
+import CloseIcon from '@mui/icons-material/Close';
 
 const style = {
   position: 'absolute',
@@ -196,7 +197,8 @@ export default function PrimarySearchAppBar() {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            PetBaw
+            <img src="/assets/images/logo3.png" style={{height:'80px',color:'#ffff'}}/>
+            {/* PetBaw */}
     
 
           </Typography>
@@ -258,6 +260,10 @@ export default function PrimarySearchAppBar() {
       {renderMenu}
       <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description" >
       <Box sx={style}>
+      <Grid container display={"flex"} justifyContent={"right"} alignItems={"right"}>
+        <CloseIcon sx={{mt:'-10px'}}/>
+      </Grid>
+        
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>

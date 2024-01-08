@@ -77,7 +77,12 @@ function Home() {
             </Grid>
              <Grid item xs={6} >
               <Grid item xs={12}   sx={{mt:2}}>
+                
+              <RecipeReviewCard img="https://i.ytimg.com/vi/ami0N5tZGMU/maxresdefault.jpg"/>
+
+                <RecipeReviewCard img="https://d.newsweek.com/en/full/2324781/chocolate-labrador-puppy-laying-grass.webp"/>
                 <RecipeReviewCard img="https://thepet.community/wp-content/uploads/2020/05/doghouse-medium.jpg"/>
+
                 <RecipeReviewCard img="https://thepet.community/wp-content/uploads/2020/05/erskine-pets-medium.jpg"/>
                 <RecipeReviewCard img="https://thepet.community/wp-content/uploads/2020/05/paws-galore.png"/>
               </Grid>

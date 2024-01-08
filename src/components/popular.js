@@ -12,6 +12,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
+import { Typography } from '@mui/material';
 
 function refreshMessages() {
   const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
@@ -34,7 +35,8 @@ export default function FixedBottomNavigation() {
   return (
     <Box sx={{ pb: 7 }} ref={ref}>
       <CssBaseline />
-      <List >
+      <Typography sx={{fontSize:'18px'}}>Our New Members</Typography>
+      <List sx={{opacity:0.8}}>
         {messages.map(({ primary, secondary, person }, index) => (
           <ListItem button key={index + person}>
             <ListItemAvatar>
@@ -65,18 +67,18 @@ const messageExamples = [
   {
     primary: 'Brunch this week?',
     secondary: "I'll be in the neighbourhood this week. Let's grab a bite to eat",
-    person: '/static/images/avatar/5.jpg',
+    person: 'https://thepet.community/wp-content/uploads/2020/05/yanchep_vet.png',
   },
   {
     primary: 'Birthday Gift',
     secondary: `Do you have a suggestion for a good present for John on his work
       anniversary. I am really confused & would love your thoughts on it.`,
-    person: '/static/images/avatar/1.jpg',
+    person: 'https://thepet.community/wp-content/uploads/2020/05/the_blackburn_vet.png',
   },
   {
     primary: 'Recipe to try',
     secondary: 'I am try out this new BBQ recipe, I think this might be amazing',
-    person: '/static/images/avatar/2.jpg',
+    person: 'https://thepet.community/wp-content/uploads/2020/05/homestead_boarding.png',
   },
   {
     primary: 'Yes!',
