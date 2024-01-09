@@ -10,7 +10,15 @@ import ModeToggle from "./test"
 import FixedBottomNavigation from "../components/popular"
 import {mainListItems,secondaryListItems} from "../components/sidebar"
 import CustomImageList from "../components/story"
-
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import RestoreIcon from '@mui/icons-material/Restore';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ArchiveIcon from '@mui/icons-material/Archive';
+import Paper from '@mui/material/Paper';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import PetsIcon from '@mui/icons-material/Pets';
+import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
 
 // --- Fill Image Card Component Imports --- //
 import {
@@ -69,31 +77,40 @@ function Home() {
 
          <Grid container spacing={2}>
 
-            <Grid item xs={3}>
-              <Grid sx={{position:'fixed'}}>
+            <Grid item xs={12} md={3} display={{ xs: 'none', md: 'block' }}>
+              <Grid sx={{position:'fixed', }}>
                 {mainListItems}
                 <Divider sx={{ my: 1 }} />
                 {secondaryListItems}
             </Grid>
             </Grid>
-             <Grid item xs={6} >
+             <Grid item xs={12} md={6}>
               <Grid item xs={12}   sx={{mt:2}}>
                 <CustomImageList/>
+                <RecipeReviewCard img="https://d.newsweek.com/en/full/2324781/chocolate-labrador-puppy-laying-grass.webp"/>
               <RecipeReviewCard img="https://i.ytimg.com/vi/ami0N5tZGMU/maxresdefault.jpg"/>
 
-                <RecipeReviewCard img="https://d.newsweek.com/en/full/2324781/chocolate-labrador-puppy-laying-grass.webp"/>
                 <RecipeReviewCard img="https://thepet.community/wp-content/uploads/2020/05/doghouse-medium.jpg"/>
 
                 <RecipeReviewCard img="https://thepet.community/wp-content/uploads/2020/05/erskine-pets-medium.jpg"/>
                 <RecipeReviewCard img="https://thepet.community/wp-content/uploads/2020/05/paws-galore.png"/>
               </Grid>
             </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={12} md={3} display={{ xs: 'none', md: 'block' }}>
           <FixedBottomNavigation/>
           </Grid>
           <Grid sx={{mt:2}}>
           </Grid>
         </Grid>
+
+        <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+        <BottomNavigation  showLabels>
+          <BottomNavigationAction label="New Post" icon={<DynamicFeedIcon />} />
+          <BottomNavigationAction label="My Pets" icon={<PetsIcon />} />
+          <BottomNavigationAction label="My Account" icon={<ManageAccountsIcon />} />
+        </BottomNavigation>
+      </Paper>
+
          {/* <Footer/> */}
         </div> 
 
