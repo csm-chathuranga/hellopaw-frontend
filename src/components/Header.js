@@ -165,15 +165,15 @@ export default function PrimarySearchAppBar({isDarkTheme, setIsDarkTheme}) {
     <Box sx={{ flexGrow: 1,mb:10 }}>
       <AppBar position="static" sx={{position:'fixed',zIndex:1000,top:0}}>
         <Toolbar>
-          <IconButton size="large" edge="start"  color="inherit" aria-label="open drawer"  sx={{ mr: 2 }}  >
+          {/* <IconButton size="large" edge="start"  color="inherit" aria-label="open drawer"  sx={{ mr: 2 }}  >
             <MenuIcon />
-          </IconButton>
-          <Typography  variant="h6"  noWrap component="div" sx={{ display: { xs: 'none', sm: 'block' } }} >
+          </IconButton> */}
+          {/* <Typography  variant="h6"  noWrap component="div" sx={{ display: { xs: 'none', sm: 'block' } }} > */}
             <img src="/assets/images/logo3.png" style={{height:'50px',color:'#ffff'}}/>
             {/* PetBaw */}
     
 
-          </Typography>
+          {/* </Typography> */}
           {/* <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -184,10 +184,10 @@ export default function PrimarySearchAppBar({isDarkTheme, setIsDarkTheme}) {
             />
           </Search> */}
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ display: { xs: 'block', md: 'flex' } }}>
           {/* <FormControlLabel  control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}   /> */}
           {/* isDarkTheme, setIsDarkTheme */}
-          <Switch {...label} checked={isDarkTheme} onChange={(e)=>setIsDarkTheme(!isDarkTheme)}/>
+          <Switch {...label} checked={isDarkTheme} onChange={(e)=>setIsDarkTheme(!isDarkTheme)} sx={{ display: { xs: 'none'} }}/>
           <Button onClick={handleOpen}  variant="contained" color="warning" sx={{borderRadius:'50px',mr:2}}>Sign In</Button>
           <Button   variant="outlined" color="warning" sx={{borderRadius:'50px'}}>Sign Up</Button>
 
