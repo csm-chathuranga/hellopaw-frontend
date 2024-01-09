@@ -102,13 +102,14 @@ function Home() {
           <Grid sx={{mt:2}}>
           </Grid>
         </Grid>
-
-        <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+        <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3} >
+        <Grid item xs={12} md={3} display={{ xs: 'block', md: 'none' }}>
         <BottomNavigation  showLabels>
           <BottomNavigationAction label="New Post" icon={<DynamicFeedIcon />} />
           <BottomNavigationAction label="My Pets" icon={<PetsIcon />} />
           <BottomNavigationAction label="My Account" icon={<ManageAccountsIcon />} />
         </BottomNavigation>
+        </Grid>
       </Paper>
 
          {/* <Footer/> */}
