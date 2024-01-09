@@ -1,4 +1,4 @@
-import  PrimarySearchAppBar  from "../components/Header";
+// import  PrimarySearchAppBar  from "../components/Header";
 import  Footer  from "../components/Footer";
 // import  ResponsiveSidebar  from "../components/Toolbar/sidebar";
 import  Search  from "../pages/common/search";
@@ -9,6 +9,7 @@ import RecipeReviewCard from "./post"
 import ModeToggle from "./test"
 import FixedBottomNavigation from "../components/popular"
 import {mainListItems,secondaryListItems} from "../components/sidebar"
+import CustomImageList from "../components/story"
 
 
 // --- Fill Image Card Component Imports --- //
@@ -63,7 +64,7 @@ function Home() {
   const classes = useStyles();
     return (
         <div className="main-wrapper">
-         <PrimarySearchAppBar />
+         {/* <PrimarySearchAppBar /> */}
          {/* <ResponsiveSidebar/> */}
 
          <Grid container spacing={2}>
@@ -77,7 +78,7 @@ function Home() {
             </Grid>
              <Grid item xs={6} >
               <Grid item xs={12}   sx={{mt:2}}>
-                
+                <CustomImageList/>
               <RecipeReviewCard img="https://i.ytimg.com/vi/ami0N5tZGMU/maxresdefault.jpg"/>
 
                 <RecipeReviewCard img="https://d.newsweek.com/en/full/2324781/chocolate-labrador-puppy-laying-grass.webp"/>

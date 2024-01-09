@@ -23,6 +23,9 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import CloseIcon from '@mui/icons-material/Close';
+import Switch from '@mui/material/Switch';
+
+const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
 const style = {
   position: 'absolute',
@@ -76,7 +79,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar({isDarkTheme, setIsDarkTheme}) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -128,21 +131,15 @@ export default function PrimarySearchAppBar() {
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
+    <Menu  anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
         vertical: 'top',
         horizontal: 'right',
-      }}
-      id={mobileMenuId}
-      keepMounted
+      }}  id={mobileMenuId}   keepMounted
       transformOrigin={{
         vertical: 'top',
         horizontal: 'right',
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
+      }}  open={isMobileMenuOpen} onClose={handleMobileMenuClose}  >
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
@@ -152,11 +149,7 @@ export default function PrimarySearchAppBar() {
         <p>Messages</p>
       </MenuItem>
       <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
+        <IconButton size="large" aria-label="show 17 new notifications"  color="inherit" >
           <Badge badgeContent={17} color="error">
             <NotificationsIcon />
           </Badge>
@@ -164,13 +157,7 @@ export default function PrimarySearchAppBar() {
         <p>Notifications</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
+        <IconButton size="large"  aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true"  color="inherit"  >
           <AccountCircle />
         </IconButton>
         <p>Profile</p>
@@ -180,23 +167,12 @@ export default function PrimarySearchAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1,mb:10 }}>
-      <AppBar position="static" sx={{position:'fixed',zIndex:1000}}>
+      <AppBar position="static" sx={{position:'fixed',zIndex:1000,top:0}}>
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
+          <IconButton size="large" edge="start"  color="inherit" aria-label="open drawer"  sx={{ mr: 2 }}  >
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
+          <Typography  variant="h6"  noWrap component="div" sx={{ display: { xs: 'none', sm: 'block' } }} >
             <img src="/assets/images/logo3.png" style={{height:'50px',color:'#ffff'}}/>
             {/* PetBaw */}
     
@@ -213,9 +189,13 @@ export default function PrimarySearchAppBar() {
           </Search> */}
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-          <Button onClick={handleOpen}  variant="contained" color="warning" sx={{borderRadius:'50px'}}>Sign In</Button>
+          {/* <FormControlLabel  control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}   /> */}
+          {/* isDarkTheme, setIsDarkTheme */}
+          <Switch {...label} checked={isDarkTheme} onChange={(e)=>setIsDarkTheme(!isDarkTheme)}/>
+          <Button onClick={handleOpen}  variant="contained" color="warning" sx={{borderRadius:'50px',mr:2}}>Sign In</Button>
+          <Button   variant="outlined" color="warning" sx={{borderRadius:'50px'}}>Sign Up</Button>
 
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+            {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
                 <MailIcon />
               </Badge>
@@ -228,29 +208,16 @@ export default function PrimarySearchAppBar() {
               <Badge badgeContent={17} color="error">
                 <NotificationsIcon />
               </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
+            </IconButton> */}
+            {/* <IconButton size="large"  edge="end"  aria-label="account of current user" aria-controls={menuId} aria-haspopup="true" onClick={handleProfileMenuOpen}
+              color="inherit"  >
               <AccountCircle />
-            </IconButton>
-            
+            </IconButton> */}
           </Box>
+
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
+            <IconButton  size="large"  aria-label="show more" aria-controls={mobileMenuId} aria-haspopup="true"
+              onClick={handleMobileMenuOpen} color="inherit"  >
               <MoreIcon />
             </IconButton>
           </Box>

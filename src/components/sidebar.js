@@ -41,7 +41,7 @@ export const mainListItems = (
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>
-      <ListItemText primary="Training" />
+      <ListItemText primary="Transfer" />
     </ListItemButton>
   </Box>
 );

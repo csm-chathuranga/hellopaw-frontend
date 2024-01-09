@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
 import CssBaseline from '@mui/material/CssBaseline';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
@@ -33,19 +34,21 @@ export default function FixedBottomNavigation() {
   }, [value, setMessages]);
 
   return (
-    <Box sx={{ pb: 7,pt:2 }} ref={ref}>
+    <Box sx={{ pb: 7 }} ref={ref}>
       <CssBaseline />
-      <Typography sx={{fontSize:'18px',color:'#ffff'}}>Our New Members</Typography>
-      <List sx={{opacity:0.8}}>
-        {messages.map(({ primary, secondary, person }, index) => (
-          <ListItem button key={index + person}>
-            <ListItemAvatar>
-              <Avatar alt="Profile Picture" src={person} />
-            </ListItemAvatar>
-            <ListItemText primary={primary} secondary={secondary} />
-          </ListItem>
-        ))}
-      </List>
+       <Card sx={{ mt:2 }}>
+        <Typography sx={{fontSize:'18px',color:'#ffff',p:2}}>Our New Members</Typography>
+        <List sx={{opacity:0.8}}>
+          {messages.map(({ primary, secondary, person }, index) => (
+            <ListItem button key={index + person}>
+              <ListItemAvatar>
+                <Avatar alt="Profile Picture" src={person} />
+              </ListItemAvatar>
+              <ListItemText primary={primary} secondary={secondary} />
+            </ListItem>
+          ))}
+        </List>
+      </Card>
       <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
         <BottomNavigation
           showLabels

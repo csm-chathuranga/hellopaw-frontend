@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import  Home  from "./pages/home";
 import { Route, Routes } from "react-router-dom";
 import routes from "./routes";
-import { ThemeProvider, CssBaseline, Button } from '@mui/material';
+import { ThemeProvider, CssBaseline, Button, Grid } from '@mui/material';
 import { darkTheme, lightTheme } from './theme';
 import { CssVarsProvider, useColorScheme } from '@mui/joy/styles';
 import Sheet from '@mui/joy/Sheet';
@@ -11,6 +11,7 @@ import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
 import Link from '@mui/joy/Link';
+import  PrimarySearchAppBar  from "./components/Header";
 
 // function ModeToggle() {
 //   const { mode, setMode } = useColorScheme();
@@ -51,12 +52,15 @@ function App() {
       {/* <CssVarsProvider> */}
        
     <div className="App">  
+    <Grid sx={{position:'relative'}}>
     {/* <ModeToggle /> */}
+    <PrimarySearchAppBar isDarkTheme={isDarkTheme} setIsDarkTheme={setIsDarkTheme}/>
           <Routes>
           {routes.map(({ path, element }) => (
               <Route key={path} path={path} element={element} />
           ))}
           </Routes>
+      </Grid>
         {/* <Home /> */}
     </div>
     {/* </CssVarsProvider> */}
