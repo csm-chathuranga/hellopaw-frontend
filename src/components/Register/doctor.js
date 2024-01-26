@@ -40,11 +40,11 @@ export default function Doctor({modal, setModal,editId,setEditId,refreshTable}) 
 
   return (
     <div>
-        <Grid direction="row" sx={{p:2}} >
-        <Divider sx={{mt:2,mb:2}}/>
+
 
             <form onSubmit={handleSubmit(submitHandler)} id="hook-form">
-                    <Grid item xs={6} md={6} sx={{ p: 1 }} >
+            <Grid container direction="row">
+                <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <label>Name <span style={{color:'red'}}>*</span></label>
                         <TextField
                         {...register("name")}
@@ -55,7 +55,7 @@ export default function Doctor({modal, setModal,editId,setEditId,refreshTable}) 
                         />
                     </Grid>
 
-                    <Grid item xs={6} md={6} sx={{ p: 1 }}>
+                    <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <label>Email <span style={{color:'red'}}>*</span></label>
                         <TextField
                         {...register("email")}
@@ -107,9 +107,9 @@ export default function Doctor({modal, setModal,editId,setEditId,refreshTable}) 
                           
                         </Button>
                     </Grid>
+            </Grid>
 
                 </form>
-            </Grid>
     </div>
   );
 }

@@ -37,7 +37,7 @@ const style = {
 
 const Register = () => {
   const [open, setOpen] = useState(false);
-  const [alignment, setAlignment] = React.useState('web');
+  const [alignment, setAlignment] = React.useState('doctor');
 
   const handleChange = ( event,  newAlignment ) => {
     setAlignment(newAlignment);
@@ -50,7 +50,7 @@ const Register = () => {
     <Button onClick={handleOpen}  variant="outlined" color="warning" sx={{borderRadius:'50px'}}>Sign Up</Button>
 
     <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description" >
-      <Box sx={{...style}}>
+      <Box sx={{...style,width: { xs: '350px', md: '800px' }}}>
       <Grid container display={"flex"} justifyContent={"right"} alignItems={"right"}>
         <CloseIcon sx={{mt:'-10px',cursor:'pointer'}} onClick={handleClose}/>
       </Grid>

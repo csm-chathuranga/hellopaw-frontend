@@ -40,10 +40,9 @@ export default function Ownner() {
 
   return (
     <div>
-        <Grid direction="row" sx={{p:2}} >
-        <Divider sx={{mt:2,mb:2}}/>
             <form onSubmit={handleSubmit(submitHandler)} id="hook-form">
-                    <Grid item xs={6} md={6} sx={{ p: 1 }} >
+            <Grid container direction="row">
+                    <Grid item xs={12} md={6} sx={{ p: 1 }} >
                         <label>Name <span style={{color:'red'}}>*</span></label>
                         <TextField
                         {...register("name")}
@@ -54,7 +53,7 @@ export default function Ownner() {
                         />
                     </Grid>
 
-                    <Grid item xs={6} md={6} sx={{ p: 1 }} >
+                    <Grid item xs={12} md={6} sx={{ p: 1 }} >
                         <label>NIC <span style={{color:'red'}}>*</span></label>
                         <TextField
                         {...register("nic")}
@@ -65,7 +64,7 @@ export default function Ownner() {
                         />
                     </Grid>
                     
-                    <Grid item xs={6} md={6} sx={{ p: 1 }} >
+                    <Grid item xs={12} md={6} sx={{ p: 1 }} >
                         <label>Gender <span style={{color:'red'}}>*</span></label>
                         <TextField
                         {...register("gender")}
@@ -76,7 +75,7 @@ export default function Ownner() {
                         />
                     </Grid>
 
-                    <Grid item xs={6} md={6} sx={{ p: 1 }} >
+                    <Grid item xs={12} md={6} sx={{ p: 1 }} >
                         <label>Phone <span style={{color:'red'}}>*</span></label>
                         <TextField
                         {...register("phone")}
@@ -87,7 +86,7 @@ export default function Ownner() {
                         />
                     </Grid>
 
-                    <Grid item xs={6} md={6} sx={{ p: 1 }}>
+                    <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <label>Email <span style={{color:'red'}}>*</span></label>
                         <TextField
                         {...register("email")}
@@ -97,7 +96,7 @@ export default function Ownner() {
                         placeholder="Please enter Email"  />
                     </Grid>
 
-                    <Grid item xs={6} md={6} sx={{ p: 1 }}>
+                    <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <label>password <span style={{color:'red'}}>*</span></label>
                         <TextField
                         {...register("password")}
@@ -107,7 +106,7 @@ export default function Ownner() {
                         placeholder="Please enter Password"  />
                     </Grid>
 
-                    <Grid item xs={6} md={6} sx={{ p: 1 }}>
+                    <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <label>Street <span style={{color:'red'}}>*</span></label>
                         <TextField
                         {...register("street")}
@@ -117,7 +116,7 @@ export default function Ownner() {
                         placeholder="Please enter Street Name"  />
                     </Grid>
 
-                    <Grid item xs={6} md={6} sx={{ p: 1 }}>
+                    <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <label>City <span style={{color:'red'}}>*</span></label>
                         <TextField
                         {...register("city")}
@@ -127,7 +126,7 @@ export default function Ownner() {
                         placeholder="Please enter Street Name"  />
                     </Grid>
 
-                    <Grid item xs={6} md={6} sx={{ p: 1 }}>
+                    <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <label>State <span style={{color:'red'}}>*</span></label>
                         <TextField
                         {...register("state")}
@@ -137,7 +136,7 @@ export default function Ownner() {
                         placeholder="Please enter Street Name"  />
                     </Grid>
 
-                    <Grid item xs={6} md={6} sx={{ p: 1 }}>
+                    <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <label>Postal Code <span style={{color:'red'}}>*</span></label>
                         <TextField
                         {...register("pcode")}
@@ -161,8 +160,8 @@ export default function Ownner() {
                         </Button>
                     </Grid>
 
-                </form>
             </Grid>
+                </form>
     </div>
   );
 }

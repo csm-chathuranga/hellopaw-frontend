@@ -194,7 +194,7 @@ export default function PrimarySearchAppBar({isDarkTheme, setIsDarkTheme}) {
           <Box sx={{ display: { xs: 'block', md: 'flex' } }}>
           {/* <FormControlLabel  control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}   /> */}
           {/* isDarkTheme, setIsDarkTheme */}
-          <Switch {...label} checked={isDarkTheme} onChange={(e)=>setIsDarkTheme(!isDarkTheme)} sx={{ display: { xs: 'none'} }}/>
+          <Switch {...label} checked={isDarkTheme} onChange={(e)=>setIsDarkTheme(!isDarkTheme)} sx={{ visibility: { xs: 'hidden',md: 'show'} }}/>
           <Button onClick={handleOpen}  variant="contained" color="warning" sx={{borderRadius:'50px',mr:2}}>Sign In</Button>
           <Register/>
           {/* <Button   variant="outlined" color="warning" sx={{borderRadius:'50px'}}>Sign Up</Button> */}
