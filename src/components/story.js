@@ -23,8 +23,8 @@ export default function CustomImageList() {
         const rows = item.featured ? 2 : 1;
 
         return (
-          <ImageListItem key={item.img} cols={cols} rows={rows} sx={{height:'400px',borderRadius:'10px'}}>
-            <img {...srcset(item.img, 200, 400, rows, cols)} alt={item.title} loading="lazy" />
+          <ImageListItem key={item.img} cols={cols} rows={rows} sx={{height:'300px',borderRadius:'10px'}}>
+            <img {...srcset(item.img, 200, 300, rows, cols)} alt={item.title} loading="lazy" />
             <ImageListItemBar  sx={{  background:
                   'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
                   'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',

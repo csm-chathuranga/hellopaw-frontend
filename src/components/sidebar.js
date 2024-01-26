@@ -13,6 +13,9 @@ import { Box, Typography } from '@mui/material';
 
 export const mainListItems = (
   <Box sx={{width:'100%',pt:2}}>
+    <Typography sx={{color:'grey',p:1}}>
+      Services
+    </Typography>
     <ListItemButton >
       <ListItemIcon>
         <DashboardIcon />

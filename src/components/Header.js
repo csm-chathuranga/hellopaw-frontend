@@ -24,8 +24,15 @@ import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import CloseIcon from '@mui/icons-material/Close';
 import Switch from '@mui/material/Switch';
+import Register from "./Register/register";
 
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
+
+const textProps = {
+  id: "outlined-basic",
+  variant: "outlined",
+  fullWidth: true,
+};
 
 const style = {
   position: 'absolute',
@@ -189,7 +196,9 @@ export default function PrimarySearchAppBar({isDarkTheme, setIsDarkTheme}) {
           {/* isDarkTheme, setIsDarkTheme */}
           <Switch {...label} checked={isDarkTheme} onChange={(e)=>setIsDarkTheme(!isDarkTheme)} sx={{ display: { xs: 'none'} }}/>
           <Button onClick={handleOpen}  variant="contained" color="warning" sx={{borderRadius:'50px',mr:2}}>Sign In</Button>
-          <Button   variant="outlined" color="warning" sx={{borderRadius:'50px'}}>Sign Up</Button>
+          <Register/>
+          {/* <Button   variant="outlined" color="warning" sx={{borderRadius:'50px'}}>Sign Up</Button> */}
+
 
             {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
@@ -221,6 +230,7 @@ export default function PrimarySearchAppBar({isDarkTheme, setIsDarkTheme}) {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
+
       <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description" >
       <Box sx={style}>
       <Grid container display={"flex"} justifyContent={"right"} alignItems={"right"}>
@@ -230,9 +240,21 @@ export default function PrimarySearchAppBar({isDarkTheme, setIsDarkTheme}) {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <TextField margin="normal"  required fullWidth id="email"  label="Email Address" name="email"  autoFocus autocomplete="off"/>
-        <TextField  margin="normal" required fullWidth name="password"  label="Password" type="password" id="password"  autocomplete="off"/>
-          <FormControlLabel  control={<Checkbox value="remember" color="primary" />} label="Remember me" />
+        <Grid item xs={12} md={12} sx={{mt:2}} >
+          <label>Email <span style={{color:'red'}}>*</span></label>
+          <TextField
+          {...textProps}
+          placeholder="email"  />
+        </Grid>
+        <Grid item xs={12} md={12}  sx={{mt:2}}>
+          <label>Password <span style={{color:'red'}}>*</span></label>
+          <TextField
+          {...textProps}
+          placeholder="password"  />
+        </Grid>
+        {/* <TextField margin="normal"  required fullWidth id="email"  label="Email Address" name="email"  autoFocus autocomplete="off"/> */}
+        {/* <TextField  margin="normal" required fullWidth name="password"  label="Password" type="password" id="password"  autocomplete="off"/> */}
+          {/* <FormControlLabel  control={<Checkbox value="remember" color="primary" />} label="Remember me" /> */}
           <Button type="submit"  fullWidth variant="contained"  sx={{ mt: 3, mb: 2 }} > Sign In </Button>
           <Grid container>
             <Grid item xs>
