@@ -12,6 +12,8 @@ import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
 import Link from '@mui/joy/Link';
 import  PrimarySearchAppBar  from "./components/Header";
+import { ToastContainer } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 // function ModeToggle() {
 //   const { mode, setMode } = useColorScheme();
@@ -62,9 +64,18 @@ function App() {
           </Routes>
       </Grid>
         {/* <Home /> */}
+        <ToastContainer position="top-center"
+					toastStyle={{ border:'1px solid #b7b7b7', width:'370px'}}
+					autoClose={5000}
+					hideProgressBar={true}
+					newestOnTop={true}
+					closeOnClick
+					rtl={false}
+					pauseOnFocusLoss
+					draggable
+					pauseOnHover />
     </div>
     {/* </CssVarsProvider> */}
-
     </ThemeProvider>
     </>
   );

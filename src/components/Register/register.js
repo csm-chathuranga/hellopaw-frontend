@@ -12,6 +12,8 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import PetOwner from "./owner";
 import Doctor from "./doctor";
+import PetsIcon from '@mui/icons-material/Pets';
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 
 const textProps = {
   id: "outlined-basic",
@@ -60,8 +62,8 @@ const Register = () => {
         <Grid container display={"flex"} justifyContent={"right"} alignItems={"right"}>
           <ToggleButtonGroup color="primary" value={alignment} exclusive
                   onChange={handleChange} aria-label="Platform" sx={{mt:2,mb:1,width:'100%'}}>
-                  <ToggleButton value="doctor" sx={{width:'50%',height:'30px'}}>Doctor</ToggleButton>
-                  <ToggleButton value="owner" sx={{width:'50%',height:'30px'}}>Pet Owner</ToggleButton>
+                  <ToggleButton value="doctor" sx={{width:'50%',height:'40px'}} ><LocalHospitalIcon sx={{mr:2}}/>Doctor</ToggleButton>
+                  <ToggleButton value="owner" sx={{width:'50%',height:'40px'}}><PetsIcon sx={{mr:2}}/>Pet Owner</ToggleButton>
           </ToggleButtonGroup>
         </Grid>
         {alignment =='owner' ? <PetOwner/>: <Doctor/>}

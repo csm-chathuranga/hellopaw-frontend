@@ -8,6 +8,14 @@ export const darkTheme = createTheme({
   typography: {
     fontSize:18,
   },
+  components: {
+    MuiFormControl: {
+      defaultProps: {
+        size: "medium",
+        sx: { borderRadius: "10px" },
+      },
+    },
+  },
 });
 
 export const lightTheme = createTheme({
@@ -16,5 +24,13 @@ export const lightTheme = createTheme({
   },
   typography: {
     fontSize:18,
+  },
+  components: {
+    MuiFormControl: {
+      defaultProps: {
+        size: "medium",
+        sx: { borderRadius: "10px" },
+      },
+    },
   },
 });

@@ -8,19 +8,27 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 // import { getOrganization,getRoleByOrganization,storeUser,getByIdUsers,updateUser } from "../../../pages/api/acl";
 import { useTheme } from "@mui/material/styles";
+import { toast } from 'react-toastify';
+import { create } from "../../services/PetOwner";
+
 
 let schema = yup.object().shape({
     name: yup.string().required("Full Name is required"),
+    nic: yup.string().required("NIC is required"),
+    gender: yup.string().required("Gender is required"),
+    phone_number:yup.string().required(),
     email: yup.string().required("Email is required"),
-    clinic: yup.string().required(),
-    clinic_location: yup.string().required(),
     password:yup.string()
     .required('Password is required')
     .min(8, 'Password must be at least 8 characters')
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
       'Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character'
-    )
+    ),
+    street:yup.string(),
+    city:yup.string(),
+    state:yup.string(),
+    postal_code:yup.string(),
   });
 
 export default function Ownner() {
@@ -34,10 +42,17 @@ export default function Ownner() {
       };
       
     let submitHandler = async (data) => {
-        console.log(data);
+        try {
+            setLoad(true);
+            let res=await create(data);
+            toast.success('Registration successfull')
+        } catch (error) {
+            toast.error(error?.response?.data || 'Registraion failed')
+            setLoad(false);
+        } finally{
+            setLoad(false);
+        }
     }
-
-
   return (
     <div>
             <form onSubmit={handleSubmit(submitHandler)} id="hook-form">
@@ -71,18 +86,18 @@ export default function Ownner() {
                         {...textProps}
                         error={errors?.gender ? true : false}
                         helperText={errors?.gender ? errors.gender.message : null}
-                        placeholder="Please enter NIC"
+                        placeholder="Please Gender"
                         />
                     </Grid>
 
                     <Grid item xs={12} md={6} sx={{ p: 1 }} >
                         <label>Phone <span style={{color:'red'}}>*</span></label>
                         <TextField
-                        {...register("phone")}
+                        {...register("phone_number")}
                         {...textProps}
-                        error={errors?.phone ? true : false}
-                        helperText={errors?.phone ? errors.phone.message : null}
-                        placeholder="Please enter NIC"
+                        error={errors?.phone_number ? true : false}
+                        helperText={errors?.phone_number ? errors.phone_number.message : null}
+                        placeholder="Please Phone number"
                         />
                     </Grid>
 
@@ -139,11 +154,11 @@ export default function Ownner() {
                     <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <label>Postal Code <span style={{color:'red'}}>*</span></label>
                         <TextField
-                        {...register("pcode")}
+                        {...register("postal_code")}
                         {...textProps}
-                        error={errors?.pcode ? true : false}
-                        helperText={errors?.pcode ? errors.pcode.message : null}
-                        placeholder="Please enter Street Name"  />
+                        error={errors?.postal_code ? true : false}
+                        helperText={errors?.postal_code ? errors.postal_code.message : null}
+                        placeholder="Please enter Postal code"  />
                     </Grid>
 
                     <Grid item md={12} display="flex" container direction="row"

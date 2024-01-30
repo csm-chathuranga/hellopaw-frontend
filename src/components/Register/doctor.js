@@ -7,12 +7,15 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 // import { getOrganization,getRoleByOrganization,storeUser,getByIdUsers,updateUser } from "../../../pages/api/acl";
+import { create } from "../../services/doctor";
 import { useTheme } from "@mui/material/styles";
+import { toast } from 'react-toastify';
+import { MuiFileInput } from 'mui-file-input'
 
 let schema = yup.object().shape({
     name: yup.string().required("Full Name is required"),
     email: yup.string().required("Email is required"),
-    clinic: yup.string().required(),
+    clinic_name: yup.string().required(),
     clinic_location: yup.string().required(),
     password:yup.string()
     .required('Password is required')
@@ -25,16 +28,33 @@ let schema = yup.object().shape({
 
 export default function Doctor({modal, setModal,editId,setEditId,refreshTable}) {
     const [load, setLoad] = useState(false);
-
     const {  register, handleSubmit,  formState: { errors },  setValue,getValues  } = useForm({ resolver: yupResolver( schema), });
+    const [value, setValueImg] = React.useState(null)
+
+    const handleChange = (newValue) => {
+        setValueImg(newValue)
+    }
+
     const textProps = {
         id: "outlined-basic",
         variant: "outlined",
         fullWidth: true,
+        InputLabelProps: {
+          shrink: true,
+        },
       };
       
     let submitHandler = async (data) => {
-        console.log(data);
+        try {
+            setLoad(true);
+            let res=await create(data);
+            toast.success('Registration successfull')
+        } catch (error) {
+            toast.error(error?.response?.data || 'Registraion failed')
+            setLoad(false);
+        } finally{
+            setLoad(false);
+        }
     }
 
 
@@ -44,6 +64,12 @@ export default function Doctor({modal, setModal,editId,setEditId,refreshTable}) 
 
             <form onSubmit={handleSubmit(submitHandler)} id="hook-form">
             <Grid container direction="row">
+
+            <Grid item xs={12} md={6} sx={{ p: 1 }}>
+                        <label>Profile Image <span style={{color:'red'}}>*</span></label>
+                        <MuiFileInput value={value} onChange={handleChange}  {...textProps}/>
+                    </Grid>
+
                 <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <label>Name <span style={{color:'red'}}>*</span></label>
                         <TextField
@@ -68,6 +94,7 @@ export default function Doctor({modal, setModal,editId,setEditId,refreshTable}) 
                     <Grid item xs={6} md={6} sx={{ p: 1 }}>
                         <label>password <span style={{color:'red'}}>*</span></label>
                         <TextField
+                        type="password"
                         {...register("password")}
                         {...textProps}
                         error={errors?.password ? true : false}
@@ -78,10 +105,10 @@ export default function Doctor({modal, setModal,editId,setEditId,refreshTable}) 
                     <Grid item xs={6} md={6} sx={{ p: 1 }}>
                         <label>Clinic Name <span style={{color:'red'}}>*</span></label>
                         <TextField
-                        {...register("clinic")}
+                        {...register("clinic_name")}
                         {...textProps}
-                        error={errors?.clinic ? true : false}
-                        helperText={errors?.clinic ? errors.clinic.message : null}
+                        error={errors?.clinic_name ? true : false}
+                        helperText={errors?.clinic_name ? errors.clinic_name.message : null}
                         placeholder="Please enter Clinic Name"  />
                     </Grid>
 
@@ -106,6 +133,7 @@ export default function Doctor({modal, setModal,editId,setEditId,refreshTable}) 
                             {load ? ('Wait') : ('Continue')}
                           
                         </Button>
+
                     </Grid>
             </Grid>
 

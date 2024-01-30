@@ -85,10 +85,10 @@ function Home() {
             </Grid>
             </Grid>
              <Grid item xs={12} md={6}>
-              <Grid item xs={12}   sx={{mt:2}}>
+              <Grid item xs={12}   sx={{mt:2,overflowX: 'scroll'}}>
                 <CustomImageList/>
                 <RecipeReviewCard img="https://d.newsweek.com/en/full/2324781/chocolate-labrador-puppy-laying-grass.webp"/>
-              <RecipeReviewCard img="https://i.ytimg.com/vi/ami0N5tZGMU/maxresdefault.jpg"/>
+                <RecipeReviewCard img="https://i.ytimg.com/vi/ami0N5tZGMU/maxresdefault.jpg"/>
 
                 <RecipeReviewCard img="https://thepet.community/wp-content/uploads/2020/05/doghouse-medium.jpg"/>
 
