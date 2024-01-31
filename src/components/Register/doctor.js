@@ -91,7 +91,7 @@ export default function Doctor({modal, setModal,editId,setEditId,refreshTable}) 
                         placeholder="Please enter Email"  />
                     </Grid>
 
-                    <Grid item xs={6} md={6} sx={{ p: 1 }}>
+                    <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <label>password <span style={{color:'red'}}>*</span></label>
                         <TextField
                         type="password"
@@ -102,7 +102,7 @@ export default function Doctor({modal, setModal,editId,setEditId,refreshTable}) 
                         placeholder="Please enter Password"  />
                     </Grid>
 
-                    <Grid item xs={6} md={6} sx={{ p: 1 }}>
+                    <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <label>Clinic Name <span style={{color:'red'}}>*</span></label>
                         <TextField
                         {...register("clinic_name")}
@@ -112,7 +112,7 @@ export default function Doctor({modal, setModal,editId,setEditId,refreshTable}) 
                         placeholder="Please enter Clinic Name"  />
                     </Grid>
 
-                    <Grid item xs={6} md={6} sx={{ p: 1 }}>
+                    <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <label>Clinic Location <span style={{color:'red'}}>*</span></label>
                         <TextField
                         {...register("clinic_location")}

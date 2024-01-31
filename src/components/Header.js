@@ -25,6 +25,10 @@ import Grid from "@mui/material/Grid";
 import CloseIcon from '@mui/icons-material/Close';
 import Switch from '@mui/material/Switch';
 import Register from "./Register/register";
+import { Divider,ListItemIcon} from "@mui/material";
+import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+
 
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
@@ -34,6 +38,8 @@ const textProps = {
   fullWidth: true,
 };
 
+const dropdownMenu={ width:'200px',fontSize:'14px'}
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -41,6 +47,7 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width: 400,
   bgcolor: 'background.paper',
+  
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
@@ -117,6 +124,32 @@ export default function PrimarySearchAppBar({isDarkTheme, setIsDarkTheme}) {
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
+    PaperProps={{
+      elevation: 0,
+      sx: {
+        overflow: "visible",
+        filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+        mt: 1.5,
+        "& .MuiAvatar-root": {
+          width: 32,
+          height: 32,
+          ml: -0.5,
+          mr: 1,
+        },
+        "&:before": {
+          content: '""',
+          display: "block",
+          position: "absolute",
+          top: 0,
+          right: 14,
+          width: 10,
+          height: 10,
+          bgcolor: "background.paper",
+          transform: "translateY(-50%) rotate(45deg)",
+          zIndex: 0,
+        },
+      },
+    }}
       anchorEl={anchorEl}
       anchorOrigin={{
         vertical: 'top',
@@ -148,29 +181,42 @@ export default function PrimarySearchAppBar({isDarkTheme, setIsDarkTheme}) {
         horizontal: 'right',
       }}  open={isMobileMenuOpen} onClose={handleMobileMenuClose}  >
 
-      <MenuItem>
-        <IconButton size="large" aria-label="show 17 new notifications"  color="inherit" >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <Typography sx={{color:'grey'}}>settings</Typography>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen} >
-        <IconButton size="large"  aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true"  color="inherit"  >
-          <AccountCircle />
-        </IconButton>
-        <Typography sx={{color:'grey'}}>Logout</Typography>
-      </MenuItem>
-      <MenuItem>
-        <Switch {...label} checked={isDarkTheme} onChange={(e)=>setIsDarkTheme(!isDarkTheme)}/>
-      </MenuItem>
+        <MenuItem  sx={{...dropdownMenu}}>
+          <Grid display={"flex"} direction={"column"}>
+          <Typography sx={{fontSize:'14px',fontWeight:600}}>dcsm</Typography>
+          <Typography sx={{fontSize:'10px'}}>dev.chathu@gmail.com</Typography>
+          </Grid>
+        </MenuItem>
+
+        <MenuItem>
+              <ListItemIcon>
+                <PersonOutlineOutlinedIcon fontSize="small" />
+              </ListItemIcon>
+              My Profile
+        </MenuItem>
+
+      <MenuItem sx={{...dropdownMenu,position:'relative'}}>
+        <ListItemIcon>
+            <DarkModeOutlinedIcon fontSize="small" />
+          </ListItemIcon>
+          Dark mode 
+        <Switch defaultChecked={false} onChange={(e)=>setIsDarkTheme(!isDarkTheme)} sx={ { position:'absolute',right:0 } } />
+        </MenuItem>
+        <Divider />
+
+      <MenuItem  sx={dropdownMenu}>
+          <ListItemIcon>
+          <PersonOutlineOutlinedIcon fontSize="small" sx={{color:'red'}}/>
+          </ListItemIcon>
+          Logout
+        </MenuItem>
+
     </Menu>
   );
 
   return (
     <Box sx={{ flexGrow: 1,mb:10 }}>
-      <AppBar position="static" sx={{position:'fixed',zIndex:1000,top:0}}>
+      <AppBar position="static" sx={{position:'fixed',zIndex:1000,top:0,backgroundColor:'#121212',}}>
         <Toolbar>
           {/* <IconButton size="large" edge="start"  color="inherit" aria-label="open drawer"  sx={{ mr: 2 }}  >
             <MenuIcon />

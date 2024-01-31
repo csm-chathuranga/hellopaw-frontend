@@ -57,11 +57,13 @@ function App() {
     <Grid sx={{position:'relative'}}>
     {/* <ModeToggle /> */}
     <PrimarySearchAppBar isDarkTheme={isDarkTheme} setIsDarkTheme={setIsDarkTheme}/>
+    
           <Routes>
           {routes.map(({ path, element }) => (
               <Route key={path} path={path} element={element} />
           ))}
           </Routes>
+          
       </Grid>
         {/* <Home /> */}
         <ToastContainer position="top-center"
