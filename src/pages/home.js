@@ -20,61 +20,47 @@ import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import PetsIcon from '@mui/icons-material/Pets';
 import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
 
-// --- Fill Image Card Component Imports --- //
-import {
-  FiCard,
-  FiCardActionArea,
-  FiCardActions,
-  FiCardContent,
-  FiCardMedia
-} from "./FullImageCard";
 
+// // --- Style --- //
+// const useStyles = makeStyles({
+//   container: {
+//     display: "flex",
+//     flexDirection: "column",
+//     alignItems: "center",
+//     justifyContent: "center"
+//   },
+//   /**
+//    * Max Card with for demo
+//    * same values used in Material-Ui Card Demos
+//    */
+//   card: {
+//     maxWidth: 345
+//   },
 
+//   /**
+//    * Applied to Orginal Card demo
+//    * Same vale used in Material-ui Card Demos
+//    */
+//   media: {
+//     height: 140
+//   },
 
-// --- Style --- //
-const useStyles = makeStyles({
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  /**
-   * Max Card with for demo
-   * same values used in Material-Ui Card Demos
-   */
-  card: {
-    maxWidth: 345
-  },
-
-  /**
-   * Applied to Orginal Card demo
-   * Same vale used in Material-ui Card Demos
-   */
-  media: {
-    height: 140
-  },
-
-  /**
-   * Demo stlying to inclrease text visibility
-   * May verry on implementation
-   */
-  fiCardContent: {
-    color: "#ffffff",
-    backgroundColor: "rgba(0,0,0,.24)"
-  },
-  fiCardContentTextSecondary: {
-    color: "rgba(255,255,255,0.78)"
-  }
-});
+//   /**
+//    * Demo stlying to inclrease text visibility
+//    * May verry on implementation
+//    */
+//   fiCardContent: {
+//     color: "#ffffff",
+//     backgroundColor: "rgba(0,0,0,.24)"
+//   },
+//   fiCardContentTextSecondary: {
+//     color: "rgba(255,255,255,0.78)"
+//   }
+// });
 
 function Home() {
-  const classes = useStyles();
+  // const classes = useStyles();
     return (
-        <div className="main-wrapper">
-         {/* <PrimarySearchAppBar /> */}
-         {/* <ResponsiveSidebar/> */}
-
          <Grid container spacing={2}>
 
             <Grid item xs={12} md={3} display={{ xs: 'none', md: 'block' }}>
@@ -101,11 +87,10 @@ function Home() {
           </Grid>
           <Grid sx={{mt:2}}>
           </Grid>
+          {/* <Footer/> */}
         </Grid>
 
 
-         {/* <Footer/> */}
-        </div> 
 
     );
 }

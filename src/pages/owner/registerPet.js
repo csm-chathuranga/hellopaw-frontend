@@ -116,7 +116,7 @@ export default function RegisterPet() {
                     <Grid item md={12} display="flex" container direction="row"
                         alignItems="right"
                         justifyContent="right" gap={2} sx={{p:2}}>
-                   <Button onClick={()=> navigate(`/owner/pet`)}
+                   <Button onClick={()=> navigate(`/pet`)}
                         variant="outlined"
                         color="primary" sx={{padding:'10px 40px'}}>
                            Cancel

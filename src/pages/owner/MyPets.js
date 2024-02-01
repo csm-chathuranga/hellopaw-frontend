@@ -36,7 +36,7 @@ export default function MyPets() {
           <Grid container direction="column" sx={{position:'relative'}}>
               <Typography sx={{m:1,fontSize:'18px'}}>Your pets</Typography>
               <Button variant="outlined" startIcon={<AddIcon />} sx={{maxWidth:'200px',position:'absolute',right:20,top:5}}
-              onClick={()=> navigate(`/owner/pet/register`)}> Add New  </Button>
+              onClick={()=> navigate(`/petRegister`)}> Add New  </Button>
           </Grid>
     <List sx={{ width: '100%',minWidth:'300px', bgcolor: 'background.paper',mt:2}}>
       {rows.map((item)=>{return (
@@ -68,7 +68,7 @@ export default function MyPets() {
               </Grid>
             }
           />
-           <Link to={`/owner/pet/register/${item?.id}`}>
+           <Link to={`/petRegister/${item?.id}`}>
               <IconButton  >
                   <EditIcon />
               </IconButton>

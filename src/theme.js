@@ -6,7 +6,7 @@ export const darkTheme = createTheme({
     mode: 'dark',
   },
   typography: {
-    fontSize:13,
+    fontSize:19,
   },
   components: {
     MuiFormControl: {
@@ -23,7 +23,7 @@ export const lightTheme = createTheme({
     mode: 'light',
   },
   typography: {
-    fontSize:13,
+    fontSize:19,
   },
   components: {
     MuiFormControl: {
