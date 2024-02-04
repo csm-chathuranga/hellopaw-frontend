@@ -3,12 +3,14 @@ import DoctorHome from "./pages/doctor/home";
 import OwnerHome from "./pages/owner/home";
 import RegisterPet from "./pages/owner/registerPet";
 import MyPets from "./pages/owner/MyPets";
+import ViewPet from "./pages/owner/ViewPet";
 
 const routes = [
   { path: "/home", element: <Home />, label: "Dashboard" },
   { path: "/doctor", element: <DoctorHome />, label: "DoctorDashboard" },
   { path: "/owner", element: <OwnerHome />, label: "OwnerDashboard" },
   { path: "/pet", element: <MyPets />, label: "pets" },
+  { path: "/ViewPet/:id", element: <ViewPet />, label: "ViewPet" },
   { path: "/petRegister", element: <RegisterPet />, label: "petRegister" },
   { path: "/petRegister/:id", element: <RegisterPet />, label: "petRegister" },
   // { path: "/contact", element: <Contact />, label: "contact" },

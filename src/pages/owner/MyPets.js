@@ -38,10 +38,10 @@ export default function MyPets() {
               <Button variant="outlined" startIcon={<AddIcon />} sx={{maxWidth:'200px',position:'absolute',right:20,top:5}}
               onClick={()=> navigate(`/petRegister`)}> Add New  </Button>
           </Grid>
-    <List sx={{ width: '100%',minWidth:'300px', bgcolor: 'background.paper',mt:2}}>
+    <List sx={{ width: '100%',minWidth:'300px', bgcolor: 'background.paper',mt:2,p:1}}>
       {rows.map((item)=>{return (
         <>
-        <ListItem alignItems="flex-start">
+        <ListItem alignItems="flex-start" sx={{borderRadius:'5px',border:'1px solid #e9dfdf',mt:0.5}}>
           <ListItemAvatar>
             <Avatar alt="Remy Sharp" src="https://img.freepik.com/free-photo/isolated-happy-smiling-dog-white-background-portrait-4_1562-693.jpg" />
           </ListItemAvatar>
@@ -62,7 +62,7 @@ export default function MyPets() {
                   component="span"
                   variant="body2"
                   color="text.primary"  >
-                 <Chip label={item?.gender || 'N/A'} color={item?.gender=='male' || item?.gender=='Male'  ? 'success' : 'primary' } sx={{minWidth:'70px'}}/> 
+                 <Chip label={item?.gender || 'N/A'} color={item?.gender=='male' || item?.gender=='Male'  ? 'success' : 'primary' } sx={{minWidth:'50px',height:'20px'}}/> 
                 </Typography>
                 
               </Grid>
@@ -73,9 +73,11 @@ export default function MyPets() {
                   <EditIcon />
               </IconButton>
             </Link>
-          <IconButton onClick={()=>alert()} >
-            <VisibilityIcon sx={{color:'light-blue'}}/>
-          </IconButton>
+            <Link to={`/ViewPet/${item?.id}`}>
+              <IconButton  >
+                <VisibilityIcon sx={{color:'light-blue'}}/>
+              </IconButton>
+            </Link>
             <IconButton onClick={()=>alert()} >
               <DeleteForeverOutlinedIcon sx={{color:'red'}}/>
             </IconButton>

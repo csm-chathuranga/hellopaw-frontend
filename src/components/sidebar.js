@@ -10,11 +10,12 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import { Box, Typography } from '@mui/material';
+import PetsIcon from '@mui/icons-material/Pets';
 
 export const mainListItems = (
-  <Box sx={{width:'100%',pt:2}}>
+  <Box sx={{width:'250px',pt:2}}>
     <Typography sx={{color:'grey',p:1}}>
-      Services
+      Book a Services
     </Typography>
     <ListItemButton >
       <ListItemIcon>
@@ -54,26 +55,23 @@ export const secondaryListItems = (
     <Typography sx={{color:'grey'}}>
       What's new
     </Typography>
-    {/* <ListSubheader component="div" inset>
-      Saved reports
-    </ListSubheader>
     <ListItemButton>
       <ListItemIcon>
-        <AssignmentIcon />
+      <PetsIcon />
       </ListItemIcon>
-      <ListItemText primary="Current month" />
+      <ListItemText primary="My Pets" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
-        <AssignmentIcon />
+      <PetsIcon />
       </ListItemIcon>
-      <ListItemText primary="Last quarter" />
+      <ListItemText primary="My Profile" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
-        <AssignmentIcon />
+      <PetsIcon />
       </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
-    </ListItemButton> */}
+      <ListItemText primary="Consultation" />
+    </ListItemButton>
   </Box>
 );
