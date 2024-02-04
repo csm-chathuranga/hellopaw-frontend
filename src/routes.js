@@ -6,10 +6,10 @@ import MyPets from "./pages/owner/MyPets";
 import ViewPet from "./pages/owner/ViewPet";
 
 const routes = [
-  { path: "/home", element: <Home />, label: "Dashboard" },
-  { path: "/doctor", element: <DoctorHome />, label: "DoctorDashboard" },
-  { path: "/owner", element: <OwnerHome />, label: "OwnerDashboard" },
-  { path: "/pet", element: <MyPets />, label: "pets" },
+  { path: "/home", element: <Home />, label: "home" },
+  { path: "/doctor", element: <DoctorHome />, label: "doctor" },
+  { path: "/owner", element: <OwnerHome />, label: "owner" },
+  { path: "/pet", element: <MyPets />, label: "pet" },
   { path: "/ViewPet/:id", element: <ViewPet />, label: "ViewPet" },
   { path: "/petRegister", element: <RegisterPet />, label: "petRegister" },
   { path: "/petRegister/:id", element: <RegisterPet />, label: "petRegister" },
