@@ -8,7 +8,7 @@ import ViewPet from "./pages/owner/ViewPet";
 const routes = [
   { path: "/home", element: <Home />, label: "home" },
   { path: "/doctor", element: <DoctorHome />, label: "doctor" },
-  { path: "/owner", element: <OwnerHome />, label: "owner" },
+  { path: "/Owner", element: <OwnerHome />, label: "Owner" },
   { path: "/pet", element: <MyPets />, label: "pet" },
   { path: "/ViewPet/:id", element: <ViewPet />, label: "ViewPet" },
   { path: "/petRegister", element: <RegisterPet />, label: "petRegister" },

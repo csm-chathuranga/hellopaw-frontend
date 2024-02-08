@@ -7,15 +7,16 @@ function OwnerHome() {
     return (
         <div className="main-wrapper">
          <Grid container spacing={2}>
-            <Grid item xs={12} md={3} display={{ xs: 'none', md: 'block' }}>
+            {/* <Grid item xs={12} md={3} display={{ xs: 'none', md: 'block' }}>
               <Grid sx={{position:'fixed', }}>
                 {mainListItems}
                 <Divider sx={{ my: 1 }} />
                 {secondaryListItems}
             </Grid>
-            </Grid>
+            </Grid> */}
           <Grid item xs={12} md={3} display={{ xs: 'none', md: 'block' }}>
-            <MyPets/>
+            {/* <MyPets/> */}
+            owner
           </Grid>
           <Grid sx={{mt:2}}>
           </Grid>
