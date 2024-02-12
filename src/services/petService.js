@@ -1,17 +1,29 @@
-import http from './httpServices'
+import request, { JsonRequestDataType } from './request';
 
-const apiEndpoint = "http://localhost:8000/api";
+export function getMyPets(data) {
+   return request({
+     path: '/owner/myPets',
+     method: 'GET',
+   //   data,
+     dataType: JsonRequestDataType,
+   }).then((response) => response);
+ }
+ 
 
-export function getMyPets (){
-   return http.get(apiEndpoint+'/owner/myPets');
-}
+// import http from './httpServices'
+
+// const apiEndpoint = "http://127.0.0.1:8000/api";
+
+// export function getMyPets (){
+//    return http.get(apiEndpoint+'/owner/myPets');
+// }
 
 export function create (data){
-   return http.post(apiEndpoint+'/owner/petSave',data);
+//    return http.post(apiEndpoint+'/owner/petSave',data);
 }
 
 export function getMyPetsById (id){
-   return http.get(apiEndpoint+'/owner/myPets/'+id);
+//    return http.get(apiEndpoint+'/owner/myPets/'+id);
 }
 // export function update (data){
 //    return http.put(apiEndpoint+'/pet',data);

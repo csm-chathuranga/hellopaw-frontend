@@ -22,11 +22,9 @@ export default function MyPets() {
   const navigate = useNavigate()
 
   const getPets = async () => {
-    let {data} = await getMyPets();
-    console.log(data);
-    setRows(data);
+    let res = await getMyPets();
+    setRows(res.body);
   }
-
   useEffect(() => {
     getPets();
 }, []);

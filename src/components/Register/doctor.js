@@ -47,6 +47,7 @@ export default function Doctor({modal, setModal,editId,setEditId,refreshTable}) 
     let submitHandler = async (data) => {
         try {
             setLoad(true);
+            data.type="doctor";
             let res=await create(data);
             toast.success('Registration successfull')
         } catch (error) {

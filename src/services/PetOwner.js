@@ -1,6 +1,7 @@
 import http from './httpServices'
 
-const apiEndpoint = "http://localhost:8000/api";
+// const apiEndpoint = "https://pv1.happybaw.com/api";
+const apiEndpoint = "http://127.0.0.1:8000/api";
 
 // export function getMyPets (){
 //    return http.get(apiEndpoint+'/user/my');

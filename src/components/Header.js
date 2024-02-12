@@ -6,20 +6,12 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import Checkbox from "@mui/material/Checkbox";
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import CloseIcon from '@mui/icons-material/Close';
@@ -28,7 +20,22 @@ import Register from "./Register/register";
 import { Divider,ListItemIcon} from "@mui/material";
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useEffect, useState } from "react";
+import { toast } from 'react-toastify';
+import {  login } from "../services/authService";
+import { logged } from "../../src/store";
+import { useAtom } from "jotai";
+import localStore from 'store2';
+import HomeIcon from '@mui/icons-material/Home';
+import { useNavigate } from "react-router-dom"
 
+let schema = yup.object().shape({
+  email: yup.string().required("Email is required"),
+  password: yup.string().required("Password is required"),
+});
 
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
@@ -53,56 +60,48 @@ const style = {
   p: 4,
 };
 
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
-}));
 
 export default function PrimarySearchAppBar({isDarkTheme, setIsDarkTheme}) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  const [loggedStatus, setLogged] = useAtom(logged);
+  // setLogged('jj');
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [load, setLoad] = useState(false);
+  const navigate = useNavigate()
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const {  register, handleSubmit,  formState: { errors },  setValue,getValues  } = useForm({ resolver: yupResolver( schema), });
+
+
+  let submitHandler = async (data) => {
+    try {
+        setLoad(true);
+        let res=await login(data);
+        setLogged(true);
+        localStore('authToken', res.body.res);
+        handleClose();
+        // toast.success('Registration successfull')
+    } catch (error) {
+      console.log(error);
+        toast.error(error?.response?.res || 'Registraion failed')
+        setLoad(false);
+    } finally{
+        setLoad(false);
+    }
+}
+
+const logout = (event) => {
+  setLogged(false);
+  localStorage.removeItem('token')
+  localStorage.removeItem('loggedPet')
+  localStore('authToken', null);
+  navigate('/')
+};
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -241,10 +240,18 @@ export default function PrimarySearchAppBar({isDarkTheme, setIsDarkTheme}) {
           {/* <FormControlLabel  control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}   /> */}
           {/* isDarkTheme, setIsDarkTheme */}
           <Switch {...label} checked={isDarkTheme} onChange={(e)=>setIsDarkTheme(!isDarkTheme)} />
-          <Button onClick={handleOpen}  variant="contained" color="warning" sx={{borderRadius:'50px',mr:2}}>Sign In</Button>
-          <Register/>
+          
+          {!loggedStatus?
+            <>       
+            <Button onClick={handleOpen}  variant="contained" color="warning" sx={{borderRadius:'50px',mr:2}}>Sign In</Button>
+            <Register/>
+            </> :
+            <>
+            <Button onClick={logout}  variant="contained" color="warning" sx={{borderRadius:'50px',mr:2}}>Logout</Button>
+            <HomeIcon sx={{fontSize:'35px',cursor:'pointer'}} onClick={()=>navigate('/')}/>
+            </>
+            }   
           {/* <Button   variant="outlined" color="warning" sx={{borderRadius:'50px'}}>Sign Up</Button> */}
-
 
             {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
@@ -282,25 +289,33 @@ export default function PrimarySearchAppBar({isDarkTheme, setIsDarkTheme}) {
       <Grid container display={"flex"} justifyContent={"right"} alignItems={"right"}>
         <CloseIcon sx={{mt:'-10px',cursor:'pointer'}} onClick={handleClose}/>
       </Grid>
+      <form onSubmit={handleSubmit(submitHandler)} id="hook-form">
         
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
+        
         <Grid item xs={12} md={12} sx={{mt:2}} >
           <label>Email <span style={{color:'red'}}>*</span></label>
           <TextField
-          {...textProps}
-          placeholder="email"  />
+              {...register("email")}
+              {...textProps}
+              error={errors?.email ? true : false}
+              helperText={errors?.email ? errors.email.message : null}
+              placeholder="Please Enter email address.."
+              />
         </Grid>
         <Grid item xs={12} md={12}  sx={{mt:2}}>
           <label>Password <span style={{color:'red'}}>*</span></label>
           <TextField
-          {...textProps}
-          placeholder="password"  />
+              {...register("password")}
+              type='password'
+              {...textProps}
+              error={errors?.password ? true : false}
+              helperText={errors?.password ? errors.password.message : null}
+              placeholder="Please Enter Password.."
+              />
         </Grid>
-        {/* <TextField margin="normal"  required fullWidth id="email"  label="Email Address" name="email"  autoFocus autocomplete="off"/> */}
-        {/* <TextField  margin="normal" required fullWidth name="password"  label="Password" type="password" id="password"  autocomplete="off"/> */}
-          {/* <FormControlLabel  control={<Checkbox value="remember" color="primary" />} label="Remember me" /> */}
           <Button type="submit"  fullWidth variant="contained"  sx={{ mt: 3, mb: 2 }} > Sign In </Button>
           <Grid container>
             <Grid item xs>
@@ -314,6 +329,8 @@ export default function PrimarySearchAppBar({isDarkTheme, setIsDarkTheme}) {
               </Link>
             </Grid>
           </Grid>
+        </form>
+
         </Box>
       </Modal>
 

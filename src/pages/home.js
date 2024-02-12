@@ -8,7 +8,6 @@ import { makeStyles } from '@mui/styles';
 import RecipeReviewCard from "./post"
 import ModeToggle from "./test"
 import FixedBottomNavigation from "../components/popular"
-import {mainListItems,secondaryListItems} from "../components/sidebar"
 import CustomImageList from "../components/story"
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
@@ -62,15 +61,7 @@ function Home() {
   // const classes = useStyles();
     return (
          <Grid container spacing={2}>
-
-            <Grid item xs={12} md={3} display={{ xs: 'none', md: 'block' }}>
-              {/* <Grid sx={{position:'fixed', }}>
-                {mainListItems}
-                <Divider sx={{ my: 1 }} />
-                {secondaryListItems}
-            </Grid> */}
-            </Grid>
-             <Grid item xs={12} md={6}>
+             <Grid item xs={12} md={9}>
               <Grid item xs={12}   sx={{mt:2,overflowX: 'scroll'}}>
                 <CustomImageList/>
                 <RecipeReviewCard img="https://d.newsweek.com/en/full/2324781/chocolate-labrador-puppy-laying-grass.webp"/>

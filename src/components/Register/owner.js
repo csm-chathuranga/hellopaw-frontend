@@ -44,6 +44,7 @@ export default function Ownner() {
     let submitHandler = async (data) => {
         try {
             setLoad(true);
+            data.type="owner";
             let res=await create(data);
             toast.success('Registration successfull')
         } catch (error) {

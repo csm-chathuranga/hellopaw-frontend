@@ -6,7 +6,7 @@ import MyPets from "./pages/owner/MyPets";
 import ViewPet from "./pages/owner/ViewPet";
 
 const routes = [
-  { path: "/home", element: <Home />, label: "home" },
+  { path: "/", element: <Home />, label: "home" },
   { path: "/doctor", element: <DoctorHome />, label: "doctor" },
   { path: "/owner", element: <OwnerHome />, label: "owner" },
   { path: "/pet", element: <MyPets />, label: "pet" },

@@ -1,12 +1,25 @@
-import http from './httpServices'
-// import { apiUrl } from './config.json'
+import request, { JsonRequestDataType } from './request';
 
-const apiEndpoint = "http://localhost:3002/api/auth";
+export function login(data) {
+   return request({
+     path: '/login',
+     method: 'POST',
+     data,
+     dataType: JsonRequestDataType,
+   }).then((response) => response);
+ }
+ 
 
-export function login (email,password){
-   return http.post(apiEndpoint+'/login', { email , password });
-}
+// import http from './httpServices'
+// // import { apiUrl } from './config.json'
 
-export function checkLogin (){
-   return http.post(apiEndpoint+'/login', { email , password });
-}
+// const apiEndpoint = "http://127.0.0.1:8000/api";
+
+// export function login ({email,password}){
+//    // console.log(email);
+//    return http.post(apiEndpoint+'/login', { email , password });
+// }
+
+// // export function checkLogin (){
+// //    return http.post(apiEndpoint+'/login', { email , password });
+// // }

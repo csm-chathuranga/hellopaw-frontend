@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import routes from "./routes";
 import { ThemeProvider, CssBaseline, Grid,Divider } from '@mui/material';
 import { darkTheme, lightTheme } from './theme';
-import {mainListItems,secondaryListItems} from "./components/sidebar"
+import Sidebar from "./components/sidebar"
 
 import  PrimarySearchAppBar  from "./components/Header";
 import { ToastContainer } from 'react-toastify';
@@ -24,11 +24,7 @@ function App() {
     <PrimarySearchAppBar isDarkTheme={isDarkTheme} setIsDarkTheme={setIsDarkTheme}/>
         <Grid container direction={"row"}>
           <Grid item md={3} display={{ xs: 'none', md: 'block' }}>
-                    <Grid sx={{position:'fixed',height:'100vh',top:50,borderRight:'1px solid #dcdcdc' }}>
-                      {mainListItems}
-                      <Divider sx={{ my: 1 }} />
-                      {secondaryListItems}
-                  </Grid>
+                 <Sidebar/>
             </Grid>
      
             <Grid item xs={12} md={9}>
