@@ -23,6 +23,13 @@ export function create (data){
 }
 
 export function getMyPetsById (id){
+  return request({
+    path: '/owner/myPets/'+id,
+    method: 'GET',
+  //   data,
+    dataType: JsonRequestDataType,
+  }).then((response) => response);
+
 //    return http.get(apiEndpoint+'/owner/myPets/'+id);
 }
 // export function update (data){

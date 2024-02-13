@@ -4,6 +4,13 @@ import routes from "./routes";
 import { ThemeProvider, CssBaseline, Grid,Divider } from '@mui/material';
 import { darkTheme, lightTheme } from './theme';
 import Sidebar from "./components/sidebar"
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import Paper from '@mui/material/Paper';
+import PetsIcon from '@mui/icons-material/Pets';
+import BookOnlineIcon from '@mui/icons-material/BookOnline';
+import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
+import { useNavigate } from "react-router-dom"
 
 import  PrimarySearchAppBar  from "./components/Header";
 import { ToastContainer } from 'react-toastify';
@@ -12,6 +19,8 @@ import { ToastContainer } from 'react-toastify';
 
 function App() {
   const [isDarkTheme, setIsDarkTheme] = useState(true);
+  const [value, setValue] = React.useState(0);
+  const navigate = useNavigate()
 
   return (<>
       <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
@@ -34,6 +43,21 @@ function App() {
                 ))}
                 </Routes>
            </Grid>  
+
+           <Paper sx={{ position: 'fixed', bottom: -0, left: 0, right: 0 ,display:{ xs: 'block', md: 'none' }}} elevation={3} >
+              <BottomNavigation
+                showLabels
+                value={value}
+                onChange={(event, newValue) => {
+                  setValue(newValue);
+                }}
+              >
+                <BottomNavigationAction label="My pets" icon={<PetsIcon />} onClick={()=>navigate('pet')}/>
+                <BottomNavigationAction label="Appointment" icon={<BookOnlineIcon />} />
+                <BottomNavigationAction label="Service" icon={<DisplaySettingsIcon />} />
+              </BottomNavigation>
+          </Paper>
+
            </Grid>  
       </Grid>
         {/* <Home /> */}

@@ -82,9 +82,9 @@ export default function MyPets() {
   };
 
   const getPets = async () => {
-    let {data} = await getMyPetsById(params.id);
-    setSelected(data)
-    // console.log(data);
+    let res= await getMyPetsById(params.id);
+    setSelected(res.body)
+    // console.log(res);
     // setRows(data);
   }
 
