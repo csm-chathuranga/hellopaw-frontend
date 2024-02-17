@@ -21,12 +21,12 @@ export default function Sidebar() {
   const [loggedStatus, setLogged] = useAtom(logged);
 
    return (
-    <Grid sx={{position:'fixed',height:'100vh',top:50,borderRight:'1px solid #dcdcdc' }}>
+    <Grid sx={{position:'fixed',height:'100vh',top:50,borderRight:'1px solid #8080801c' }}>
             <Box sx={{width:'250px',pt:2}}>
               <Typography sx={{color:'grey',p:1}}>
                 Book a Services
               </Typography>
-              <ListItemButton >
+              <ListItemButton  onClick={()=>navigate('vets')}>
                 <ListItemIcon>
                   <DashboardIcon />
                 </ListItemIcon>

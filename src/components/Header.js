@@ -215,7 +215,7 @@ const logout = (event) => {
 
   return (
     <Box sx={{ flexGrow: 1,mb:10 }}>
-      <AppBar position="static" sx={{position:'fixed',zIndex:1000,top:0,backgroundColor:'#121212',}}>
+      <AppBar position="static" sx={{position:'fixed',zIndex:1000,top:0,backgroundColor:'#0b1416',}}>
         <Toolbar>
   
             <img src="/assets/images/logo3.png" style={{height:'50px',color:'#ffff'}}/>

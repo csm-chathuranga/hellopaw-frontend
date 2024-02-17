@@ -13,7 +13,7 @@ export const darkTheme = createTheme({
       dark: "#F8FAFC",
     },
     surfaceLight: {
-      primary: "#0D0B24",
+      primary: "#0b1416",
       secondary: "#120F2F",
       tertiary: "#17143A",
       quaternary: "#1D1849",
@@ -41,8 +41,8 @@ export const darkTheme = createTheme({
       dark: "#16A34A",
     },
     background: {
-      default: "#0D0B24",
-      paper: "#0D0B24",
+      default: "#0b1416",
+      paper: "#0b1416",
     },
     outline: {
       dark: "#F8FAFC",
@@ -51,7 +51,7 @@ export const darkTheme = createTheme({
     txt: {
       base: "#FFF",
       muted: "#64748B",
-      inverted: "#0D0B24",
+      inverted: "#0b1416",
     },
     base:{
       white:'#fff',
@@ -148,13 +148,13 @@ export const darkTheme = createTheme({
     MuiFormControl: {
       defaultProps: {
         size: "medium",
-        // border: "1px solid #2F2B57",
+        sx: { borderRadius: "10px" },
       },
     },
     
   },
 });
-
+// #0b1416
 export const lightTheme = createTheme({
   palette: {
     mode: "light",
@@ -164,7 +164,7 @@ export const lightTheme = createTheme({
     },
     secondary: {
       main: "#120F2F",
-      dark: "#0D0B24",
+      dark: "#0b1416",
     },
     surfaceLight: {
       primary: "#EFF6FF",
@@ -173,7 +173,7 @@ export const lightTheme = createTheme({
       quaternary: "#BFDBFE",
     },
     surfaceDark: {
-      primary: "#0D0B24",
+      primary: "#0b1416",
       secondary: "#120F2F",
       tertiary: "#17143A",
       quaternary: "#1D1849",
@@ -203,7 +203,7 @@ export const lightTheme = createTheme({
       main: "#CBD5E1",
     },
     txt: {
-      base: "#0D0B24",
+      base: "#0b1416",
       muted: "#64748B",
       inverted: "#FFF",
     },
@@ -297,6 +297,7 @@ export const lightTheme = createTheme({
     MuiFormControl: {
       defaultProps: {
         size: "medium",
+        sx: { borderRadius: "50px",borderColor:'#e4e3e300' },
       },
     },
   },

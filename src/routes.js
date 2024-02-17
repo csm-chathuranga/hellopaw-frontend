@@ -4,6 +4,7 @@ import OwnerHome from "./pages/owner/home";
 import RegisterPet from "./pages/owner/registerPet";
 import MyPets from "./pages/owner/MyPets";
 import ViewPet from "./pages/owner/ViewPet";
+import Vets from "./pages/services/vets";
 
 const routes = [
   { path: "/", element: <Home />, label: "home" },
@@ -13,6 +14,11 @@ const routes = [
   { path: "/ViewPet/:id", element: <ViewPet />, label: "ViewPet" },
   { path: "/petRegister", element: <RegisterPet />, label: "petRegister" },
   { path: "/petRegister/:id", element: <RegisterPet />, label: "petRegister" },
+
+
+  { path: "/vets", element: <Vets />, label: "vets" },
+
+
   // { path: "/contact", element: <Contact />, label: "contact" },
   // { path: "/login", element: <Login />, label: "Login" },
   // { path: "/about", element: <About />, label: "About" },
