@@ -63,10 +63,10 @@ const style = {
 
 export default function PrimarySearchAppBar({isDarkTheme, setIsDarkTheme}) {
   const [open, setOpen] = React.useState(false);
+  const [loginError, setLoginError] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [loggedStatus, setLogged] = useAtom(logged);
-  // setLogged('jj');
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [load, setLoad] = useState(false);
@@ -80,6 +80,7 @@ export default function PrimarySearchAppBar({isDarkTheme, setIsDarkTheme}) {
 
   let submitHandler = async (data) => {
     try {
+      setLoginError(false);
         setLoad(true);
         let res=await login(data);
         setLogged(true);
@@ -87,8 +88,7 @@ export default function PrimarySearchAppBar({isDarkTheme, setIsDarkTheme}) {
         handleClose();
         // toast.success('Registration successfull')
     } catch (error) {
-      console.log(error);
-        toast.error(error?.response?.res || 'Registraion failed')
+        setLoginError(true);
         setLoad(false);
     } finally{
         setLoad(false);
@@ -217,28 +217,12 @@ const logout = (event) => {
     <Box sx={{ flexGrow: 1,mb:10 }}>
       <AppBar position="static" sx={{position:'fixed',zIndex:1000,top:0,backgroundColor:'#121212',}}>
         <Toolbar>
-          {/* <IconButton size="large" edge="start"  color="inherit" aria-label="open drawer"  sx={{ mr: 2 }}  >
-            <MenuIcon />
-          </IconButton> */}
-          {/* <Typography  variant="h6"  noWrap component="div" sx={{ display: { xs: 'none', sm: 'block' } }} > */}
+  
             <img src="/assets/images/logo3.png" style={{height:'50px',color:'#ffff'}}/>
-            {/* PetBaw */}
     
-
-          {/* </Typography> */}
-          {/* <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search> */}
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'block', md: 'flex' } }}>
-          {/* <FormControlLabel  control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}   /> */}
-          {/* isDarkTheme, setIsDarkTheme */}
+
           <Switch {...label} checked={isDarkTheme} onChange={(e)=>setIsDarkTheme(!isDarkTheme)} />
           
           {!loggedStatus?
@@ -251,26 +235,7 @@ const logout = (event) => {
             <HomeIcon sx={{fontSize:'35px',cursor:'pointer'}} onClick={()=>navigate('/')}/>
             </>
             }   
-          {/* <Button   variant="outlined" color="warning" sx={{borderRadius:'50px'}}>Sign Up</Button> */}
-
-            {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton> */}
-            {/* <IconButton size="large"  edge="end"  aria-label="account of current user" aria-controls={menuId} aria-haspopup="true" onClick={handleProfileMenuOpen}
-              color="inherit"  >
-              <AccountCircle />
-            </IconButton> */}
+       
           </Box>
 
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
@@ -315,9 +280,11 @@ const logout = (event) => {
               helperText={errors?.password ? errors.password.message : null}
               placeholder="Please Enter Password.."
               />
+             {loginError ? <Typography sx={{color:'red',mt:1}}>Invalid Email or Password</Typography> : null} 
         </Grid>
-          <Button type="submit"  fullWidth variant="contained"  sx={{ mt: 3, mb: 2 }} > Sign In </Button>
-          <Grid container>
+          <Button type="submit"  fullWidth variant="contained"  sx={{ mt:loginError ? 1 : 3, mb: 2 }} 
+                             disabled={load}>{load ? "processing" : "Sign In"  }  </Button>
+          {/* <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
                 Forgot password?
@@ -328,7 +295,7 @@ const logout = (event) => {
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
-          </Grid>
+          </Grid> */}
         </form>
 
         </Box>
