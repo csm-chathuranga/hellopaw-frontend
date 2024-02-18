@@ -77,6 +77,7 @@ function Home() {
               </Grid>
             </Grid>
           <Grid item xs={12} md={3} display={{ xs: 'none', md: 'block' }}>
+          <FixedBottomNavigation/> 
          {/* {loggedStatus ? <FixedBottomNavigation/> : null}  */}
           </Grid>
           <Grid sx={{mt:2}}>
