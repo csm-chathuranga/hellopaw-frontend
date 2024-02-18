@@ -19,7 +19,12 @@ export function getMyPets(data) {
 // }
 
 export function create (data){
-//    return http.post(apiEndpoint+'/owner/petSave',data);
+  return request({
+    path: '/owner/petSave',
+    method: 'POST',
+    data,
+    dataType: JsonRequestDataType,
+  }).then((response) => response);
 }
 
 export function getMyPetsById (id){

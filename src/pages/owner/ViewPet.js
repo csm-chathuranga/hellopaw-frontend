@@ -94,29 +94,28 @@ export default function MyPets() {
 
   return (
     <Grid container direction={"row"}>
-        <Grid xs={12} md={4} >
-              <Grid xs={12} md={2}  alignItems={"center"} justifyContent={{ xs: 'center', md: 'left' }} display={'flex'} gap={1} sx={{ m: 1 }} >
+        <Grid xs={12} md={12} >
+              <Grid xs={12} md={2}  alignItems={"center"} justifyContent={{ xs: 'center', md: 'left' }} display={'flex'} gap={1} sx={{ m: 1 }} direction={'row'}>
                 <Grid>
-                <Avatar alt="Remy Sharp" src="https://img.freepik.com/free-photo/isolated-happy-smiling-dog-white-background-portrait-4_1562-693.jpg" sx={{width:'100px',height:'100px'}}/>
+                  <Avatar alt="Remy Sharp" src="https://img.freepik.com/free-photo/isolated-happy-smiling-dog-white-background-portrait-4_1562-693.jpg" sx={{width:'100px',height:'100px'}}/>
                 </Grid>
-              </Grid>
-              <Grid xs={12} md={4}  alignItems={"center"} justifyContent={{ xs: 'center', md: 'left' }} display={'flex'} gap={1} sx={{ m: 1 }}>
+             
+              <Grid xs={12} md={4}  alignItems={"center"} justifyContent={{ xs: 'center', md: 'left' }} display={'flex'} gap={1} sx={{ m: 1 }} direction={'column'}>
                 <Grid>
                   <Typography sx={{ fontSize: '10px', fontWeight: 500, lineHeight: '22px',  }}><Chip label={'Passbook - '+selected?.passbookid || 'N/A'} color="success" /></Typography>
                 </Grid>
-              </Grid>
-              <Grid xs={12} md={4}  alignItems={"center"} justifyContent={{ xs: 'center', md: 'left' }} display={'flex'} gap={1} sx={{ m: 1 }} >
                 <Grid>
                   <Typography sx={{ fontSize: '16px', fontWeight: 500, lineHeight: '22px',  }}>{selected?.type || 'N/A'}</Typography>
                 </Grid>
               </Grid>
+         </Grid>
 
               <Grid xs={12} md={4}  alignItems={"center"} justifyContent={{ xs: 'center', md: 'left' }} display={'flex'} gap={1} sx={{ m: 1 }}>
               {/* {profileView()} */}
               </Grid>
 
           </Grid>
-          <Grid xs={12} md={8} sx={{p:2}}>
+          <Grid xs={12} md={12} sx={{p:2}}>
           <Tabs value={value} onChange={handleChange}  sx={{width:'100%',mt:4}}>
               <Tab label={"General "} sx={{textTransform:'none',fontSize:'14px',lineHeight:'20px'}}/>
               <Tab label={"Vaccine History"} sx={{textTransform:'none',fontSize:'14px',lineHeight:'20px'}}/>

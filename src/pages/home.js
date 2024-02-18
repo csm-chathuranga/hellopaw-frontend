@@ -18,7 +18,8 @@ import Paper from '@mui/material/Paper';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import PetsIcon from '@mui/icons-material/Pets';
 import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
-
+import { logged } from "../../src/store";
+import { useAtom } from "jotai";
 
 // // --- Style --- //
 // const useStyles = makeStyles({
@@ -58,13 +59,15 @@ import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
 // });
 
 function Home() {
+  const [loggedStatus, setLogged] = useAtom(logged);
+
   // const classes = useStyles();
     return (
          <Grid container spacing={2}>
              <Grid item xs={12} md={9}>
               <Grid item xs={12}   sx={{mt:2,overflowX: 'scroll'}}>
                 <CustomImageList/>
-                <RecipeReviewCard img="https://d.newsweek.com/en/full/2324781/chocolate-labrador-puppy-laying-grass.webp"/>
+                <RecipeReviewCard img="https://img.freepik.com/free-photo/puppy-that-is-walking-snow_1340-37228.jpg"/>
                 <RecipeReviewCard img="https://i.ytimg.com/vi/ami0N5tZGMU/maxresdefault.jpg"/>
 
                 <RecipeReviewCard img="https://thepet.community/wp-content/uploads/2020/05/doghouse-medium.jpg"/>
@@ -74,7 +77,7 @@ function Home() {
               </Grid>
             </Grid>
           <Grid item xs={12} md={3} display={{ xs: 'none', md: 'block' }}>
-          <FixedBottomNavigation/>
+         {/* {loggedStatus ? <FixedBottomNavigation/> : null}  */}
           </Grid>
           <Grid sx={{mt:2}}>
           </Grid>

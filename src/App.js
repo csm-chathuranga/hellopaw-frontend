@@ -15,12 +15,14 @@ import { useNavigate } from "react-router-dom"
 import  PrimarySearchAppBar  from "./components/Header";
 import { ToastContainer } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
-
+  import { logged } from "../src/store";
+  import { useAtom } from "jotai";
 
 function App() {
   const [isDarkTheme, setIsDarkTheme] = useState(true);
   const [value, setValue] = React.useState(0);
   const navigate = useNavigate()
+  const [loggedStatus, setLogged] = useAtom(logged);
 
   return (<>
       <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
@@ -43,21 +45,21 @@ function App() {
                 ))}
                 </Routes>
            </Grid>  
-
-           <Paper sx={{ position: 'fixed', bottom: -0, left: 0, right: 0 ,display:{ xs: 'block', md: 'none' }}} elevation={3} >
-              <BottomNavigation
-                showLabels
-                value={value}
-                onChange={(event, newValue) => {
-                  setValue(newValue);
-                }}
-              >
-                <BottomNavigationAction label="My pets" icon={<PetsIcon />} onClick={()=>navigate('pet')}/>
-                <BottomNavigationAction label="Appointment" icon={<BookOnlineIcon />} />
-                <BottomNavigationAction label="Service" icon={<DisplaySettingsIcon />} />
-              </BottomNavigation>
-          </Paper>
-
+              {loggedStatus ? 
+                    <Paper sx={{ position: 'fixed', bottom: -0, left: 0, right: 0 ,display:{ xs: 'block', md: 'none' }}} elevation={3} >
+                      <BottomNavigation
+                        showLabels
+                        value={value}
+                        onChange={(event, newValue) => {
+                          setValue(newValue);
+                        }}
+                      >
+                        <BottomNavigationAction label="My pets" icon={<PetsIcon />} onClick={()=>navigate('pet')}/>
+                        <BottomNavigationAction label="Appointment" icon={<BookOnlineIcon />} />
+                        <BottomNavigationAction label="Service" icon={<DisplaySettingsIcon />} />
+                      </BottomNavigation>
+                  </Paper>
+              :null}
            </Grid>  
       </Grid>
         {/* <Home /> */}

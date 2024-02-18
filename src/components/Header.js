@@ -29,8 +29,23 @@ import {  login } from "../services/authService";
 import { logged } from "../../src/store";
 import { useAtom } from "jotai";
 import localStore from 'store2';
-import HomeIcon from '@mui/icons-material/Home';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import { useNavigate } from "react-router-dom"
+import Badge from '@mui/material/Badge';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& .MuiInputBase-input': {
+      borderRadius: 5,
+      padding: '10px 15px',
+      outline:'none',
+      height:'45px',
+    }
+  },
+}));
 
 let schema = yup.object().shape({
   email: yup.string().required("Email is required"),
@@ -45,7 +60,7 @@ const textProps = {
   fullWidth: true,
 };
 
-const dropdownMenu={ width:'200px',fontSize:'14px'}
+const dropdownMenu={ width:'200px',fontSize:'14px',mt:1}
 
 const style = {
   position: 'absolute',
@@ -71,6 +86,7 @@ export default function PrimarySearchAppBar({isDarkTheme, setIsDarkTheme}) {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [load, setLoad] = useState(false);
   const navigate = useNavigate()
+  const classes = useStyles();
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -203,7 +219,7 @@ const logout = (event) => {
         </MenuItem>
         <Divider />
 
-      <MenuItem  sx={dropdownMenu}>
+      <MenuItem  sx={dropdownMenu}  onClick={logout}>
           <ListItemIcon>
           <PersonOutlineOutlinedIcon fontSize="small" sx={{color:'red'}}/>
           </ListItemIcon>
@@ -218,32 +234,34 @@ const logout = (event) => {
       <AppBar position="static" sx={{position:'fixed',zIndex:1000,top:0,backgroundColor:'#0b1416',}}>
         <Toolbar>
   
-            <img src="/assets/images/logo3.png" style={{height:'50px',color:'#ffff'}}/>
+            <img src="/assets/images/logo3.png" style={{height:'50px',color:'#ffff'}} onClick={()=>navigate('/')}/>
     
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'block', md: 'flex' } }}>
 
-          <Switch {...label} checked={isDarkTheme} onChange={(e)=>setIsDarkTheme(!isDarkTheme)} />
+          {/* <Switch {...label} checked={isDarkTheme} onChange={(e)=>setIsDarkTheme(!isDarkTheme)} /> */}
           
           {!loggedStatus?
             <>       
             <Button onClick={handleOpen}  variant="contained" color="warning" sx={{borderRadius:'50px',mr:2}}>Sign In</Button>
             <Register/>
             </> :
-            <>
-            <Button onClick={logout}  variant="contained" color="warning" sx={{borderRadius:'50px',mr:2}}>Logout</Button>
-            <HomeIcon sx={{fontSize:'35px',cursor:'pointer'}} onClick={()=>navigate('/')}/>
-            </>
+            <Grid display={'flex'} direction={'row'} justifyContent={'center'} alignItems={'center'} gap={2}>
+            <Badge badgeContent={4} color="primary" sx={{fontSize:'18px'}}>
+              <NotificationsActiveIcon color="action"  sx={{width:'25px',height:'25px'}}/>
+            </Badge>
+            <IconButton  size="large"  aria-label="show more" aria-controls={mobileMenuId} aria-haspopup="true"
+              onClick={handleMobileMenuOpen} color="inherit"  >
+              <AccountCircleOutlinedIcon  sx={{width:'25px',height:'25px'}}/>
+            </IconButton>
+            {/* <Button onClick={logout}  variant="contained" color="warning" sx={{borderRadius:'50px',mr:2}}>Logout</Button> */}
+            {/* <HomeOutlinedIcon sx={{fontSize:'35px',cursor:'pointer'}} onClick={()=>navigate('/')}/> */}
+            </Grid>
             }   
        
           </Box>
 
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton  size="large"  aria-label="show more" aria-controls={mobileMenuId} aria-haspopup="true"
-              onClick={handleMobileMenuOpen} color="inherit"  >
-              <MoreIcon />
-            </IconButton>
-          </Box>
+
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
@@ -263,6 +281,7 @@ const logout = (event) => {
         <Grid item xs={12} md={12} sx={{mt:2}} >
           <label>Email <span style={{color:'red'}}>*</span></label>
           <TextField
+              className={classes.root}
               {...register("email")}
               {...textProps}
               error={errors?.email ? true : false}
@@ -273,6 +292,7 @@ const logout = (event) => {
         <Grid item xs={12} md={12}  sx={{mt:2}}>
           <label>Password <span style={{color:'red'}}>*</span></label>
           <TextField
+              className={classes.root}
               {...register("password")}
               type='password'
               {...textProps}

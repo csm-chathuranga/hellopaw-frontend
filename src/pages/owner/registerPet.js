@@ -16,6 +16,18 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import { useNavigate } from "react-router-dom"
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& .MuiInputBase-input': {
+      borderRadius: 5,
+      padding: '10px 15px',
+      outline:'none',
+      height:'50px',
+    }
+  },
+}));
 
 let schema = yup.object().shape({
     type: yup.string().required("Type is required"),
@@ -29,6 +41,7 @@ export default function RegisterPet() {
     const [load, setLoad] = useState(false);
     const [gender, setGender] = React.useState('male');
     const navigate = useNavigate()
+    const classes = useStyles();
 
     const handleChange = (event) => {
       setGender(event.target.value);
@@ -39,6 +52,8 @@ export default function RegisterPet() {
         id: "outlined-basic",
         variant: "outlined",
         fullWidth: true,
+        
+
       };
       
     let submitHandler = async (data) => {
@@ -63,6 +78,7 @@ export default function RegisterPet() {
                     <Grid item xs={12} md={6} sx={{ p: 1 }} >
                         <label>Type <span style={{color:'red'}}>*</span></label>
                         <TextField
+                        className={classes.root}
                         {...register("type")}
                         {...textProps}
                         error={errors?.type ? true : false}
@@ -74,6 +90,7 @@ export default function RegisterPet() {
                     <Grid item xs={12} md={6} sx={{ p: 1 }} >
                         <label>Breed <span style={{color:'red'}}>*</span></label>
                         <TextField
+                        className={classes.root}
                         {...register("breed")}
                         {...textProps}
                         error={errors?.breed ? true : false}
@@ -85,6 +102,7 @@ export default function RegisterPet() {
                     <Grid item xs={12} md={6} sx={{ p: 1 }} >
                         <label>Birthdate <span style={{color:'red'}}>*</span></label>
                         <TextField
+                        className={classes.root}
                         {...register("birth_date")}
                         {...textProps}
                         error={errors?.birth_date ? true : false}
@@ -106,6 +124,7 @@ export default function RegisterPet() {
                     <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <label>color <span style={{color:'red'}}>*</span></label>
                         <TextField
+                        className={classes.root}
                         {...register("color")}
                         {...textProps}
                         error={errors?.color ? true : false}
