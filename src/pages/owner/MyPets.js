@@ -121,7 +121,7 @@ export default function MyPets() {
         <>
         <ListItem alignItems="flex-start" sx={{borderRadius:'5px',border:'1px solid #8080801c',mt:0.5}}>
           <ListItemAvatar>
-            <Avatar alt="Remy Sharp" src="https://img.freepik.com/free-photo/isolated-happy-smiling-dog-white-background-portrait-4_1562-693.jpg" />
+            <Avatar alt="Remy Sharp" src={'http://pv1.happybaw.com/api/images/'+item?.image || 'default.png'} />
           </ListItemAvatar>
           <ListItemText
             primary={item?.breed || 'N/A'}

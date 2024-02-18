@@ -199,7 +199,7 @@ const logout = (event) => {
         <MenuItem  sx={{...dropdownMenu}}>
           <Grid display={"flex"} direction={"column"}>
           <Typography sx={{fontSize:'14px',fontWeight:600}}>dcsm</Typography>
-          <Typography sx={{fontSize:'10px'}}>dev.chathu@gmail.com</Typography>
+          <Typography sx={{fontSize:'10px',mt:0.5}}>dev.chathu@gmail.com</Typography>
           </Grid>
         </MenuItem>
 
@@ -246,7 +246,9 @@ const logout = (event) => {
             <Button onClick={handleOpen}  variant="contained" color="warning" sx={{borderRadius:'50px',mr:2}}>Sign In</Button>
             <Register/>
             </> :
+
             <Grid display={'flex'} direction={'row'} justifyContent={'center'} alignItems={'center'} gap={2}>
+              <Button  variant="outlined" color="success" sx={{borderRadius:'30px',mr:2,fontSize:'11px'}}>create New post</Button>
             <Badge badgeContent={4} color="primary" sx={{fontSize:'18px'}}>
               <NotificationsActiveIcon color="action"  sx={{width:'25px',height:'25px'}}/>
             </Badge>

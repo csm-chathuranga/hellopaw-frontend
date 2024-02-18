@@ -11,6 +11,18 @@ import { create } from "../../services/doctor";
 import { useTheme } from "@mui/material/styles";
 import { toast } from 'react-toastify';
 import { MuiFileInput } from 'mui-file-input'
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& .MuiInputBase-input': {
+      borderRadius: 5,
+      padding: '10px 15px',
+      outline:'none',
+      height:'45px',
+    }
+  },
+}));
 
 let schema = yup.object().shape({
     name: yup.string().required("Full Name is required"),
@@ -30,6 +42,7 @@ export default function Doctor({modal, setModal,editId,setEditId,refreshTable}) 
     const [load, setLoad] = useState(false);
     const {  register, handleSubmit,  formState: { errors },  setValue,getValues  } = useForm({ resolver: yupResolver( schema), });
     const [value, setValueImg] = React.useState(null)
+    const classes = useStyles();
 
     const handleChange = (newValue) => {
         setValueImg(newValue)
@@ -61,19 +74,19 @@ export default function Doctor({modal, setModal,editId,setEditId,refreshTable}) 
 
   return (
     <div>
-
-
             <form onSubmit={handleSubmit(submitHandler)} id="hook-form">
             <Grid container direction="row">
 
             <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <label>Profile Image <span style={{color:'red'}}>*</span></label>
-                        <MuiFileInput value={value} onChange={handleChange}  {...textProps}/>
+                        <MuiFileInput size="small" value={value} onChange={handleChange}  {...textProps} 
+                                        placeholder={'Please select the image file'} />
                     </Grid>
 
                 <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <label>Name <span style={{color:'red'}}>*</span></label>
                         <TextField
+                        className={classes.root}
                         {...register("name")}
                         {...textProps}
                         error={errors?.name ? true : false}
@@ -85,6 +98,7 @@ export default function Doctor({modal, setModal,editId,setEditId,refreshTable}) 
                     <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <label>Email <span style={{color:'red'}}>*</span></label>
                         <TextField
+                        className={classes.root}
                         {...register("email")}
                         {...textProps}
                         error={errors?.email ? true : false}
@@ -95,6 +109,7 @@ export default function Doctor({modal, setModal,editId,setEditId,refreshTable}) 
                     <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <label>password <span style={{color:'red'}}>*</span></label>
                         <TextField
+                        className={classes.root}
                         type="password"
                         {...register("password")}
                         {...textProps}
@@ -106,6 +121,7 @@ export default function Doctor({modal, setModal,editId,setEditId,refreshTable}) 
                     <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <label>Clinic Name <span style={{color:'red'}}>*</span></label>
                         <TextField
+                        className={classes.root}
                         {...register("clinic_name")}
                         {...textProps}
                         error={errors?.clinic_name ? true : false}
@@ -116,6 +132,7 @@ export default function Doctor({modal, setModal,editId,setEditId,refreshTable}) 
                     <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <label>Clinic Location <span style={{color:'red'}}>*</span></label>
                         <TextField
+                        className={classes.root}
                         {...register("clinic_location")}
                         {...textProps}
                         error={errors?.clinic_location ? true : false}

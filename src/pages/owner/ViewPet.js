@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Chip from '@mui/material/Chip';
 import { Avatar, Box, Grid, Tab, Tabs, Typography, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Link,useParams } from 'react-router-dom'
+import { Link,json,useParams } from 'react-router-dom'
 import { getMyPetsById } from "../../services/petService";
 
 const TabPanel = (props) => {
@@ -97,7 +97,8 @@ export default function MyPets() {
         <Grid xs={12} md={12} >
               <Grid xs={12} md={2}  alignItems={"center"} justifyContent={{ xs: 'center', md: 'left' }} display={'flex'} gap={1} sx={{ m: 1 }} direction={'row'}>
                 <Grid>
-                  <Avatar alt="Remy Sharp" src="https://img.freepik.com/free-photo/isolated-happy-smiling-dog-white-background-portrait-4_1562-693.jpg" sx={{width:'100px',height:'100px'}}/>
+                  {/* {JSON.stringify(selected)} */}
+                  <Avatar alt="Remy Sharp" src={'http://pv1.happybaw.com/api/images/'+selected?.image || 'default.png'} sx={{width:'100px',height:'100px'}}/>
                 </Grid>
              
               <Grid xs={12} md={4}  alignItems={"center"} justifyContent={{ xs: 'center', md: 'left' }} display={'flex'} gap={1} sx={{ m: 1 }} direction={'column'}>

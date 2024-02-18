@@ -10,6 +10,18 @@ import { useEffect, useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import { toast } from 'react-toastify';
 import { create } from "../../services/PetOwner";
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& .MuiInputBase-input': {
+      borderRadius: 5,
+      padding: '10px 15px',
+      outline:'none',
+      height:'45px',
+    }
+  },
+}));
 
 
 let schema = yup.object().shape({
@@ -33,6 +45,7 @@ let schema = yup.object().shape({
 
 export default function Ownner() {
     const [load, setLoad] = useState(false);
+    const classes = useStyles();
 
     const {  register, handleSubmit,  formState: { errors },  setValue,getValues  } = useForm({ resolver: yupResolver( schema), });
     const textProps = {
@@ -61,6 +74,7 @@ export default function Ownner() {
                     <Grid item xs={12} md={6} sx={{ p: 1 }} >
                         <label>Name <span style={{color:'red'}}>*</span></label>
                         <TextField
+                        className={classes.root}
                         {...register("name")}
                         {...textProps}
                         error={errors?.name ? true : false}
@@ -72,6 +86,7 @@ export default function Ownner() {
                     <Grid item xs={12} md={6} sx={{ p: 1 }} >
                         <label>NIC <span style={{color:'red'}}>*</span></label>
                         <TextField
+                        className={classes.root}
                         {...register("nic")}
                         {...textProps}
                         error={errors?.nic ? true : false}
@@ -83,6 +98,7 @@ export default function Ownner() {
                     <Grid item xs={12} md={6} sx={{ p: 1 }} >
                         <label>Gender <span style={{color:'red'}}>*</span></label>
                         <TextField
+                        className={classes.root}
                         {...register("gender")}
                         {...textProps}
                         error={errors?.gender ? true : false}
@@ -94,6 +110,7 @@ export default function Ownner() {
                     <Grid item xs={12} md={6} sx={{ p: 1 }} >
                         <label>Phone <span style={{color:'red'}}>*</span></label>
                         <TextField
+                        className={classes.root}
                         {...register("phone_number")}
                         {...textProps}
                         error={errors?.phone_number ? true : false}
@@ -105,6 +122,7 @@ export default function Ownner() {
                     <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <label>Email <span style={{color:'red'}}>*</span></label>
                         <TextField
+                        className={classes.root}
                         {...register("email")}
                         {...textProps}
                         error={errors?.email ? true : false}
@@ -115,6 +133,7 @@ export default function Ownner() {
                     <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <label>password <span style={{color:'red'}}>*</span></label>
                         <TextField
+                        className={classes.root}
                         {...register("password")}
                         {...textProps}
                         error={errors?.password ? true : false}
@@ -125,6 +144,7 @@ export default function Ownner() {
                     <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <label>Street <span style={{color:'red'}}>*</span></label>
                         <TextField
+                        className={classes.root}
                         {...register("street")}
                         {...textProps}
                         error={errors?.street ? true : false}
@@ -135,6 +155,7 @@ export default function Ownner() {
                     <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <label>City <span style={{color:'red'}}>*</span></label>
                         <TextField
+                        className={classes.root}
                         {...register("city")}
                         {...textProps}
                         error={errors?.city ? true : false}
@@ -145,6 +166,7 @@ export default function Ownner() {
                     <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <label>State <span style={{color:'red'}}>*</span></label>
                         <TextField
+                        className={classes.root}
                         {...register("state")}
                         {...textProps}
                         error={errors?.state ? true : false}
@@ -155,6 +177,7 @@ export default function Ownner() {
                     <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <label>Postal Code <span style={{color:'red'}}>*</span></label>
                         <TextField
+                        className={classes.root}
                         {...register("postal_code")}
                         {...textProps}
                         error={errors?.postal_code ? true : false}
