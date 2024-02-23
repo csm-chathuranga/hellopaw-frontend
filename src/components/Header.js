@@ -35,6 +35,7 @@ import Badge from '@mui/material/Badge';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import { makeStyles } from '@mui/styles';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -249,12 +250,17 @@ const logout = (event) => {
 
             <Grid display={'flex'} direction={'row'} justifyContent={'center'} alignItems={'center'} gap={2}>
               <Button  variant="outlined" color="success" sx={{borderRadius:'30px',mr:2,fontSize:'11px'}}>create New post</Button>
+              <Badge badgeContent={4} color="primary" sx={{fontSize:'18px'}}>
+                <ShoppingCartIcon sx={{fontSize:'22px'}}/>
+              </Badge>
+
+            
             <Badge badgeContent={4} color="primary" sx={{fontSize:'18px'}}>
-              <NotificationsActiveIcon color="action"  sx={{width:'25px',height:'25px'}}/>
+              <NotificationsActiveIcon color="action"  sx={{fontSize:'22px',color:'grey'}}/>
             </Badge>
             <IconButton  size="large"  aria-label="show more" aria-controls={mobileMenuId} aria-haspopup="true"
               onClick={handleMobileMenuOpen} color="inherit"  >
-              <AccountCircleOutlinedIcon  sx={{width:'25px',height:'25px'}}/>
+              <AccountCircleOutlinedIcon  sx={{fontSize:'24px'}}/>
             </IconButton>
             {/* <Button onClick={logout}  variant="contained" color="warning" sx={{borderRadius:'50px',mr:2}}>Logout</Button> */}
             {/* <HomeOutlinedIcon sx={{fontSize:'35px',cursor:'pointer'}} onClick={()=>navigate('/')}/> */}

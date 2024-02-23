@@ -4,6 +4,7 @@ import routes from "./routes";
 import { ThemeProvider, CssBaseline, Grid,Divider } from '@mui/material';
 import { darkTheme, lightTheme } from './theme';
 import Sidebar from "./components/sidebar"
+import ScrollTop from "./components/ScrollTop"
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import Paper from '@mui/material/Paper';
@@ -11,12 +12,13 @@ import PetsIcon from '@mui/icons-material/Pets';
 import BookOnlineIcon from '@mui/icons-material/BookOnline';
 import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
 import { useNavigate } from "react-router-dom"
-
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import  PrimarySearchAppBar  from "./components/Header";
 import { ToastContainer } from 'react-toastify';
-  import 'react-toastify/dist/ReactToastify.css';
-  import { logged } from "../src/store";
-  import { useAtom } from "jotai";
+import HomeIcon from '@mui/icons-material/Home';
+import 'react-toastify/dist/ReactToastify.css';
+import { logged } from "../src/store";
+import { useAtom } from "jotai";
 
 function App() {
   const [isDarkTheme, setIsDarkTheme] = useState(true);
@@ -46,17 +48,17 @@ function App() {
                 </Routes>
            </Grid>  
               {loggedStatus ? 
-                    <Paper sx={{ position: 'fixed', bottom: -0, left: 0, right: 0 ,display:{ xs: 'block', md: 'none' }}} elevation={3} >
-                      <BottomNavigation
-                        showLabels
-                        value={value}
+                    <Paper sx={{ position: 'fixed', bottom: -0, left: 0, right: 0 ,display:{ xs: 'block', md: 'none',height:'80px' }}} elevation={3} >
+                      <BottomNavigation showLabels value={value} sx={{mt:'20px'}}
                         onChange={(event, newValue) => {
                           setValue(newValue);
                         }}
                       >
+                        <BottomNavigationAction label="Home" icon={<HomeIcon />} onClick={()=>navigate('/')} />
                         <BottomNavigationAction label="My pets" icon={<PetsIcon />} onClick={()=>navigate('pet')}/>
-                        <BottomNavigationAction label="Appointment" icon={<BookOnlineIcon />} />
+                        <BottomNavigationAction label="Appointment" icon={<BookOnlineIcon />} onClick={()=>navigate('appointment')}/>
                         <BottomNavigationAction label="Service" icon={<DisplaySettingsIcon />} />
+                        <BottomNavigationAction  icon={<MoreVertIcon sx={{mt:'-20px'}}/>} />
                       </BottomNavigation>
                   </Paper>
               :null}
@@ -73,6 +75,7 @@ function App() {
 					pauseOnFocusLoss
 					draggable
 					pauseOnHover />
+      <ScrollTop/>
     </div>
     {/* </CssVarsProvider> */}
     </ThemeProvider>

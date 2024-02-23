@@ -20,8 +20,8 @@ export default function FixedBottomNavigation() {
   return (
     <Box sx={{ pb: 7,position:'fixed' }} ref={ref}>
       <CssBaseline />
-       <Card sx={{ mt:2 }}>
-        <Typography sx={{fontSize:'18px',color:'#ffff',p:2}}>Our New Members</Typography>
+       <Card sx={{ mt:2,borderRadius:'10px' }}>
+        <Typography sx={{fontSize:'18px',color:'#ffff',p:2}}>What's new</Typography>
         <List sx={{opacity:0.8}}>
           {messages.map(({ primary, secondary, person }, index) => (
             <ListItem button key={index + person}>
@@ -30,6 +30,7 @@ export default function FixedBottomNavigation() {
               </ListItemAvatar>
               <ListItemText primary={primary} secondary={secondary} sx={{fontSize:'10px'}}/>
             </ListItem>
+            
           ))}
         </List>
 
@@ -43,7 +44,7 @@ export default function FixedBottomNavigation() {
 const messageExamples = [
   {
     primary: 'Brunch this week?',
-    secondary: "I'll be in the",
+    secondary: "I'll be in the Do you have a suggestion.I'll be in the Do you have a suggestion",
     person: 'https://thepet.community/wp-content/uploads/2020/05/yanchep_vet.png',
   },
   {

@@ -3,7 +3,7 @@ import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import IconButton from '@mui/material/IconButton';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 
 function srcset(image, width, height, rows = 1, cols = 1) {
   return {
@@ -17,22 +17,17 @@ function srcset(image, width, height, rows = 1, cols = 1) {
 export default function CustomImageList() {
   return (
     <Grid display={"flex"} gap={1}>
-
       {itemData.map((item) => {
-        const cols = item.featured ? 2 : 1;
-        const rows = item.featured ? 2 : 1;
 
         return (
-          <ImageListItem key={item.img} cols={cols} rows={rows} sx={{height:'300px',borderRadius:'10px'}}>
-            <img {...srcset(item.img, 200, 300, rows, cols)} alt={item.title} loading="lazy" />
-            <ImageListItemBar  sx={{  background:
-                  'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
-                  'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-              }} title={item.title} position="top"  actionIcon={
+          <ImageListItem key={item.img} cols={2} rows={1} sx={{height:'300px',borderRadius:'100px'}}>
+            <img {...srcset(item.img, 200, 300, 1, 2)} alt={item.title} loading="lazy" />
+            <ImageListItemBar  title={ <Typography>Full description here</Typography>} position="bottom"  actionIcon={
                 <IconButton  sx={{ color: 'white' }} aria-label={`star ${item.title}`} >
                   <StarBorderIcon />
                 </IconButton>
               }  actionPosition="left" />
+             
           </ImageListItem>
         );
       })}
@@ -47,24 +42,19 @@ export default function CustomImageList() {
         
 const itemData = [
   {
-    img: 'https://s3-media0.fl.yelpcdn.com/bphoto/dmKl6aARvIcs5x29Rm-nhQ/348s.jpg',
-    title: 'csm',
+    img: 'https://hgtvhome.sndimg.com/content/dam/images/hgtv/fullset/2022/6/16/1/shutterstock_1862856634.jpg.rend.hgtvcom.791.527.suffix/1655430860853.jpeg',
+    title: 'Sumesha',
     author: '@tjdragotta',
   },
   {
-    img: 'https://static.wixstatic.com/media/11062b_f35014e9aefc42cb985ae388beacaad6~mv2_d_1920_1920_s_2.jpg/v1/fill/w_480,h_480,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/Cute%20Dog.jpg',
-    title: 'Fern',
+    img: 'https://th-thumbnailer.cdn-si-edu.com/SdKYWifCKfE2g8O-po_SO99hQ-Y=/1000x750/filters:no_upscale():focal(3126x2084:3127x2085)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer_public/ec/e6/ece69181-708a-496e-b2b7-eaf7078b99e0/gettyimages-1310156391.jpg',
+    title: 'Gayan',
     author: '@katie_wasserman',
   },
   {
-    img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtITK4Po65n4w3xPf5sN9xLtTBCNNwWlc80w&usqp=CAU',
-    title: 'deshan',
+    img: 'https://images.unsplash.com/photo-1615751072497-5f5169febe17?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y3V0ZSUyMGRvZ3xlbnwwfHwwfHx8MA%3D%3D',
+    title: 'Ruwanthika',
     author: '@silverdalex',
-  },
-  {
-    img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKwcF7BpsjeIy6oQGZcMJSsu7Fd-RR6JtQUg&usqp=CAU',
-    title: 'Retdd',
-    author: '@shelleypauls',
   },
 //   {
 //     img: 'https://thepet.community/wp-content/uploads/2020/05/homestead_boarding.png',

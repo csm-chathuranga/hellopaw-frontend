@@ -5,6 +5,7 @@ import { Avatar, Box, Grid, Tab, Tabs, Typography, Accordion, AccordionSummary, 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Link,json,useParams } from 'react-router-dom'
 import { getMyPetsById } from "../../services/petService";
+import Button from '@mui/material/Button';
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -95,7 +96,8 @@ export default function MyPets() {
   return (
     <Grid container direction={"row"}>
         <Grid xs={12} md={12} >
-              <Grid xs={12} md={2}  alignItems={"center"} justifyContent={{ xs: 'center', md: 'left' }} display={'flex'} gap={1} sx={{ m: 1 }} direction={'row'}>
+              <Grid xs={12} md={12}  alignItems={"center"} justifyContent={{ xs: 'center', md: 'left' }} display={'flex'} gap={1} 
+                        sx={{ m: 1,backgroundColor:'grey',p:2 }} direction={'row'}>
                 <Grid>
                   {/* {JSON.stringify(selected)} */}
                   <Avatar alt="Remy Sharp" src={'http://pv1.happybaw.com/api/images/'+selected?.image || 'default.png'} sx={{width:'100px',height:'100px'}}/>
@@ -103,10 +105,15 @@ export default function MyPets() {
              
               <Grid xs={12} md={4}  alignItems={"center"} justifyContent={{ xs: 'center', md: 'left' }} display={'flex'} gap={1} sx={{ m: 1 }} direction={'column'}>
                 <Grid>
-                  <Typography sx={{ fontSize: '10px', fontWeight: 500, lineHeight: '22px',  }}><Chip label={'Passbook - '+selected?.passbookid || 'N/A'} color="success" /></Typography>
+                  <Typography sx={{ fontSize: '10px', fontWeight: 500, lineHeight: '22px',  }}><Chip label={'Passbook - '+selected?.passbookid || 'N/A'} color="info" /></Typography>
                 </Grid>
                 <Grid>
                   <Typography sx={{ fontSize: '16px', fontWeight: 500, lineHeight: '22px',  }}>{selected?.type || 'N/A'}</Typography>
+                </Grid>
+                <Grid>
+                <Button variant="contained" color="success">
+                 + Make an Appointment
+                </Button>
                 </Grid>
               </Grid>
          </Grid>
@@ -120,7 +127,7 @@ export default function MyPets() {
           <Tabs value={value} onChange={handleChange}  sx={{width:'100%',mt:4}}>
               <Tab label={"General "} sx={{textTransform:'none',fontSize:'14px',lineHeight:'20px'}}/>
               <Tab label={"Vaccine History"} sx={{textTransform:'none',fontSize:'14px',lineHeight:'20px'}}/>
-              <Tab label={"Appointments "} sx={{textTransform:'none',fontSize:'14px',lineHeight:'20px'}}/>
+              <Tab label={"Appointments History"} sx={{textTransform:'none',fontSize:'14px',lineHeight:'20px'}}/>
           </Tabs>
           <TabPanel value={value} index={0}>
             {profileView()}
@@ -130,12 +137,12 @@ export default function MyPets() {
               {
               selected.has_history && selected?.has_history.map((item)=>{
                 return (
-                  <Accordion sx={{mt:2,boxShadow:'none'}}>
+                  <Accordion sx={{mt:2,boxShadow:'none',border:'1px solid #80808000'}}>
                       <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
                             aria-controls="panel1a-content"
-                            id="panel1a-header" sx={{border:'1px solid',borderRadius:'5px'}}>
-                            <Typography sx={{fontWeight:600}}>{item?.type || 'N/A'}</Typography>
+                            id="panel1a-header" sx={{border:'1px solid #80808000',borderRadius:'5px'}}>
+                            <Typography sx={{fontWeight:600}}>{item?.remark || 'N/A'}</Typography>
                             
                           </AccordionSummary>
                           <AccordionDetails sx={{border:'none'}}>

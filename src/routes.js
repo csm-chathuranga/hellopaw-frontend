@@ -5,6 +5,8 @@ import RegisterPet from "./pages/owner/registerPet";
 import MyPets from "./pages/owner/MyPets";
 import ViewPet from "./pages/owner/ViewPet";
 import Vets from "./pages/services/vets";
+import Appointment from "./pages/appointment/Appointment";
+import MakeAppointment from "./pages/appointment/MakeAppointment";
 
 const routes = [
   { path: "/", element: <Home />, label: "home" },
@@ -14,7 +16,9 @@ const routes = [
   { path: "/ViewPet/:id", element: <ViewPet />, label: "ViewPet" },
   { path: "/petRegister", element: <RegisterPet />, label: "petRegister" },
   { path: "/petRegister/:id", element: <RegisterPet />, label: "petRegister" },
-
+  
+  { path: "/appointment", element: <Appointment />, label: "appointment" },
+  { path: "/appointment/:id", element: <MakeAppointment />, label: "MakeAppointment" },
 
   { path: "/vets", element: <Vets />, label: "vets" },
 
