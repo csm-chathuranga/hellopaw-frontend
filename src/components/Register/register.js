@@ -60,13 +60,14 @@ const Register = () => {
           Sign Up
         </Typography>
         <Grid container display={"flex"} justifyContent={"right"} alignItems={"right"}>
-          <ToggleButtonGroup color="primary" value={alignment} exclusive
+          {/* <ToggleButtonGroup color="primary" value={alignment} exclusive
                   onChange={handleChange} aria-label="Platform" sx={{mt:2,mb:1,width:'100%'}}>
                   <ToggleButton value="doctor" sx={{width:'50%',height:'40px'}} ><LocalHospitalIcon sx={{mr:2}}/>Doctor</ToggleButton>
                   <ToggleButton value="owner" sx={{width:'50%',height:'40px'}}><PetsIcon sx={{mr:2}}/>Pet Owner</ToggleButton>
-          </ToggleButtonGroup>
+          </ToggleButtonGroup> */}
         </Grid>
-        {alignment =='owner' ? <PetOwner/>: <Doctor/>}
+        <PetOwner/>
+        {/* {alignment =='owner' ? <PetOwner/>: <Doctor/>} */}
         </Box>
       </Modal>
 

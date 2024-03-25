@@ -36,6 +36,7 @@ import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import { makeStyles } from '@mui/styles';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import AddTimeSlot from "./appointment/AddTimeSlot";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -328,7 +329,7 @@ const logout = (event) => {
 
         </Box>
       </Modal>
-
+      <AddTimeSlot/>
     </Box>
   );
 }

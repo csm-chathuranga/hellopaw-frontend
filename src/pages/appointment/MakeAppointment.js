@@ -22,7 +22,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs, { Dayjs } from "dayjs";
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import { getMyPets } from "../../services/petService";
+import { getMyPets, createMeeting } from "../../services/petService";
 import Rating from '@mui/material/Rating';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -33,6 +33,7 @@ import AddIcon from '@mui/icons-material/Add';
 import QueryBuilderIcon from '@mui/icons-material/QueryBuilder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import AccordionWithButton from "../../components/appointment/AccordionWithButton";
+import ViewDoctorTimeSlots from "../../components/appointment/ViewDoctorTimeSlots";
 // import TimeSlotCalculator from "../../components/appointment/TimeSlotCalculate";
 // import NextThree from "../../components/appointment/NextThree";
 import Alert from '@mui/material/Alert';
@@ -76,8 +77,8 @@ export default function MakeAppointment() {
     const [selectedImage, setSelectedImage] = useState(null);
     const [rows, setRows] = useState([]);
     const [booking, setBooking] = useState(false);
-
-
+    const [selectedTmeSlot, setSelectTimeSlot] = useState(null);
+  
     const handleChange = (event) => {
       setGender(event.target.value);
     };
@@ -131,6 +132,8 @@ export default function MakeAppointment() {
 
     const getPets = async () => {
       let res = await getMyPets();
+      let test = await createMeeting();
+      console.log(test);
       setRows(res.body);
     }
     useEffect(() => {
@@ -140,12 +143,11 @@ export default function MakeAppointment() {
   return (
     <div className="main-wrapper">
       {booking ? 
-         <Grid container direction="row" sx={{p:2}}>
+         <Grid direction="row" sx={{p:2}}>
           <Typography sx={{m:1,fontSize:'18px'}}>Make An Appoitment</Typography>
+          {/* {JSON.stringify(selectedTmeSlot)} */}
           <form onSubmit={handleSubmit(submitHandler)} id="hook-form">
-            <Grid container direction="row">
- 
-      
+            <Grid container direction="row" fullWidth>
                     <Grid item xs={12} md={6} sx={{ p: 1 }} >
                         <label>My Pet <span style={{color:'red'}}>*</span></label>
                         <FormControl fullWidth>
@@ -162,28 +164,21 @@ export default function MakeAppointment() {
 
                     
                     <Grid item xs={12} md={6} sx={{ p: 1 }} >
-                        <label>Choose An date <span style={{color:'red'}}>*</span></label>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                          <DatePicker
-                            className={classes.datePicker}
-                            onChange={(newValue) => {
-                              handleDob(newValue);
-                            }}
-                            value={dob}
-                            sx={{ width: "100%" }}
-                            slotProps={{
-                              textField: {
-                                helperText: dobErr ? "Date of birth is required" : null,
-                                error: dobErr ? true : false,
-                              },
-                            }}
-                          />
-                        </LocalizationProvider>
+                        <label>Choosed Time<span style={{color:'red'}}>*</span></label>
+                        <TextField
+                        value={selectedTmeSlot?.time_slot}
+                        className={classes.root}
+                        {...textProps}
+                        disabled
+                        placeholder="Please enter color"  />
                     </Grid>
-
+              </Grid>
+              <Grid container direction="row">
                     <Grid item xs={12} md={6} sx={{ p: 1 }} >
                     <label>Note <span style={{color:'red'}}>*</span></label>
                         <TextField
+                        multiline
+                        rows={3}
                         className={classes.root}
                         {...register("color")}
                         {...textProps}
@@ -192,21 +187,28 @@ export default function MakeAppointment() {
                         placeholder="Special Note"  />
                     </Grid>
 
-                    <Grid item xs={12} md={6} sx={{ p: 1 }}>
-                        <label>color <span style={{color:'red'}}>*</span></label>
-                        <TextField
-                        className={classes.root}
-                        {...register("color")}
-                        {...textProps}
-                        error={errors?.color ? true : false}
-                        helperText={errors?.color ? errors.color.message : null}
-                        placeholder="Please enter color"  />
+                    <Grid item xs={12} md={6} sx={{ p: 1 }} >
+                      <label>Summary</label>
+                      <Grid container direction="row">
+                          <Grid item md={3} sx={{ pt: 1 }} >Price</Grid>
+                          <Grid item md={9} sx={{ pt: 1 }} >: 300LKR</Grid>
+                      </Grid>
+                      <Grid container direction="row">
+                          <Grid item md={3} sx={{ pt: 1 }} >Date</Grid>
+                          <Grid item md={9} sx={{ pt: 1 }} >: 2024-03-25</Grid>
+                      </Grid>
+                    </Grid>
+
+                    <Grid item md={12} display="flex" container direction="row">
+                      <Typography sx={{pt:2,pb:2,color:'pink'}}>
+                          * Once you complete the payment you will get a zoom link and you will be able to manage online session with the doctor
+                      </Typography>
                     </Grid>
 
                     <Grid item md={12} display="flex" container direction="row"
                         alignItems="right"
                         justifyContent="right" gap={2} sx={{p:2}}>
-                   <Button onClick={()=> navigate(`/appointment`)}
+                   <Button onClick={()=> navigate(-1)}
                         variant="outlined"
                         color="primary" sx={{padding:'10px 40px'}}>
                            Cancel
@@ -216,73 +218,14 @@ export default function MakeAppointment() {
                         type="submit"
                         variant="contained"
                         color="primary" sx={{padding:'10px 40px'}}>
-                            {load ? ('Wait') : ('Continue')}
+                            {load ? ('Wait') : ('Continue to pay')}
                         </Button>
                     </Grid>
             </Grid>
         </form>
         </Grid>
         : 
-        <Grid display={{ xs: 'block', md: 'flex' }} direction={'row'} >
-            <Grid xs={12} md={4}  alignItems={"center"} justifyContent={{ xs: 'center', md: 'center' }} 
-                    display={'flex'} gap={1} sx={{ m: 1 ,mt:5,border:'1px solid #8080801c',borderRadius:'10px',p:3}} direction={'row'}>
-
-                    <Grid  alignItems={"center"} justifyContent={{ xs: 'center', md: 'center' }} display={'flex'} direction={'column'} gap={1}>
-                      <Grid>
-                        <Avatar alt="Remy Sharp"  sx={{width:'100px',height:'100px',borderRadius:'5px'}} src="https://www.petvet.lk/wp-content/uploads/2019/05/Nalinika.jpg"/>
-                      </Grid>
-                      <Grid display={'flex'} alignItems={'center'} >
-                        <Rating name="read-only" value={2} readOnly />
-                      </Grid>
-                      <Grid>
-                          <Typography sx={{ fontSize: '16px', fontWeight: 500, lineHeight: '22px',  }}>{'Name rachel samueal'}</Typography>
-                      </Grid>
-
-                      <Grid display={'flex'} alignItems={'left'} justifyContent={'left'} sx={{width:'100%',mt:2}}>
-                        <Grid xs={6}>
-                          <Typography sx={{ fontSize: '16px', fontWeight: 500, lineHeight: '22px',fontWeight:800  }}>{'Clinic'}:</Typography>
-                        </Grid>
-                        <Grid xs={6}>
-                          <Typography sx={{ fontSize: '16px', fontWeight: 500, lineHeight: '22px'  }}>{'Anuradhapura'}</Typography>
-                        </Grid>
-                      </Grid>
-
-
-                      <Grid display={'flex'} alignItems={'left'} justifyContent={'left'} sx={{width:'100%',mt:2}}>
-                        <Grid xs={6}>
-                          <Typography sx={{ fontSize: '16px', fontWeight: 500, lineHeight: '22px',fontWeight:800  }}>{'Location'}:</Typography>
-                        </Grid>
-                        <Grid xs={6}>
-                          <Typography sx={{ fontSize: '16px', fontWeight: 500, lineHeight: '22px'  }}>{'Anuradhapura'}</Typography>
-                        </Grid>
-                      </Grid>
-
-                      <Grid display={'flex'} alignItems={'left'} justifyContent={'left'} sx={{width:'100%',mt:2}}>
-                        <Grid xs={6}>
-                          <Typography sx={{ fontSize: '16px', fontWeight: 500, lineHeight: '22px',fontWeight:800  }}>{'Email'}:</Typography>
-                        </Grid>
-                        <Grid xs={6}>
-                          <Typography sx={{ fontSize: '16px', fontWeight: 500, lineHeight: '22px'  }}>{'Anuradhapura'}</Typography>
-                        </Grid>
-                      </Grid>
-
-                      <Button variant="contained" color="success" sx={{mt:2}}>  + View Profile </Button>
-                    </Grid>
-            </Grid>
-
-          <Grid xs={12} md={7}  alignItems={"center"} justifyContent={{ xs: 'center', md: 'center' }} sx={{pt:2}}>
-
-            <Typography sx={{mt:3,mb:1,fontSize:'18px',ml:2}}>Check available time slot,</Typography>
-
-              <List sx={{ width: '100%',minWidth:'300px', bgcolor: 'background.paper',p:1}}>
-
-                <ListItem alignItems="flex-start" sx={{borderRadius:'5px',border:'1px solid #8080801c',mt:0.5}}>
-                      <AccordionWithButton setBooking={setBooking}/>
-                </ListItem>
-              </List>
-              {/* <Alert severity="warning" sx={{mt:2,width:'96%',ml:'2%'}}> Shedule not updated</Alert> */}
-          </Grid>
-        </Grid>
+            <ViewDoctorTimeSlots setBooking={setBooking} setSelect={setSelectTimeSlot}/>
         }
         
         {/* <TimeSlotCalculator/>

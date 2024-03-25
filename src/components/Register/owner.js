@@ -11,6 +11,9 @@ import { useTheme } from "@mui/material/styles";
 import { toast } from 'react-toastify';
 import { create } from "../../services/PetOwner";
 import { makeStyles } from '@mui/styles';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import InputLabel from '@mui/material/InputLabel';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 let schema = yup.object().shape({
     name: yup.string().required("Full Name is required"),
     nic: yup.string().required("NIC is required"),
-    gender: yup.string().required("Gender is required"),
+    // gender: yup.string().required("Gender is required"),
     phone_number:yup.string().required(),
     email: yup.string().required("Email is required"),
     password:yup.string()
@@ -38,14 +41,25 @@ let schema = yup.object().shape({
       'Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character'
     ),
     street:yup.string(),
-    city:yup.string(),
+    city:yup.string().required,
     state:yup.string(),
     postal_code:yup.string(),
   });
 
 export default function Ownner() {
+    const theme = useTheme();
     const [load, setLoad] = useState(false);
     const classes = useStyles();
+    const [alignment, setAlignment] = React.useState('grooming');
+    const [gender, setGender] = React.useState('male');
+
+    const handleChange = (event, newAlignment) => {
+      setAlignment(newAlignment);
+    };
+
+    const handleChangeGender = (event, newAlignment) => {
+        setGender(newAlignment);
+      };
 
     const {  register, handleSubmit,  formState: { errors },  setValue,getValues  } = useForm({ resolver: yupResolver( schema), });
     const textProps = {
@@ -57,7 +71,8 @@ export default function Ownner() {
     let submitHandler = async (data) => {
         try {
             setLoad(true);
-            data.type="owner";
+            data.type=alignment;
+            data.gender=gender;
             let res=await create(data);
             toast.success('Registration successfull')
         } catch (error) {
@@ -71,8 +86,19 @@ export default function Ownner() {
     <div>
             <form onSubmit={handleSubmit(submitHandler)} id="hook-form">
             <Grid container direction="row">
+
+                    <Grid item xs={12} md={12} sx={{ p: 1 }} display={'flex'} alignItems={'center'} justifyContent={'center'}>
+                    <ToggleButtonGroup  color="primary" value={alignment} exclusive
+                        onChange={handleChange}  aria-label="Platform"  >
+                        <ToggleButton sx={{width:'100px'}} value="grooming">Grooming</ToggleButton>
+                        <ToggleButton sx={{width:'100px'}} value="walking">walking</ToggleButton>
+                        <ToggleButton sx={{width:'100px'}} value="transfer">transfer</ToggleButton>
+                        <ToggleButton sx={{width:'100px'}} value="owner">Pet Owner</ToggleButton>
+                        <ToggleButton sx={{width:'100px'}} value="doctor">Doctor</ToggleButton>
+                    </ToggleButtonGroup>
+                    </Grid>
                     <Grid item xs={12} md={6} sx={{ p: 1 }} >
-                        <label>Name <span style={{color:'red'}}>*</span></label>
+                        <InputLabel>Name <span style={{color:'red'}}>*</span></InputLabel>
                         <TextField
                         className={classes.root}
                         {...register("name")}
@@ -84,7 +110,7 @@ export default function Ownner() {
                     </Grid>
 
                     <Grid item xs={12} md={6} sx={{ p: 1 }} >
-                        <label>NIC <span style={{color:'red'}}>*</span></label>
+                        <InputLabel>NIC <span style={{color:'red'}}>*</span></InputLabel>
                         <TextField
                         className={classes.root}
                         {...register("nic")}
@@ -96,19 +122,29 @@ export default function Ownner() {
                     </Grid>
                     
                     <Grid item xs={12} md={6} sx={{ p: 1 }} >
-                        <label>Gender <span style={{color:'red'}}>*</span></label>
-                        <TextField
+                        <InputLabel>Gender <span style={{color:'red'}}>*</span></InputLabel>
+                        <ToggleButtonGroup
+                            color="primary"
+                            value={gender}
+                            exclusive
+                            onChange={handleChangeGender}
+                            aria-label="Platform"
+                            >
+                            <ToggleButton value="male" sx={{width:'120px'}}>Male</ToggleButton>
+                            <ToggleButton value="female" sx={{width:'120px'}}>Female</ToggleButton>
+                        </ToggleButtonGroup>
+                        {/* <TextField
                         className={classes.root}
                         {...register("gender")}
                         {...textProps}
                         error={errors?.gender ? true : false}
                         helperText={errors?.gender ? errors.gender.message : null}
                         placeholder="Please Gender"
-                        />
+                        /> */}
                     </Grid>
 
                     <Grid item xs={12} md={6} sx={{ p: 1 }} >
-                        <label>Phone <span style={{color:'red'}}>*</span></label>
+                        <InputLabel>Phone <span style={{color:'red'}}>*</span></InputLabel>
                         <TextField
                         className={classes.root}
                         {...register("phone_number")}
@@ -120,7 +156,7 @@ export default function Ownner() {
                     </Grid>
 
                     <Grid item xs={12} md={6} sx={{ p: 1 }}>
-                        <label>Email <span style={{color:'red'}}>*</span></label>
+                        <InputLabel>Email <span style={{color:'red'}}>*</span></InputLabel>
                         <TextField
                         className={classes.root}
                         {...register("email")}
@@ -131,7 +167,7 @@ export default function Ownner() {
                     </Grid>
 
                     <Grid item xs={12} md={6} sx={{ p: 1 }}>
-                        <label>password <span style={{color:'red'}}>*</span></label>
+                        <InputLabel>password <span style={{color:'red'}}>*</span></InputLabel>
                         <TextField
                         className={classes.root}
                         {...register("password")}
@@ -142,7 +178,7 @@ export default function Ownner() {
                     </Grid>
 
                     <Grid item xs={12} md={6} sx={{ p: 1 }}>
-                        <label>Street <span style={{color:'red'}}>*</span></label>
+                        <InputLabel>Street </InputLabel>
                         <TextField
                         className={classes.root}
                         {...register("street")}
@@ -153,7 +189,7 @@ export default function Ownner() {
                     </Grid>
 
                     <Grid item xs={12} md={6} sx={{ p: 1 }}>
-                        <label>City <span style={{color:'red'}}>*</span></label>
+                        <InputLabel>City <span style={{color:'red'}}>*</span></InputLabel>
                         <TextField
                         className={classes.root}
                         {...register("city")}
@@ -164,7 +200,7 @@ export default function Ownner() {
                     </Grid>
 
                     <Grid item xs={12} md={6} sx={{ p: 1 }}>
-                        <label>State <span style={{color:'red'}}>*</span></label>
+                        <InputLabel>State </InputLabel>
                         <TextField
                         className={classes.root}
                         {...register("state")}
@@ -175,7 +211,7 @@ export default function Ownner() {
                     </Grid>
 
                     <Grid item xs={12} md={6} sx={{ p: 1 }}>
-                        <label>Postal Code <span style={{color:'red'}}>*</span></label>
+                        <InputLabel>Postal Code </InputLabel>
                         <TextField
                         className={classes.root}
                         {...register("postal_code")}

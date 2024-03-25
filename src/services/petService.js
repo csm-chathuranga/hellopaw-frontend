@@ -37,6 +37,16 @@ export function getMyPetsById (id){
 
 //    return http.get(apiEndpoint+'/owner/myPets/'+id);
 }
+
+export function createMeeting() {
+  return request({
+    path: '/owner/create-meeting',
+    method: 'GET',
+  //   data,
+    dataType: JsonRequestDataType,
+  }).then((response) => response);
+}
+
 // export function update (data){
 //    return http.put(apiEndpoint+'/pet',data);
 // }

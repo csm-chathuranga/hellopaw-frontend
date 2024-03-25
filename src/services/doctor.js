@@ -9,6 +9,24 @@ export function getDoctors() {
    }).then((response) => response);
  }
  
+ export function getShedule() {
+  return request({
+    path: '/doctor/getShedule/3',
+    method: 'GET',
+  //   data,
+    dataType: JsonRequestDataType,
+  }).then((response) => response);
+}
+
+ export function setShedule (data){
+  return request({
+     path: '/doctor/setShedule',
+     method: 'POST',
+     data,
+     dataType: JsonRequestDataType,
+   }).then((response) => response);
+  // return http.post(apiEndpoint+'/owner/save',data);
+}
 
 // import http from './httpServices'
 

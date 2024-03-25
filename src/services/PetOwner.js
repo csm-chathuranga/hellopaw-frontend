@@ -17,6 +17,15 @@ export function create (data){
    // return http.post(apiEndpoint+'/owner/save',data);
 }
 
+export function createMeeting() {
+   return request({
+     path: '/owner/create-meeting',
+     method: 'GET',
+   //   data,
+     dataType: JsonRequestDataType,
+   }).then((response) => response);
+ }
+
 // export function update (data){
 //    return http.put(apiEndpoint+'/pet',data);
 // }

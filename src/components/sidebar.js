@@ -19,19 +19,29 @@ import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import BookOnlineRoundedIcon from '@mui/icons-material/BookOnlineRounded';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import { useLocation } from 'react-router-dom';
+import { useTheme } from "@mui/material/styles";
+
 
 export default function Sidebar() {
+  const theme = useTheme();
   const navigate = useNavigate()
   const [loggedStatus, setLogged] = useAtom(logged);
+  const location = useLocation();
 
   const iconstyle={
     fontSize:'25px'
   }
+
+  const selectActive = (act) => {
+    if(location.pathname==act) return {backgroundColor:'grey',m:1,borderRadius:'100px',color:theme.palette.text.secondary}
+  };
+
    return (
     <Grid sx={{position:'fixed',height:'100vh',top:50,borderRight:'1px solid #8080801c' }}>
             <Box sx={{width:'250px',pt:2}}>
 
-            <ListItemButton sx={{backgroundColor:'grey',m:1,borderRadius:'100px'}} onClick={()=>navigate('/')}>
+            <ListItemButton sx={selectActive('/')} onClick={()=>navigate('/')}>
                 <ListItemIcon>
                   <HomeRoundedIcon sx={{...iconstyle,color:'#eb8428'}}/>
                 </ListItemIcon>
@@ -47,7 +57,7 @@ export default function Sidebar() {
                 </ListItemIcon>
                 <ListItemText primary="Vets" />
               </ListItemButton> */}
-              <ListItemButton>
+              <ListItemButton onClick={()=>navigate('service/grooming')} sx={selectActive('/service/grooming')}>
                 <ListItemIcon>
                   <ShoppingCartIcon sx={iconstyle}/>
                 </ListItemIcon>
@@ -59,13 +69,13 @@ export default function Sidebar() {
                 </ListItemIcon>
                 <ListItemText primary="Stores" />
               </ListItemButton>
-              <ListItemButton>
+              <ListItemButton onClick={()=>navigate('service/walking')} sx={selectActive('/service/transfer')}>
                 <ListItemIcon>
                   <BarChartIcon sx={iconstyle}/>
                 </ListItemIcon>
                 <ListItemText primary="Walking" />
               </ListItemButton>
-              <ListItemButton>
+              <ListItemButton onClick={()=>navigate('service/transfer')}>
                 <ListItemIcon>
                   <LayersIcon sx={iconstyle}/>
                 </ListItemIcon>
@@ -78,7 +88,7 @@ export default function Sidebar() {
           <Typography sx={{color:'grey'}}>
             My List
           </Typography>
-          <ListItemButton onClick={()=>navigate('pet')}>
+          <ListItemButton onClick={()=>navigate('pet')} sx={selectActive('/pet')}>
             <ListItemIcon>
             <PetsIcon sx={iconstyle}/>
             </ListItemIcon>
@@ -90,17 +100,23 @@ export default function Sidebar() {
             </ListItemIcon>
             <ListItemText primary="My Profile" />
           </ListItemButton>
-          <ListItemButton onClick={()=>navigate('appointment')} >
+          <ListItemButton onClick={()=>navigate('appointment')} sx={selectActive('/appointment')}>
             <ListItemIcon>
             <BookOnlineRoundedIcon sx={{...iconstyle,color:'green'}}/>
             </ListItemIcon>
             <ListItemText primary="Consultation" />
           </ListItemButton>
-          <ListItemButton onClick={()=>navigate('appointment')} >
+          <ListItemButton onClick={()=>navigate('myAppointment')} sx={selectActive('/myAppointment')}>
             <ListItemIcon>
             <CalendarMonthIcon sx={{...iconstyle,color:'blue'}}/>
             </ListItemIcon>
             <ListItemText primary="My Appointment" />
+          </ListItemButton>
+          <ListItemButton onClick={()=>navigate('appointment')} >
+            <ListItemIcon>
+            <CalendarMonthIcon sx={{...iconstyle}}/>
+            </ListItemIcon>
+            <ListItemText primary="My Post" />
           </ListItemButton>
         </Box> : null }
     </Grid>

@@ -7,26 +7,28 @@ import { Grid, IconButton, InputBase,    Paper, Typography } from '@mui/material
 import {  useTheme } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from "react-router-dom"
-import { getDoctors } from "../../services/doctor";
+import { getService } from "../../services/service";
+import { useParams } from 'react-router-dom';
 
-
-export default function Appointment() {
+export default function Service() {
   const theme = useTheme();
   const [GlobalSearch, setGlobalSearch] = useState('*');
   const navigate = useNavigate()
   const [rows, setRows] = useState([]);
+  let { type } = useParams();
 
   const handleClick = () => {
     console.info('You clicked the Chip.');
   };
 
   const getDoctorHandle = async () => {
-    let res = await getDoctors();
+    console.log(type);
+    let res = await getService(type);
     setRows(res.body);
   }
   useEffect(() => {
     getDoctorHandle();
-}, []);
+}, [type]);
 
   return (
     <Grid container direction={"row"}>
