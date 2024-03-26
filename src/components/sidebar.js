@@ -69,13 +69,13 @@ export default function Sidebar() {
                 </ListItemIcon>
                 <ListItemText primary="Stores" />
               </ListItemButton>
-              <ListItemButton onClick={()=>navigate('service/walking')} sx={selectActive('/service/transfer')}>
+              <ListItemButton onClick={()=>navigate('service/boarding')} sx={selectActive('/service/boarding')}>
                 <ListItemIcon>
                   <BarChartIcon sx={iconstyle}/>
                 </ListItemIcon>
-                <ListItemText primary="Walking" />
+                <ListItemText primary="Boarding" />
               </ListItemButton>
-              <ListItemButton onClick={()=>navigate('service/transfer')}>
+              <ListItemButton onClick={()=>navigate('service/transfer')} sx={selectActive('/service/transfer')}>
                 <ListItemIcon>
                   <LayersIcon sx={iconstyle}/>
                 </ListItemIcon>

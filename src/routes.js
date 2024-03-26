@@ -10,6 +10,9 @@ import Service from "./pages/services/Service";
 import MyAppointment from "./pages/appointment/MyAppointment";
 import MakeAppointment from "./pages/appointment/MakeAppointment";
 
+import ZoomMeeting from "./pages/zoom/ZoomMeeting";
+
+
 const routes = [
   { path: "/", element: <Home />, label: "home" },
   { path: "/doctor", element: <DoctorHome />, label: "doctor" },
@@ -25,6 +28,9 @@ const routes = [
 
   { path: "/vets", element: <Vets />, label: "vets" },
   { path: "/service/:type", element: <Service />, label: "grooming" },
+
+
+  { path: "/zoom", element: <ZoomMeeting />, label: "zoom" },
 
 
   // { path: "/contact", element: <Contact />, label: "contact" },
