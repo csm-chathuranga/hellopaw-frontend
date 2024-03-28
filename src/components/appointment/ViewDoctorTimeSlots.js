@@ -14,7 +14,6 @@ const ViewDoctorTimeSlots = ({setBooking,setSelect}) => {
 
   const getSheduleHandle = async () => {
     let res = await getShedule();
-    console.log(res);
     setRows(res.body);
   }
   useEffect(() => {
@@ -34,7 +33,7 @@ const ViewDoctorTimeSlots = ({setBooking,setSelect}) => {
                         <Rating name="read-only" value={2} readOnly />
                       </Grid>
                       <Grid>
-                          <Typography sx={{ fontSize: '16px', fontWeight: 500, lineHeight: '22px',  }}>{'Name rachel samueal'}</Typography>
+                          <Typography sx={{ fontSize: '16px', fontWeight: 500, lineHeight: '22px',  }}>{rows?.doctor?.name || 'N/A'}</Typography>
                       </Grid>
 
                       <Grid display={'flex'} alignItems={'left'} justifyContent={'left'} sx={{width:'100%',mt:2}}>
@@ -42,7 +41,7 @@ const ViewDoctorTimeSlots = ({setBooking,setSelect}) => {
                           <Typography sx={{ fontSize: '16px', fontWeight: 500, lineHeight: '22px',fontWeight:800  }}>{'Clinic'}:</Typography>
                         </Grid>
                         <Grid xs={6}>
-                          <Typography sx={{ fontSize: '16px', fontWeight: 500, lineHeight: '22px'  }}>{'Anuradhapura'}</Typography>
+                          <Typography sx={{ fontSize: '16px', fontWeight: 500, lineHeight: '22px'  }}>{rows?.doctor?.clinic_name || 'N/A'}</Typography>
                         </Grid>
                       </Grid>
 
@@ -52,7 +51,7 @@ const ViewDoctorTimeSlots = ({setBooking,setSelect}) => {
                           <Typography sx={{ fontSize: '16px', fontWeight: 500, lineHeight: '22px',fontWeight:800  }}>{'Location'}:</Typography>
                         </Grid>
                         <Grid xs={6}>
-                          <Typography sx={{ fontSize: '16px', fontWeight: 500, lineHeight: '22px'  }}>{'Anuradhapura'}</Typography>
+                          <Typography sx={{ fontSize: '16px', fontWeight: 500, lineHeight: '22px'  }}>{rows?.doctor?.clinic_location || 'N/A'}</Typography>
                         </Grid>
                       </Grid>
 
@@ -61,11 +60,11 @@ const ViewDoctorTimeSlots = ({setBooking,setSelect}) => {
                           <Typography sx={{ fontSize: '16px', fontWeight: 500, lineHeight: '22px',fontWeight:800  }}>{'Email'}:</Typography>
                         </Grid>
                         <Grid xs={6}>
-                          <Typography sx={{ fontSize: '16px', fontWeight: 500, lineHeight: '22px'  }}>{'Anuradhapura'}</Typography>
+                          <Typography sx={{ fontSize: '16px', fontWeight: 500, lineHeight: '22px'  }}>{rows?.doctor?.email || 'N/A'}</Typography>
                         </Grid>
                       </Grid>
 
-                      <Button variant="contained" color="success" sx={{mt:2}}>  + View Profile </Button>
+                      {/* <Button variant="contained" color="success" sx={{mt:2}}>  + View Profile </Button> */}
                     </Grid>
             </Grid>
 
@@ -74,7 +73,7 @@ const ViewDoctorTimeSlots = ({setBooking,setSelect}) => {
             <Typography sx={{mt:3,mb:1,fontSize:'18px',ml:2}}>Check available time slot,</Typography>
 
               <List sx={{ width: '100%',minWidth:'300px', bgcolor: 'background.paper',p:1}}>
-                {rows.map((item)=>{
+                {rows?.time?.map((item)=>{
                     return  <ListItem alignItems="flex-start" sx={{borderRadius:'5px',border:'1px solid #8080801c',mt:0.5}}>
                       <AccordionWithButton setBooking={setBooking} rows={item} setSelect={setSelect}/>
                 </ListItem>

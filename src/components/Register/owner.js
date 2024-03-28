@@ -14,6 +14,7 @@ import { makeStyles } from '@mui/styles';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import InputLabel from '@mui/material/InputLabel';
+import City from '../../json/Citiies.json';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,12 +42,12 @@ let schema = yup.object().shape({
       'Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character'
     ),
     street:yup.string(),
-    city:yup.string().required,
+    city:yup.string().required(),
     state:yup.string(),
     postal_code:yup.string(),
   });
 
-export default function Ownner() {
+export default function Ownner({completed, setCompleted,handleClose}) {
     const theme = useTheme();
     const [load, setLoad] = useState(false);
     const classes = useStyles();
@@ -68,13 +69,15 @@ export default function Ownner() {
         fullWidth: true,
       };
       
+      console.log(City);
     let submitHandler = async (data) => {
         try {
             setLoad(true);
             data.type=alignment;
             data.gender=gender;
             let res=await create(data);
-            toast.success('Registration successfull')
+            setCompleted(true);
+            // toast.success('Registration successfull')
         } catch (error) {
             toast.error(error?.response?.data || 'Registraion failed')
             setLoad(false);
@@ -84,9 +87,8 @@ export default function Ownner() {
     }
   return (
     <div>
-            <form onSubmit={handleSubmit(submitHandler)} id="hook-form">
+     <form onSubmit={handleSubmit(submitHandler)} id="hook-form">
             <Grid container direction="row">
-
                     <Grid item xs={12} md={12} sx={{ p: 1 }} display={'flex'} alignItems={'center'} justifyContent={'center'}>
                     <ToggleButtonGroup  color="primary" value={alignment} exclusive
                         onChange={handleChange}  aria-label="Platform"  >
@@ -225,6 +227,13 @@ export default function Ownner() {
                         alignItems="right"
                         justifyContent="right" gap={2} sx={{p:2}}>
      
+                    <Button 
+                    onClick={()=>handleClose()}
+                        variant="outlined"
+                        color="primary" sx={{padding:'10px 40px'}}>
+                           Cancel
+                        </Button>
+                        
                     <Button
                         disabled={load ? true : false}
                         type="submit"

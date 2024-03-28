@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useEffect, useState} from 'react';
-import RecipeReviewCard2 from "../post2"
+import CardComp from "../services/components/CardComp"
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import { Grid, IconButton, InputBase,    Paper, Typography } from '@mui/material';
@@ -9,12 +9,15 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from "react-router-dom"
 import { getService } from "../../services/service";
 import { useParams } from 'react-router-dom';
+import { getMyPets } from "../../services/petService";
+
 
 export default function Service() {
   const theme = useTheme();
   const [GlobalSearch, setGlobalSearch] = useState('*');
   const navigate = useNavigate()
   const [rows, setRows] = useState([]);
+  const [pet, setPet] = useState([]);
   let { type } = useParams();
 
   const handleClick = () => {
@@ -26,8 +29,15 @@ export default function Service() {
     let res = await getService(type);
     setRows(res.body);
   }
+
+  const getPets = async () => {
+    let res = await getMyPets();
+    setPet(res.body);
+  }
+
   useEffect(() => {
     getDoctorHandle();
+    getPets();
 }, [type]);
 
   return (
@@ -43,7 +53,7 @@ export default function Service() {
           </Paper>
 
 
-            <Typography sx={{fontSize:'20px',p:1}}>Make an appointment</Typography>
+            <Typography sx={{fontSize:'20px',p:1}}>{type}</Typography>
             <Stack direction="row" spacing={1}>
               <Chip sx={{fontSize:'12px',width:'100px'}} label="All" onClick={handleClick} />
               <Chip sx={{fontSize:'12px',width:'100px'}} label="Near me" variant="outlined" onClick={handleClick} />
@@ -51,14 +61,16 @@ export default function Service() {
           </Grid>
           <Grid container direction={'row'} >
             {
-              rows.map((item)=>{
+              rows?.map((item)=>{
                 return (
-                  <Grid xs={12} md={4} sx={{p:1,cursor:'pointer'}} onClick={()=>navigate(`/appointment/${item.id}`)}>
-                      <RecipeReviewCard2 item={item}/>
+                  <Grid xs={12} md={4} sx={{p:1,cursor:'pointer'}}  >
+                  {/* <Grid xs={12} md={4} sx={{p:1,cursor:'pointer'}} onClick={()=>navigate(`/appointment/${item.id}`)}> */}
+                      <CardComp item={item} pet={pet}/>
                   </Grid>
                 )
               })
             }
+            {rows.length==0 ? <Typography sx={{textAlign:'center', fontSize:'18px',p:2}}>No data found...</Typography> : null}
           </Grid>
     </Grid>
 

@@ -28,6 +28,36 @@ export function getDoctors() {
   // return http.post(apiEndpoint+'/owner/save',data);
 }
 
+
+export function setBookingApi (data){
+  return request({
+     path: '/doctor/setBooking',
+     method: 'POST',
+     data,
+     dataType: JsonRequestDataType,
+   }).then((response) => response);
+  // return http.post(apiEndpoint+'/owner/save',data);
+}
+
+
+export function getMyShedule() {
+  return request({
+    path: '/getMyShedule',
+    method: 'GET',
+  //   data,
+    dataType: JsonRequestDataType,
+  }).then((response) => response);
+}
+
+export function getSession(id) {
+  return request({
+    path: '/getSession/'+id,
+    method: 'GET',
+  //   data,
+    dataType: JsonRequestDataType,
+  }).then((response) => response);
+}
+
 // import http from './httpServices'
 
 // // const apiEndpoint = "https://pv1.happybaw.com/api";

@@ -9,6 +9,14 @@ export function login(data) {
    }).then((response) => response);
  }
  
+export function me() {
+  return request({
+    path: '/me',
+    method: 'GET',
+  //   data,
+    dataType: JsonRequestDataType,
+  }).then((response) => response);
+}
 
 // import http from './httpServices'
 // // import { apiUrl } from './config.json'

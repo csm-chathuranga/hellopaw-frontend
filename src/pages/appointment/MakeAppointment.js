@@ -1,38 +1,21 @@
 "use client";
 import * as React from "react";
 import Button from "@mui/material/Button";
-import {  Divider, Grid, TextField, Typography,Avatar, IconButton} from "@mui/material";
+import {  Divider, Grid, TextField, Typography} from "@mui/material";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
-// import { getOrganization,getRoleByOrganization,storeUser,getByIdUsers,updateUser } from "../../../pages/api/acl";
-import { useTheme } from "@mui/material/styles";
 import { toast } from 'react-toastify';
 import { create } from "../../services/petService";
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 import { useNavigate } from "react-router-dom"
 import { makeStyles } from '@mui/styles';
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs, { Dayjs } from "dayjs";
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { getMyPets, createMeeting } from "../../services/petService";
-import Rating from '@mui/material/Rating';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import {Link} from "react-router-dom";
-import Chip from '@mui/material/Chip';
-import AddIcon from '@mui/icons-material/Add';
-import QueryBuilderIcon from '@mui/icons-material/QueryBuilder';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
-import AccordionWithButton from "../../components/appointment/AccordionWithButton";
+import {  setBookingApi } from "../../services/doctor";
 import ViewDoctorTimeSlots from "../../components/appointment/ViewDoctorTimeSlots";
 // import TimeSlotCalculator from "../../components/appointment/TimeSlotCalculate";
 // import NextThree from "../../components/appointment/NextThree";
@@ -60,11 +43,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 let schema = yup.object().shape({
-    type: yup.string().required("Type is required"),
-    breed: yup.string().required("Breed is required"),
-    // birth_date:yup.string().required("Birth date is required"),
-    // gender: yup.string().required("Gender is required"),
-    color: yup.string().required("Color is required"),
+    pet_id: yup.string().required("please select a pet"),
   });
 
 export default function MakeAppointment() {
@@ -94,15 +73,22 @@ export default function MakeAppointment() {
       
     let submitHandler = async (data) => {
         try {
-            if (dob == null) return setDobErr(true);
-            data.birth_date = dob;
-            data.image=selectedImage;
-            data.gender=gender;
-            console.log(data);
-            // return;
-            setLoad(true);
-            let res=await create(data);
-            if(res) toast.success('Registration successfull')
+          setLoad(true);
+          data.slot_id=selectedTmeSlot.id;
+          data.status=1;
+          console.log(data);
+          // if (dob == null) return setDobErr(true);
+          // data.birth_date = dob;
+          // data.image=selectedImage;
+          // data.gender=gender;
+          // console.log(data);
+          // // return;
+          let res=await setBookingApi(data);
+          console.log(res);
+            if(res){
+              navigate('/myAppointment')
+              toast.success('Registration successfull')
+            } 
         } catch (error) {
             toast.error(error?.response?.data || 'Registraion failed')
             setLoad(false);
@@ -132,8 +118,8 @@ export default function MakeAppointment() {
 
     const getPets = async () => {
       let res = await getMyPets();
-      let test = await createMeeting();
-      console.log(test);
+      // let test = await createMeeting();
+      // console.log(test);
       setRows(res.body);
     }
     useEffect(() => {
@@ -152,6 +138,7 @@ export default function MakeAppointment() {
                         <label>My Pet <span style={{color:'red'}}>*</span></label>
                         <FormControl fullWidth>
                             <Select
+                            {...register('pet_id')}
                               labelId="demo-simple-select-label"
                               id="demo-simple-select"
                               label="Age" >
@@ -180,7 +167,7 @@ export default function MakeAppointment() {
                         multiline
                         rows={3}
                         className={classes.root}
-                        {...register("color")}
+                        {...register("note")}
                         {...textProps}
                         error={errors?.color ? true : false}
                         helperText={errors?.color ? errors.color.message : null}

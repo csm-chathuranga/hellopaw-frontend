@@ -124,7 +124,7 @@ export default function RegisterPet() {
                 )}
             </Grid>
             <Grid item xs={12} md={6} sx={{ p: 1 }} >
-                        <label>Select the image <span style={{color:'red'}}>*</span></label>
+                        <FormLabel>Select the image <span style={{color:'red'}}>*</span></FormLabel>
                         <input type="file" {...register('image')} onChange={handleImageChange}/>
 
                         {/* <TextField
@@ -138,7 +138,7 @@ export default function RegisterPet() {
                     </Grid>
 
                     <Grid item xs={12} md={6} sx={{ p: 1 }} >
-                        <label>Type <span style={{color:'red'}}>*</span></label>
+                        <FormLabel>Type <span style={{color:'red'}}>*</span></FormLabel>
                         <TextField
                         className={classes.root}
                         {...register("type")}
@@ -150,7 +150,7 @@ export default function RegisterPet() {
                     </Grid>
 
                     <Grid item xs={12} md={6} sx={{ p: 1 }} >
-                        <label>Breed <span style={{color:'red'}}>*</span></label>
+                        <FormLabel>Breed <span style={{color:'red'}}>*</span></FormLabel>
                         <TextField
                         className={classes.root}
                         {...register("breed")}
@@ -162,7 +162,7 @@ export default function RegisterPet() {
                     </Grid>
                     
                     <Grid item xs={12} md={6} sx={{ p: 1 }} >
-                        <label>Birthdate <span style={{color:'red'}}>*</span></label>
+                        <FormLabel>Birthdate <span style={{color:'red'}}>*</span></FormLabel>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                           <DatePicker
                             className={classes.datePicker}
@@ -201,7 +201,7 @@ export default function RegisterPet() {
                     </Grid>
 
                     <Grid item xs={12} md={6} sx={{ p: 1 }}>
-                        <label>color <span style={{color:'red'}}>*</span></label>
+                        <FormLabel>color <span style={{color:'red'}}>*</span></FormLabel>
                         <TextField
                         className={classes.root}
                         {...register("color")}

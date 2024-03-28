@@ -9,8 +9,14 @@ import Appointment from "./pages/appointment/Appointment";
 import Service from "./pages/services/Service";
 import MyAppointment from "./pages/appointment/MyAppointment";
 import MakeAppointment from "./pages/appointment/MakeAppointment";
+import Gig from "./pages/user/Gig";
+import PetConsultation from "./pages/appointment/StartSession";
 
-import ZoomMeeting from "./pages/zoom/ZoomMeeting";
+// import ZoomMeeting from "./pages/zoom/ZoomMeeting";
+
+import PostForm from "./pages/post/Addpost";
+import PostList from "./pages/post//PostList";
+
 
 
 const routes = [
@@ -29,8 +35,15 @@ const routes = [
   { path: "/vets", element: <Vets />, label: "vets" },
   { path: "/service/:type", element: <Service />, label: "grooming" },
 
+  { path: "/myService", element: <Gig />, label: "my service" },
+  { path: "/session/:id", element: <PetConsultation />, label: "my service" },
 
-  { path: "/zoom", element: <ZoomMeeting />, label: "zoom" },
+  { path: "/post/add", element: <PostForm />, label: "Add Post" },
+  { path: "/post/add/:id", element: <PostForm />, label: "Edit Post" },
+  { path: "/posts", element: <PostList />, label: "Add Post" },
+
+
+  // { path: "/zoom", element: <ZoomMeeting />, label: "zoom" },
 
 
   // { path: "/contact", element: <Contact />, label: "contact" },

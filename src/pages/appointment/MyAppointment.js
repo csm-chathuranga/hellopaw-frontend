@@ -1,45 +1,114 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState,useEffect } from 'react';
+import { AppBar, Tabs, Tab, Typography, Box, Accordion, AccordionSummary, AccordionDetails, Grid, Button } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { getMyShedule } from "../../services/doctor";
+import Chip from '@mui/material/Chip';
+import { useNavigate } from "react-router-dom"
 
-const MyAppointment = () => {
-    const [meetingLink, setMeetingLink] = useState('');
 
-    const createZoomMeeting = async () => {
-        try {
-            const response = await axios.post(
-                'https://api.zoom.us/v2/users/me/meetings',
-                {
-                    topic: 'Your Meeting Topic',
-                    type: 2 // 2 for scheduled meetings
-                    // You can add more options as needed, like start_time, duration, etc.
-                },
-                {
-                    headers: {
-                        'Authorization': 'Bearer YOUR_ZOOM_ACCESS_TOKEN',
-                        'Content-Type': 'application/json'
-                    }
-                }
-            );
-            
-            // Extract meeting link from the response
-            const meetingLink = response.data.join_url;
-            setMeetingLink(meetingLink);
-        } catch (error) {
-            console.error('Error creating Zoom meeting:', error);
-        }
-    };
+let statusMap={
+    "1":<Chip label="pending" color="warning" sx={{fontSize:'12px'}}/>,
+    "2":<Chip label="Completed" color="success" sx={{fontSize:'12px'}}/>,
+    "5":<Chip label="Canceled" color="error" sx={{fontSize:'12px'}}/>
+}
 
-    return (
-        <div>
-            <button onClick={createZoomMeeting}>Create Zoom Meeting</button>
-            {meetingLink && (
-                <div>
-                    <p>Meeting Link:</p>
-                    <a href={meetingLink} target="_blank" rel="noopener noreferrer">{meetingLink}</a>
-                </div>
-            )}
-        </div>
-    );
-};
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
 
-export default MyAppointment;
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`tabpanel-${index}`}
+      aria-labelledby={`tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+export default function MyAppointment() {
+  const [value, setValue] = useState(0);
+  const [row, setRow] = useState([]);
+  const navigate = useNavigate()
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+
+  const getMyAppointment = async () => {
+    let res = await getMyShedule();
+    setRow(res.body);
+  }
+
+  useEffect(() => {
+    getMyAppointment();
+}, []);
+
+  return (
+    <div>
+      <AppBar position="static">
+        <Tabs value={value} onChange={handleChange} aria-label="tabs">
+          <Tab label="Vet Appoitments" id="tab-0" />
+          <Tab label="Service Appoitments" id="tab-1" />
+        </Tabs>
+      </AppBar>
+      <TabPanel value={value} index={0}>
+        {row?.vet?.map((item)=>{
+            return <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"  >
+                <Grid display={"flex"} gap={2}>
+                    {statusMap[item?.status]}
+                    <Typography>{item?.created_At || 'N/A'}</Typography>
+                    <Typography> ( {item?.has_pet?.type || 'N/A'}  ) </Typography>
+                </Grid>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography sx={{p:0.5}}>Time Slot:{item?.time_slot || 'N/A'} </Typography>
+              <Typography sx={{p:0.5}}>Note:{item?.note || 'N/A'} </Typography>
+              <Typography sx={{p:0.5}}>Doctor:{item?.has_doc?.name || 'N/A'} </Typography>
+              <Typography sx={{p:0.5}}>Contact details(Doctor):{item?.has_doc?.email || 'N/A'} </Typography>
+              {item?.status==1 ? <Button color='success' variant='contained' sx={{m:2}} onClick={()=>navigate('/session/'+item.id)}>Start Session Now</Button> : null}
+            </AccordionDetails>
+          </Accordion>
+        })}
+        
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel3a-content"
+            id="panel3a-header"
+          >
+            <Typography>Accordion 1 in Tab 2</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>Content for Accordion 1 in Tab 2</Typography>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel4a-content"
+            id="panel4a-header"
+          >
+            <Typography>Accordion 2 in Tab 2</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>Content for Accordion 2 in Tab 2</Typography>
+          </AccordionDetails>
+        </Accordion>
+      </TabPanel>
+    </div>
+  );
+}

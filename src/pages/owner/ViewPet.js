@@ -99,7 +99,11 @@ export default function MyPets() {
     <Grid container direction={"row"}>
         <Grid xs={12} md={12} >
               <Grid xs={12} md={12}  alignItems={"center"} justifyContent={{ xs: 'center', md: 'left' }} display={'flex'} gap={1} 
-                        sx={{ m: 1,backgroundColor:'grey',p:2 }} direction={'row'}>
+                        sx={{ m: 1,backgroundColor:'grey',p:2,
+                        // backgroundImage:`url(https://www.therange.co.uk/media/7/3/1537794693_5488.jpg)`,
+                        // backgroundSize:'cover' 
+                      }} 
+                        direction={'row'}>
                 <Grid>
                 <ArrowBackIcon sx={{cursor:'pointer',fontSize:'26px'}} onClick={()=>navigate('/pet')}/>
                   {/* {JSON.stringify(selected)} */}
@@ -114,7 +118,7 @@ export default function MyPets() {
                   <Typography sx={{ fontSize: '16px', fontWeight: 500, lineHeight: '22px',  }}>{selected?.type || 'N/A'}</Typography>
                 </Grid>
                 <Grid>
-                <Button variant="contained" color="success">
+                <Button variant="contained" color="success" onClick={()=>navigate('/appointment')}>
                  + Make an Appointment
                 </Button>
                 </Grid>

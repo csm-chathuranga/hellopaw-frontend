@@ -52,7 +52,7 @@ const getService = (options) => {
 
   const service = axios.create({
     headers,
-    baseURL:`https://pv1.happybaw.com/api`,
+    baseURL:`http://pv1.happybaw.com/api`,
   });
   // @ts-ignore
   service.interceptors.response.use(Response, (error) => ErrorHandler(error, options));

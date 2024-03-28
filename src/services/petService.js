@@ -27,6 +27,15 @@ export function create (data){
   }).then((response) => response);
 }
 
+export function saveService (data){
+  return request({
+    path: '/owner/saveService',
+    method: 'POST',
+    data,
+    dataType: JsonRequestDataType,
+  }).then((response) => response);
+}
+
 export function getMyPetsById (id){
   return request({
     path: '/owner/myPets/'+id,

@@ -1,18 +1,14 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MoreIcon from '@mui/icons-material/MoreVert';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import CloseIcon from '@mui/icons-material/Close';
 import Switch from '@mui/material/Switch';
@@ -23,20 +19,18 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect, useState } from "react";
-import { toast } from 'react-toastify';
 import {  login } from "../services/authService";
 import { logged } from "../../src/store";
 import { useAtom } from "jotai";
 import localStore from 'store2';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import { useNavigate } from "react-router-dom"
 import Badge from '@mui/material/Badge';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import { makeStyles } from '@mui/styles';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AddTimeSlot from "./appointment/AddTimeSlot";
+import InputLabel from '@mui/material/InputLabel';
+import PetsIcon from '@mui/icons-material/Pets';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -86,14 +80,14 @@ export default function PrimarySearchAppBar({isDarkTheme, setIsDarkTheme}) {
   const [loggedStatus, setLogged] = useAtom(logged);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const [load, setLoad] = useState(false);
+  const [load, setLoad] = React.useState(false);
   const navigate = useNavigate()
   const classes = useStyles();
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const {  register, handleSubmit,  formState: { errors },  setValue,getValues  } = useForm({ resolver: yupResolver( schema), });
+  const {  register, handleSubmit,  formState: { errors }  } = useForm({ resolver: yupResolver( schema), });
 
 
   let submitHandler = async (data) => {
@@ -121,9 +115,6 @@ const logout = (event) => {
   navigate('/')
 };
 
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -236,7 +227,7 @@ const logout = (event) => {
       <AppBar position="static" sx={{position:'fixed',zIndex:1000,top:0,backgroundColor:'#0b1416',}}>
         <Toolbar>
   
-            <img src="/assets/images/logo3.png" style={{height:'50px',color:'#ffff'}} onClick={()=>navigate('/')}/>
+            <img src="/assets/images/logonew.png" style={{height:'40px',color:'#ffff'}} onClick={()=>navigate('/')}/>
     
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'block', md: 'flex' } }}>
@@ -250,14 +241,14 @@ const logout = (event) => {
             </> :
 
             <Grid display={'flex'} direction={'row'} justifyContent={'center'} alignItems={'center'} gap={2}>
-              <Button  variant="outlined" color="success" sx={{borderRadius:'30px',mr:2,fontSize:'11px'}}>create New post</Button>
-              <Badge badgeContent={4} color="primary" sx={{fontSize:'18px'}}>
+              <Button  variant="outlined" color="success" sx={{borderRadius:'30px',mr:2,fontSize:'11px'}} onClick={()=>navigate('/post/add')}>+ post</Button>
+              {/* <Badge badgeContent={4} color="primary" sx={{fontSize:'18px'}}>
                 <ShoppingCartIcon sx={{fontSize:'22px'}}/>
-              </Badge>
+              </Badge> */}
 
             
             <Badge badgeContent={4} color="primary" sx={{fontSize:'18px'}}>
-              <NotificationsActiveIcon color="action"  sx={{fontSize:'22px',color:'grey'}}/>
+              <NotificationsActiveIcon color="action"  sx={{fontSize:'22px',color:'grey',}}/>
             </Badge>
             <IconButton  size="large"  aria-label="show more" aria-controls={mobileMenuId} aria-haspopup="true"
               onClick={handleMobileMenuOpen} color="inherit"  >
@@ -288,7 +279,7 @@ const logout = (event) => {
         </Typography>
         
         <Grid item xs={12} md={12} sx={{mt:2}} >
-          <label>Email <span style={{color:'red'}}>*</span></label>
+          <InputLabel>Email <span style={{color:'red'}}>*</span></InputLabel>
           <TextField
               className={classes.root}
               {...register("email")}
@@ -299,7 +290,7 @@ const logout = (event) => {
               />
         </Grid>
         <Grid item xs={12} md={12}  sx={{mt:2}}>
-          <label>Password <span style={{color:'red'}}>*</span></label>
+          <InputLabel>Password <span style={{color:'red'}}>*</span></InputLabel>
           <TextField
               className={classes.root}
               {...register("password")}
@@ -311,22 +302,9 @@ const logout = (event) => {
               />
              {loginError ? <Typography sx={{color:'red',mt:1}}>Invalid Email or Password</Typography> : null} 
         </Grid>
-          <Button type="submit"  fullWidth variant="contained"  sx={{ mt:loginError ? 1 : 3, mb: 2 }} 
+          <Button startIcon={<PetsIcon />} type="submit"  fullWidth variant="contained"  sx={{ mt:loginError ? 1 : 3, mb: 2 ,height:'40px',fontSize:'12px'}} 
                              disabled={load}>{load ? "processing" : "Sign In"  }  </Button>
-          {/* <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid> */}
         </form>
-
         </Box>
       </Modal>
       <AddTimeSlot/>

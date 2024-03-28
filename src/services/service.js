@@ -9,3 +9,13 @@ export function getService(type) {
      dataType: JsonRequestDataType,
    }).then((response) => response);
  }
+
+ export function setAppointment (data){
+  return request({
+     path: '/service/save',
+     method: 'POST',
+     data,
+     dataType: JsonRequestDataType,
+   }).then((response) => response);
+  // return http.post(apiEndpoint+'/owner/save',data);
+}
