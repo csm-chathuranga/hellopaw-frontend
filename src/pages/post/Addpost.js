@@ -11,8 +11,9 @@ import { useNavigate } from "react-router-dom"
 import { makeStyles } from '@mui/styles';
 import dayjs, { Dayjs } from "dayjs";
 import InputLabel from '@mui/material/InputLabel';
-import { savePost } from "../../services/post";
+import { savePost, updatePost, getPostsById } from "../../services/post";
 import { useParams } from 'react-router-dom'
+import { IMG_URL } from "../../utils/constant";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -43,35 +44,33 @@ let schema = yup.object().shape({
 
 export default function Gig() {
     const [load, setLoad] = React.useState(false);
-    const [gender, setGender] = React.useState('male');
     const navigate = useNavigate()
     const classes = useStyles();
-    const [dob, setDob] = React.useState(dayjs());
-    const [dobErr, setDobErr] = React.useState(false);
     const [selectedImage, setSelectedImage] = React.useState('https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg');
-    const [rows, setRows] = React.useState([]);
     const params = useParams();
 
-    const handleChange = (event) => {
-      setGender(event.target.value);
-    };
+ 
 
     const {  register, handleSubmit,  formState: { errors },  setValue,getValues  } = useForm({ resolver: yupResolver( schema), });
     const textProps = {
         id: "outlined-basic",
         variant: "outlined",
         fullWidth: true,
-        
-
       };
       
     let submitHandler = async (data) => {
         try {
+            let res;
             data.image=selectedImage;
             setLoad(true);
-            let res=await savePost(data);
+            if(params?.id){
+              data.id=params.id;
+              res=await updatePost(data);
+            }else{
+            res=await savePost(data);
+          }
             // console.log(data);
-            if(res) toast.success('Service updated successfull')
+            if(res) toast.success('Post updated successfull')
         } catch (error) {
             toast.error(error?.response?.data || 'Registraion failed')
             setLoad(false);
@@ -79,13 +78,6 @@ export default function Gig() {
             setLoad(false);
         }
     }
-
-    const handleDob = (value) => {
-      if (value) {
-        setDobErr(false);
-      }
-      setDob(value);
-    };
 
     const handleImageChange = (e) => {
       const file = e.target.files[0];
@@ -99,10 +91,26 @@ export default function Gig() {
     };
 
 
+    const getPost = async () => {
+      try {
+        let { body }= await getPostsById(params.id);
+        setValue('title',body?.title || '')
+        setValue('description',body?.description || '')
+
+        // setValue('breed',body?.breed || '')
+        // setValue('color',body?.color || '')
+        setSelectedImage(IMG_URL+body?.image_path || 'https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg')
+        // setGender(body?.gender || 'male')
+        // setDob(dayjs(body?.dob) || dayjs())
+        // setEdit(body);
+      } catch (error) {
+        
+      }
+    }
+  
     useEffect(() => {
-        console.log(params?.id);
-      
-    }, []);
+      getPost();
+  }, [params]);
 
   return (
     <div className="main-wrapper">

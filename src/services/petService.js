@@ -26,6 +26,15 @@ export function create (data){
     dataType: JsonRequestDataType,
   }).then((response) => response);
 }
+export function update (data){
+  return request({
+    path: '/owner/petUpdate',
+    method: 'POST',
+    data,
+    dataType: JsonRequestDataType,
+  }).then((response) => response);
+}
+
 
 export function saveService (data){
   return request({

@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 // import { getOrganization,getRoleByOrganization,storeUser,getByIdUsers,updateUser } from "../../../pages/api/acl";
 import { useTheme } from "@mui/material/styles";
 import { toast } from 'react-toastify';
-import { create } from "../../services/petService";
+import { create, update } from "../../services/petService";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -20,6 +20,10 @@ import { makeStyles } from '@mui/styles';
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs, { Dayjs } from "dayjs";
+import { getMyPetsById } from "../../services/petService";
+import { useParams } from 'react-router-dom'
+import { IMG_URL } from "../../utils/constant";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 let schema = yup.object().shape({
+    name: yup.string().required("Name is required"),
     type: yup.string().required("Type is required"),
     breed: yup.string().required("Breed is required"),
     // birth_date:yup.string().required("Birth date is required"),
@@ -56,8 +61,11 @@ export default function RegisterPet() {
     const navigate = useNavigate()
     const classes = useStyles();
     const [dob, setDob] = useState(dayjs());
+    const [edit, setEdit] = useState({});
     const [dobErr, setDobErr] = useState(false);
-    const [selectedImage, setSelectedImage] = useState(null);
+    const [selectedImage, setSelectedImage] = useState('https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg');
+    const params = useParams();
+
 
     const handleChange = (event) => {
       setGender(event.target.value);
@@ -68,20 +76,23 @@ export default function RegisterPet() {
         id: "outlined-basic",
         variant: "outlined",
         fullWidth: true,
-        
-
       };
       
     let submitHandler = async (data) => {
         try {
+            setLoad(true);
+            let res=null
             if (dob == null) return setDobErr(true);
             data.birth_date = dob;
             data.image=selectedImage;
             data.gender=gender;
-            console.log(data);
-            // return;
-            setLoad(true);
-            let res=await create(data);
+            if(params?.id){
+              // if(edit)
+              data.id=params.id;
+              res=await update(data);
+            }else{
+              res=await create(data);
+            }
             if(res) toast.success('Registration successfull')
         } catch (error) {
             toast.error(error?.response?.data || 'Registraion failed')
@@ -109,57 +120,93 @@ export default function RegisterPet() {
       }
     };
 
+
+    const getPets = async () => {
+      try {
+        let { body }= await getMyPetsById(params.id);
+        setValue('name',body?.name || '')
+        setValue('type',body?.type || '')
+        setValue('breed',body?.breed || '')
+        setValue('color',body?.color || '')
+        setSelectedImage(IMG_URL+body?.image || 'https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg')
+        setGender(body?.gender || 'male')
+        setDob(dayjs(body?.dob) || dayjs())
+        setEdit(body);
+      } catch (error) {
+        
+      }
+    }
+  
+    useEffect(() => {
+      getPets();
+  }, [params]);
+
   return (
     <div className="main-wrapper">
          <Grid container direction="row" sx={{p:2}}>
           <Typography sx={{m:1,fontSize:'18px'}}>Register Your pet</Typography>
           <form onSubmit={handleSubmit(submitHandler)} id="hook-form">
             <Grid container direction="row">
-            <Grid item xs={12} md={12} sx={{ p: 1 }} >
-              {/* {selectedImage} */}
-            {selectedImage && (
-                  <div>
-                    <img src={selectedImage} alt="Selected" style={{ maxWidth: '100%', maxHeight: '100px' }} />
-                  </div>
-                )}
-            </Grid>
-            <Grid item xs={12} md={6} sx={{ p: 1 }} >
+
+                    <Grid item xs={12} md={6} sx={{ p: 1 }} >
                         <FormLabel>Select the image <span style={{color:'red'}}>*</span></FormLabel>
+                        {selectedImage && (
+                          <div>
+                            <img src={selectedImage} alt="Selected" style={{ Width: '250px',height:'250px',border:'1px solid black' }} />
+                          </div>
+                        )}
                         <input type="file" {...register('image')} onChange={handleImageChange}/>
-
-                        {/* <TextField
-                        className={classes.root}
-                        {...register("type")}
-                        {...textProps}
-                        error={errors?.type ? true : false}
-                        helperText={errors?.type ? errors.type.message : null}
-                        placeholder="Please enter Type"
-                        /> */}
                     </Grid>
 
-                    <Grid item xs={12} md={6} sx={{ p: 1 }} >
-                        <FormLabel>Type <span style={{color:'red'}}>*</span></FormLabel>
-                        <TextField
-                        className={classes.root}
-                        {...register("type")}
-                        {...textProps}
-                        error={errors?.type ? true : false}
-                        helperText={errors?.type ? errors.type.message : null}
-                        placeholder="Please enter Type"
-                        />
+                    <Grid item xs={12} md={6} >
+                        <Grid sx={{ p: 1 }} >
+                              <FormLabel>Name <span style={{color:'red'}}>*</span></FormLabel>
+                              <TextField
+                              className={classes.root}
+                              {...register("name")}
+                              {...textProps}
+                              error={errors?.name ? true : false}
+                              helperText={errors?.name ? errors.name.message : null}
+                              placeholder="Please enter Name"
+                              />
+                          </Grid>
+
+                        <Grid sx={{ p: 1 }} >
+                            <FormLabel>Type <span style={{color:'red'}}>*</span></FormLabel>
+                            <TextField
+                            className={classes.root}
+                            {...register("type")}
+                            {...textProps}
+                            error={errors?.type ? true : false}
+                            helperText={errors?.type ? errors.type.message : null}
+                            placeholder="Please enter Type"
+                            />
+                        </Grid>
+                        <Grid sx={{ p: 1 }} >
+                            <FormLabel>Breed <span style={{color:'red'}}>*</span></FormLabel>
+                            <TextField
+                            className={classes.root}
+                            {...register("breed")}
+                            {...textProps}
+                            error={errors?.breed ? true : false}
+                            helperText={errors?.breed ? errors.breed.message : null}
+                            placeholder="Please enter Breed"
+                            />
+                        </Grid>
+
+                        <Grid item xs={12} sx={{ p: 1 }} >
+                          <FormLabel id="demo-row-radio-buttons-group-label">Gender</FormLabel>
+                            <FormControl sx={{ml:1}}>
+                              <RadioGroup row aria-labelledby="demo-row-radio-buttons-group-label"  name="row-radio-buttons-group" value={gender} onChange={handleChange}>
+                                <FormControlLabel value="male" control={<Radio />} label="Male" sx={{border:'1px solid #8080801c',p:1,width:'170px',borderRadius:'10px'}}/>
+                                <FormControlLabel value="female" control={<Radio />} label="Female" sx={{border:'1px solid #8080801c',p:1,width:'170px',borderRadius:'10px'}}/>
+                              </RadioGroup>
+                            </FormControl>
+                        </Grid>
+
                     </Grid>
 
-                    <Grid item xs={12} md={6} sx={{ p: 1 }} >
-                        <FormLabel>Breed <span style={{color:'red'}}>*</span></FormLabel>
-                        <TextField
-                        className={classes.root}
-                        {...register("breed")}
-                        {...textProps}
-                        error={errors?.breed ? true : false}
-                        helperText={errors?.breed ? errors.breed.message : null}
-                        placeholder="Please enter Breed"
-                        />
-                    </Grid>
+
                     
                     <Grid item xs={12} md={6} sx={{ p: 1 }} >
                         <FormLabel>Birthdate <span style={{color:'red'}}>*</span></FormLabel>
@@ -190,7 +237,7 @@ export default function RegisterPet() {
                         /> */}
                     </Grid>
 
-                    <Grid item xs={12} md={6} sx={{ p: 1 }} >
+                    {/* <Grid item xs={12} md={6} sx={{ p: 1 }} >
                       <FormLabel id="demo-row-radio-buttons-group-label">Gender</FormLabel>
                     <FormControl sx={{ml:1}}>
                       <RadioGroup row aria-labelledby="demo-row-radio-buttons-group-label"  name="row-radio-buttons-group" value={gender} onChange={handleChange}>
@@ -198,7 +245,7 @@ export default function RegisterPet() {
                         <FormControlLabel value="female" control={<Radio />} label="Female" sx={{border:'1px solid #8080801c',p:1,width:'180px',borderRadius:'10px'}}/>
                       </RadioGroup>
                     </FormControl>
-                    </Grid>
+                    </Grid> */}
 
                     <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <FormLabel>color <span style={{color:'red'}}>*</span></FormLabel>

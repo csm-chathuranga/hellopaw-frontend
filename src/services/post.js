@@ -9,6 +9,15 @@ export function getPosts(page) {
    }).then((response) => response);
  }
  
+ export function getPostsById(id) {
+  return request({
+    path: '/posts/byId/'+id,
+    method: 'GET',
+  //   data,
+    dataType: JsonRequestDataType,
+  }).then((response) => response);
+}
+
  export function myPosts() {
   return request({
     path: '/posts/id',
@@ -28,6 +37,15 @@ export function deletePosts(id) {
 export function savePost (data){
   return request({
     path: '/posts',
+    method: 'POST',
+    data,
+    dataType: JsonRequestDataType,
+  }).then((response) => response);
+}
+
+export function updatePost (data){
+  return request({
+    path: '/posts/update',
     method: 'POST',
     data,
     dataType: JsonRequestDataType,

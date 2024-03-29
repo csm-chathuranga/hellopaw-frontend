@@ -15,6 +15,7 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import InputLabel from '@mui/material/InputLabel';
 import City from '../../json/Citiies.json';
+import Autocomplete from '@mui/material/Autocomplete';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,6 +28,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const cities = [
+    'Colombo',
+    'Kandy',
+    'Galle',
+    'Jaffna',
+    'Negombo',
+    'Anuradhapura',
+    'Trincomalee',
+    'Batticaloa',
+    'Matara',
+    'Ratnapura'
+  ];
 
 let schema = yup.object().shape({
     name: yup.string().required("Full Name is required"),
@@ -42,7 +55,7 @@ let schema = yup.object().shape({
       'Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character'
     ),
     street:yup.string(),
-    city:yup.string().required(),
+    // city:yup.string().required(),
     state:yup.string(),
     postal_code:yup.string(),
   });
@@ -53,6 +66,7 @@ export default function Ownner({completed, setCompleted,handleClose}) {
     const classes = useStyles();
     const [alignment, setAlignment] = React.useState('grooming');
     const [gender, setGender] = React.useState('male');
+    const [value, setValue] = React.useState('Negombo');
 
     const handleChange = (event, newAlignment) => {
       setAlignment(newAlignment);
@@ -62,7 +76,7 @@ export default function Ownner({completed, setCompleted,handleClose}) {
         setGender(newAlignment);
       };
 
-    const {  register, handleSubmit,  formState: { errors },  setValue,getValues  } = useForm({ resolver: yupResolver( schema), });
+    const {  register, handleSubmit,  formState: { errors },getValues  } = useForm({ resolver: yupResolver( schema), });
     const textProps = {
         id: "outlined-basic",
         variant: "outlined",
@@ -75,6 +89,7 @@ export default function Ownner({completed, setCompleted,handleClose}) {
             setLoad(true);
             data.type=alignment;
             data.gender=gender;
+            data.city=value;
             let res=await create(data);
             setCompleted(true);
             // toast.success('Registration successfull')
@@ -192,13 +207,22 @@ export default function Ownner({completed, setCompleted,handleClose}) {
 
                     <Grid item xs={12} md={6} sx={{ p: 1 }}>
                         <InputLabel>City <span style={{color:'red'}}>*</span></InputLabel>
-                        <TextField
+                        <Autocomplete
+                            value={value}
+                            onChange={(event, newValue) => {
+                                setValue(newValue);
+                            }}
+                            options={cities}
+                            renderInput={(params) => <TextField {...params}  sx={{border:'none'}}/>}
+                            />
+
+                        {/* <TextField
                         className={classes.root}
                         {...register("city")}
                         {...textProps}
                         error={errors?.city ? true : false}
                         helperText={errors?.city ? errors.city.message : null}
-                        placeholder="Please enter Street Name"  />
+                        placeholder="Please enter Street Name"  /> */}
                     </Grid>
 
                     <Grid item xs={12} md={6} sx={{ p: 1 }}>
