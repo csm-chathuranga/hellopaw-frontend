@@ -1,27 +1,19 @@
 "use client";
 import * as React from "react";
 import Button from "@mui/material/Button";
-import {  Divider, Grid, TextField, Typography } from "@mui/material";
+import {   Grid, TextField, Typography } from "@mui/material";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect, useState } from "react";
-// import { getOrganization,getRoleByOrganization,storeUser,getByIdUsers,updateUser } from "../../../pages/api/acl";
-import { useTheme } from "@mui/material/styles";
+import { useEffect, useState } from "react"
 import { toast } from 'react-toastify';
 import { saveService } from "../../services/petService";
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 import { useNavigate } from "react-router-dom"
 import { makeStyles } from '@mui/styles';
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import InputLabel from '@mui/material/InputLabel';
 import { me } from "../../services/authService";
+import { IMG_URL } from "../../utils/constant";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -48,8 +40,6 @@ const useStyles = makeStyles((theme) => ({
 let schema = yup.object().shape({
     title: yup.string().required("Title is required"),
     des: yup.string().required("Description is required"),
-    // birth_date:yup.string().required("Birth date is required"),
-    // gender: yup.string().required("Gender is required"),
     amount: yup.string().required("Amount is required"),
   });
 
@@ -120,7 +110,7 @@ export default function Gig() {
       setValue('title',decoded?.title || '')
       setValue('des',decoded?.des || '')
       setValue('amount',decoded?.amount || '')
-      setSelectedImage('http://pv1.happybaw.com/api/images/'+decoded?.image)
+      setSelectedImage(IMG_URL+decoded?.image)
       }
     //   console.log(JSON.parse(res?.body?.user?.other).image);
     //   // setRows(res.body);

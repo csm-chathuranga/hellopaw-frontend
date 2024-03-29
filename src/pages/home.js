@@ -8,7 +8,7 @@ import CustomImageList from "../components/story"
 import { logged } from "../../src/store";
 import { useAtom } from "jotai";
 import { getPosts } from "../services/post";
-
+import { IMG_URL } from "../utils/constant";
 
 function Home() {
   // const [loggedStatus, setLogged] = useAtom(logged);
@@ -71,7 +71,7 @@ function Home() {
               <Grid item xs={12}   sx={{mt:2,overflowX: 'scroll'}}>
                 <CustomImageList/>
                 {rows.map((item)=>{
-                  return  <RecipeReviewCard img={'http://pv1.happybaw.com/api/images/'+item?.image_path } item={item}/>
+                  return  <RecipeReviewCard img={IMG_URL+item?.image_path } item={item}/>
 
                 })}
           <div className="bottom-element" style={{ height: '10px' }}></div>

@@ -1,10 +1,9 @@
-import axios, { ResponseType } from 'axios';
-import querystring from 'qs';
+import axios from 'axios';
 import localStore from 'store2';
 import { serialize } from 'object-to-formdata';
 import ErrorHandler from './error.handler';
 import Response from './response';
-
+import { API_URL } from "../../utils/constant";
 
 export const JsonRequestDataType = 'json';
 export const FormDataRequestDataType = 'form-data';
@@ -52,7 +51,7 @@ const getService = (options) => {
 
   const service = axios.create({
     headers,
-    baseURL:`http://pv1.happybaw.com/api`,
+    baseURL:API_URL,
   });
   // @ts-ignore
   service.interceptors.response.use(Response, (error) => ErrorHandler(error, options));

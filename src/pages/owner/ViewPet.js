@@ -8,6 +8,7 @@ import { getMyPetsById } from "../../services/petService";
 import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from "react-router-dom"
+import { IMG_URL } from "../../utils/constant";
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -107,7 +108,7 @@ export default function MyPets() {
                 <Grid>
                 <ArrowBackIcon sx={{cursor:'pointer',fontSize:'26px'}} onClick={()=>navigate('/pet')}/>
                   {/* {JSON.stringify(selected)} */}
-                  <Avatar alt="Remy Sharp" src={'http://pv1.happybaw.com/api/images/'+selected?.image || 'default.png'} sx={{width:'100px',height:'100px'}}/>
+                  <Avatar alt="Remy Sharp" src={IMG_URL+selected?.image || 'default.png'} sx={{width:'100px',height:'100px'}}/>
                 </Grid>
              
               <Grid xs={12} md={4}  alignItems={"center"} justifyContent={{ xs: 'center', md: 'left' }} display={'flex'} gap={1} sx={{ m: 1 }} direction={'column'}>

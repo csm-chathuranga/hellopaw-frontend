@@ -6,7 +6,7 @@ import { myPosts, deletePosts } from "../../services/post";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { toast } from 'react-toastify';
-
+import { IMG_URL } from "../../utils/constant";
 
 const PostList = () => {
   const navigate = useNavigate()
@@ -69,7 +69,7 @@ const PostList = () => {
             {data.map((item, index) => (
               <TableRow key={index}>
                 <TableCell>
-                  <img src={'http://pv1.happybaw.com/api/images/'+item?.image_path } alt={item.title} style={{ width: '50px', borderRadius: '5px' }} />
+                  <img src={IMG_URL+item?.image_path } alt={item.title} style={{ width: '50px', borderRadius: '5px' }} />
                 </TableCell>
                 <TableCell style={{ padding: '2px', fontSize: '14px' }}>{item.title}</TableCell>
                 <TableCell style={{ padding: '2px', fontSize: '14px' }}>{item.description}</TableCell>

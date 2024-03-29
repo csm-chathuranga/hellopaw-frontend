@@ -29,6 +29,7 @@ import {
 // import ClearIcon from "@material-ui/icons/Clear";
 import ClearIcon from '@mui/icons-material/Clear';
 import SearchIcon from '@mui/icons-material/Search';
+import { IMG_URL } from "../../utils/constant";
 
 // const useStyles = makeStyles(() => {
 //   return createStyles({
@@ -117,11 +118,11 @@ export default function MyPets() {
 
 {rows.length > 0 ? 
  <List sx={{ width: '100%',minWidth:'300px', bgcolor: 'background.paper',mt:2,p:1}}>
-      {rows.map((item)=>{return (
-        <>
+      {rows.map((item,i)=>{return (
+        <div key={'pet-'+i}>
         <ListItem alignItems="flex-start" sx={{borderRadius:'5px',border:'1px solid #8080801c',mt:0.5}}>
           <ListItemAvatar>
-            <Avatar alt="Remy Sharp" src={'http://pv1.happybaw.com/api/images/'+item?.image || 'default.png'} />
+            <Avatar alt="Remy Sharp" src={IMG_URL+item?.image || 'default.png'} />
           </ListItemAvatar>
           <ListItemText
             primary={item?.breed || 'N/A'}
@@ -161,7 +162,7 @@ export default function MyPets() {
             </IconButton>
         </ListItem>
         <Divider variant="inset" component="li" />
-        </>)
+        </div>)
       })}
     </List>
 :<>

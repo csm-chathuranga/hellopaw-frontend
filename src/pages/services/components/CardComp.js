@@ -20,7 +20,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { makeStyles } from '@mui/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import InputLabel from '@mui/material/InputLabel';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -31,6 +30,7 @@ import dayjs from "dayjs";
 import { FormHelperText } from '@mui/material';
 import { setAppointment } from "../../../services/service";
 import { toast } from 'react-toastify';
+import { IMG_URL } from "../../../utils/constant";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -141,7 +141,7 @@ export default function CardComp({item,pet}) {
         }
         title={item?.title || 'N/A'} />
       <CardMedia   component="img"  height="200"
-        src={item?.image ? 'http://pv1.happybaw.com/api/images/'+item?.image : 'https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg' }
+        src={item?.image ? IMG_URL+item?.image : 'https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg' }
         alt="Paella dish"
       />
       <Rating name="read-only" value={2} readOnly sx={{ml:2}}/>
