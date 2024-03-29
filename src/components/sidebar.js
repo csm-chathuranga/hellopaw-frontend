@@ -81,7 +81,7 @@ export default function Sidebar() {
                 <ListItemIcon>
                   <LayersIcon sx={iconstyle}/>
                 </ListItemIcon>
-                <ListItemText primary="Transfer" />
+                <ListItemText primary="Transport" />
               </ListItemButton>
             </Box>
         <Divider sx={{ my: 1 }} />
