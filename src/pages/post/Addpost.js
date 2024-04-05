@@ -51,7 +51,7 @@ export default function Gig() {
 
  
 
-    const {  register, handleSubmit,  formState: { errors },  setValue,getValues  } = useForm({ resolver: yupResolver( schema), });
+    const {  register, handleSubmit,  formState: { errors },  setValue,getValues ,reset } = useForm({ resolver: yupResolver( schema), });
     const textProps = {
         id: "outlined-basic",
         variant: "outlined",
@@ -69,8 +69,13 @@ export default function Gig() {
             }else{
             res=await savePost(data);
           }
+
             // console.log(data);
-            if(res) toast.success('Post updated successfull')
+            if(res){
+              reset();
+              setSelectedImage(null);
+              toast.success('Post updated successfull')
+            } 
         } catch (error) {
             toast.error(error?.response?.data || 'Registraion failed')
             setLoad(false);
@@ -96,20 +101,17 @@ export default function Gig() {
         let { body }= await getPostsById(params.id);
         setValue('title',body?.title || '')
         setValue('description',body?.description || '')
-
-        // setValue('breed',body?.breed || '')
-        // setValue('color',body?.color || '')
         setSelectedImage(IMG_URL+body?.image_path || 'https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg')
-        // setGender(body?.gender || 'male')
-        // setDob(dayjs(body?.dob) || dayjs())
-        // setEdit(body);
       } catch (error) {
         
       }
     }
   
     useEffect(() => {
-      getPost();
+      if(params?.id){
+           getPost();
+      }
+    
   }, [params]);
 
   return (

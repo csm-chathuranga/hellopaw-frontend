@@ -9,6 +9,25 @@ export function getDoctors() {
    }).then((response) => response);
  }
  
+ export function getPending() {
+  return request({
+    path: '/doctor/pending',
+    method: 'GET',
+  //   data,
+    dataType: JsonRequestDataType,
+  }).then((response) => response);
+}
+
+export function confirm (data){
+  return request({
+     path: '/doctor/confirm',
+     method: 'POST',
+     data,
+     dataType: JsonRequestDataType,
+   }).then((response) => response);
+  // return http.post(apiEndpoint+'/owner/save',data);
+}
+
  export function getShedule() {
   return request({
     path: '/doctor/getShedule/3',

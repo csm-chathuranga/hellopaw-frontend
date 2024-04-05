@@ -10,9 +10,17 @@ import { getZoom } from "../../services/zoom";
 import { useParams } from 'react-router-dom'
 // import ZoomMeeting from "./components/zoom";
 import App from "./components/stream";
+import InputLabel from '@mui/material/InputLabel';
+
 // import MeetingComponent from "./components/JitsiComponent";
 
 // import { ZoomMtg } from '@zoomus/websdk'
+
+const textProps = {
+  id: "outlined-basic",
+  variant: "outlined",
+  fullWidth: true,
+};
 
 
 const schema = yup.object().shape({
@@ -53,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
 const PetConsultation = () => {
   const classes = useStyles();
   const [rows, setRows] = useState([]);
+  const [meetingId, setMeetingId] = useState(null);
   const params = useParams();
 
   const { handleSubmit, control, formState: { errors },watch,setValue } = useForm({
@@ -69,69 +78,64 @@ const PetConsultation = () => {
     { date: '2021-12-15', event: 'Checkup', details: 'Details: Routine checkup' },
   ];
 
-//   const getMyAppointment = async () => {
-//     let res = await getZoom();
-//     console.log(res);
-//     // let res = await getSession(params.id);
-//     // setRows(res.body);
-//     // setValue('petName',res?.body?.vet?.has_pet?.name || '');
-//     // setValue('petType',res?.body?.vet?.has_pet?.type || '');
-//     // // console.log(res);
-//   }
+  const getMyAppointment = async () => {
+    // let res = await getZoom();
+    // console.log(res);
+    let res = await getSession(params.id);
+    setRows(res.body);
+    setValue('petName',res?.body?.vet?.has_pet?.name || '');
+    setValue('petType',res?.body?.vet?.has_pet?.type || '');
+    setMeetingId(res?.body?.vet?.meeting_id || null)
+    // console.log(res);
+  }
 
-//   useEffect(() => {
-//     getMyAppointment();
-// }, []);
+  useEffect(() => {
+    getMyAppointment();
+}, []);
 
 
   return (
-      <Grid container spacing={2} sx={{p:2}}>
+      <Grid container  >
       <Grid item xs={12} md={6}>
-        <div >
-          <Typography variant="h6">Video Area </Typography>
-        <App/>
+        <App meetingIdProps={rows}/>
           
-          {/* <iframe allow="camera; microphone; fullscreen; display-capture; autoplay" src="https://meet.jit.si/meeting_660e6d08c8df8?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3B2MS5oYXBweWJhdy5jb20iLCJzdWIiOjEyMywibW9kZXJhdG9yIjp0cnVlfQ.cDxEI25z5EawRxgX1_50oCS-C8tC0ebQyjsHmC9GWNM" style={{width:'700px', height:'400px'}}></iframe> */}
-          {/* <Meeting/> */}
-          {/* <iframe
-                    title="Google Meet"
-                    src='http://localhost:3001/cdn.html?name=V2luMTAjY2hyb21lLzEyMy4wLjAuMA%3D%3D&mn=86028058330&email=&pwd=ByM663&role=0&lang=en-US&signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZGtLZXkiOiJwQWdMWURMYVRMbWVkV2Vhc1RaS3ciLCJpYXQiOjE3MTIyMTEwNTgsImV4cCI6MTcxMjIxODI1OCwibW4iOjg2MDI4MDU4MzMwLCJyb2xlIjowfQ.z9FCxVKw70-jqz2msTK7ENArijR7QuxOU3jseqZmboQ&china=0&sdkKey=pAgLYDLaTLmedWeasTZKw'
-                    width="800"
-                    height="600"
-                    frameBorder="0"
-                    allowFullScreen
-                /> */}
-          {/* <Box sx={{width:'100%',height:'400px',backgroundColor:'black'}}></Box> */}
-        </div>
       </Grid>
-      <Grid item xs={12} md={6}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Typography variant="h6">Online Pet Consultation</Typography>
+      <Grid item xs={12} md={6} sx={{p:2}}>
+        <Grid container >
+          <Grid item xs={12} >
+            <Typography variant="h6" sx={{pb:2}}>Online Pet Consultation</Typography>
             <form onSubmit={handleSubmit(onSubmit)} className={classes.root}>
-              <Controller
-                name="petName"
-                control={control}
-                defaultValue=""
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label="Pet Name"
-                    variant="outlined"
-                    fullWidth
-                    disabled
-                    margin="normal"
-                    error={!!errors.petName}
-                    helperText={errors.petName?.message}
+            <Grid  xs={12} md={12} sx={{ p: 1 }} >
+                <InputLabel>Pet Name</InputLabel>
+                <Controller
+                    name="petName"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        {...textProps}
+                        label="Pet Name"
+                        variant="outlined"
+                        fullWidth
+                        disabled
+                        margin="normal"
+                        error={!!errors.petName}
+                        helperText={errors.petName?.message}
+                      />
+                    )}
                   />
-                )}
-              />
-              <Controller
+            </Grid>
+
+            <Grid  xs={12} md={12} sx={{ p: 1 }} >
+                <InputLabel>Pet Type</InputLabel>
+                <Controller
                 name="petType"
                 control={control}
                 defaultValue=""
                 render={({ field }) => (
                   <TextField
+                  {...textProps}
                     {...field}
                     label="Pet Type"
                     variant="outlined"
@@ -143,7 +147,11 @@ const PetConsultation = () => {
                   />
                 )}
               />
-              <Controller
+            </Grid>
+
+            <Grid  xs={12} md={12} sx={{ p: 1 }} >
+                <InputLabel>Prescription</InputLabel>
+                <Controller
                 name="Prescription"
                 control={control}
                 defaultValue=""
@@ -161,22 +169,9 @@ const PetConsultation = () => {
                   />
                 )}
               />
-              <Controller
-                name="zoomLink"
-                control={control}
-                defaultValue=""
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label="Zoom Session Link or ID"
-                    variant="outlined"
-                    fullWidth
-                    margin="normal"
-                    error={!!errors.zoomLink}
-                    helperText={errors.zoomLink?.message}
-                  />
-                )}
-              />
+            </Grid>
+
+            <Grid  xs={12} md={12} sx={{ p: 1 }} >
               <Controller
                 name="isVaccinated"
                 control={control}
@@ -188,8 +183,10 @@ const PetConsultation = () => {
                   />
                 )}
               />
+              </Grid>
               {watch('isVaccinated') && (
                 <>
+                <Grid  xs={12} md={12} sx={{ p: 1 }} >
                   <Controller
                     name="vaccineName"
                     control={control}
@@ -206,6 +203,9 @@ const PetConsultation = () => {
                       />
                     )}
                   />
+                  </Grid> 
+                  
+                  <Grid  xs={12} md={12} sx={{ p: 1 }} >
                   <Controller
                     name="vaccineReason"
                     control={control}
@@ -222,16 +222,16 @@ const PetConsultation = () => {
                       />
                     )}
                   />
-                </>
+                 </Grid> 
+                 </>
               )}
-              <Button variant="contained" color="success" type="submit" sx={{width:'200px',height:'30px'}}>Complete the Session</Button>
+               <Grid item xs={12} sx={{p:2,pl:0}}>
+                   <Button variant="contained" color="success" type="submit" sx={{width:'250px',height:'40px'}}>Complete the Session</Button>
+               </Grid>
             </form>
           </Grid>
 
-        </Grid> 
-      </Grid>
-
-        <Grid item xs={12}>
+          <Grid item xs={12}>
             <Typography variant="h6">Pet Medical History</Typography>
             {rows?.vet?.has_pet?.has_history.map((record, index) => (
               <Accordion key={index}>
@@ -243,7 +243,13 @@ const PetConsultation = () => {
                 </AccordionDetails>
               </Accordion>
             ))}
+            {rows?.vet?.has_pet?.has_history && rows?.vet?.has_pet?.has_history.length==0 ? <Typography sx={{p:2,pl:0}}>No data found</Typography> : null}
           </Grid>
+
+        </Grid> 
+      </Grid>
+
+
     </Grid>
   );
 };

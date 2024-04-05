@@ -14,12 +14,13 @@ import { makeStyles } from '@mui/styles';
 import dayjs, { Dayjs } from "dayjs";
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import { getMyPets, createMeeting } from "../../services/petService";
+import { getMyPets, createMeetingServer } from "../../services/petService";
 import {  setBookingApi } from "../../services/doctor";
 import ViewDoctorTimeSlots from "../../components/appointment/ViewDoctorTimeSlots";
 // import TimeSlotCalculator from "../../components/appointment/TimeSlotCalculate";
 // import NextThree from "../../components/appointment/NextThree";
 import Alert from '@mui/material/Alert';
+import  {createMeeting } from "../appointment/components/hooks/API";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,10 +74,12 @@ export default function MakeAppointment() {
       
     let submitHandler = async (data) => {
         try {
+          let meetingId=await createMeeting('123');
           setLoad(true);
           data.slot_id=selectedTmeSlot.id;
           data.status=1;
-          console.log(data);
+          data.meeting_id=meetingId;
+          // console.log(data,meetingId);
           // if (dob == null) return setDobErr(true);
           // data.birth_date = dob;
           // data.image=selectedImage;
@@ -84,7 +87,6 @@ export default function MakeAppointment() {
           // console.log(data);
           // // return;
           let res=await setBookingApi(data);
-          console.log(res);
             if(res){
               navigate('/myAppointment')
               toast.success('Registration successfull')

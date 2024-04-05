@@ -1,53 +1,37 @@
-                         // import "./App.css";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import {
-  MeetingProvider,
-  MeetingConsumer,
-  useMeeting,
-  useParticipant,
-  Constants,
-  usePubSub,
-} from "@videosdk.live/react-sdk";
+import {  MeetingProvider,  MeetingConsumer, useMeeting,  useParticipant, Constants, usePubSub} from "@videosdk.live/react-sdk";
 import Hls from "hls.js";
 
 import { authToken, captureHLSThumbnail, createMeeting } from "./hooks/API";
 import ReactPlayer from "react-player";
 import FlyingEmojisOverlay from "../FlyingEmojisOverlay";
+import Typography from '@mui/material/Typography';
+import Grid from "@mui/material/Grid";
+import Button from '@mui/material/Button';
+
 
 function JoinScreen({ getMeetingAndToken, setMode }) {
-  const [meetingId, setMeetingId] = useState(null);
-  const onClick = async (mode) => {
+  const generateId = async (mode="CONFERENCE") => {
     setMode(mode);
-    await getMeetingAndToken(meetingId);
+    await getMeetingAndToken(null);
   };
+  // get from API if user is doctor
+  useEffect(() => {
+    generateId();
+  }, []);
+
+
   return (
     <div className="container">
-      <button onClick={() => onClick("CONFERENCE")}>Create Meeting</button>
-      <br />
-      <br />
-      {" or "}
-      <br />
-      <br />
-      <input
-        type="text"
-        placeholder="Enter Meeting Id"
-        onChange={(e) => {
-          setMeetingId(e.target.value);
-        }}
-      />
-      <br />
-      <br />
-      <button onClick={() => onClick("CONFERENCE")}>Join as Host</button>
-      {" | "}
-      <button onClick={() => onClick("VIEWER")}>Join as Viewer</button>
+      Generating Meeting ID
     </div>
   );
 }
 
 function ParticipantView(props) {
+  console.log(props);
   const micRef = useRef(null);
-  const { webcamStream, micStream, webcamOn, micOn, isLocal, displayName } =
-    useParticipant(props.participantId);
+  const { webcamStream, micStream, webcamOn, micOn, isLocal, displayName } = useParticipant(props.participantId);
 
   const videoStream = useMemo(() => {
     if (webcamOn && webcamStream) {
@@ -77,25 +61,18 @@ function ParticipantView(props) {
 
   return (
     <div key={props.participantId}>
-      <p>
-        Participant: {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
-        {micOn ? "ON" : "OFF"}
-      </p>
+      <Grid display={'flex'} direction={'row'} gap={2}>
+        <Typography> Participant: {displayName} </Typography>
+        <Typography>| </Typography>
+        <Typography> Webcam: {webcamOn ? "ON" : "OFF"} </Typography>
+        <Typography>| </Typography>
+        <Typography> Mic:{" "}  {micOn ? "ON" : "OFF"}</Typography>
+      </Grid>
       <audio ref={micRef} autoPlay muted={isLocal} />
       {webcamOn && (
-        <ReactPlayer
-          //
-          playsinline // very very imp prop
-          pip={false}
-          light={false}
-          controls={false}
-          muted={true}
-          playing={true}
-          //
-          url={videoStream}
-          //
-          height={"200px"}
-          width={"300px"}
+        <ReactPlayer  playsinline // very very imp prop
+          pip={false} light={false}   controls={false}  muted={true}
+          playing={true}  url={videoStream}  height={"300px"} width={"450px"}
           onError={(err) => {
             console.log(err, "participant video error");
           }}
@@ -106,87 +83,29 @@ function ParticipantView(props) {
 }
 
 function Controls(props) {
-  const { leave, toggleMic, toggleWebcam, startHls, stopHls, hlsState } =
-    useMeeting();
-  const [hlsThumbnailImage, setHlsThumbnailImage] = useState(null);
+  const { leave, toggleMic, toggleWebcam } =
+  useMeeting()
 
   return (
     <>
-      <div>
-        <button onClick={() => leave()}>Leave</button>
-        &emsp;|&emsp;
-        <button onClick={() => toggleMic()}>toggleMic</button>
-        <button onClick={() => toggleWebcam()}>toggleWebcam</button>
-        &emsp;|&emsp;
-        <button
-          onClick={() => {
-            startHls({
-              layout: {
-                type: "SPOTLIGHT",
-                priority: "PIN",
-                gridSize: "20",
-              },
-              theme: "DARK",
-              mode: "video-and-audio",
-              quality: "high",
-              orientation: "landscape",
-            });
-          }}
-        >
-          Start HLS
-        </button>
-        <button onClick={() => stopHls()}>Stop HLS</button>
-        {(hlsState === "HLS_STARTED" || hlsState === "HLS_PLAYABLE") && (
-          <>
-            &emsp;|&emsp;
-            <button
-              onClick={async () => {
-                const { filePath, message } = await captureHLSThumbnail({
-                  roomId: props.meetingId,
-                });
-
-                setHlsThumbnailImage({
-                  imageLink: filePath,
-                  message: message,
-                });
-              }}
-            >
-              Capture HLS Thumbnail
-            </button>
-          </>
-        )}
-      </div>
-      {hlsThumbnailImage && hlsThumbnailImage?.imageLink ? (
-        <>
-          <p>Captured HLS Thumbnail</p>
-          <img
-            src={hlsThumbnailImage?.imageLink}
-            alt={"capture_image"}
-            height={200}
-            width={300}
-          />
-        </>
-      ) : (
-        hlsThumbnailImage && (
-          <>
-            <p>Error In Capture HLS Thumbnail</p>
-            <p>{hlsThumbnailImage?.message}</p>
-          </>
-        )
-      )}
+      <Grid display={'flex'} direction={'row'} gap={1} sx={{p:1,pl:0}}>
+        <Button variant="contained" size="medium"  onClick={() => leave()} color="error"> Leave </Button>
+        <Button variant="contained" size="medium" onClick={() => toggleMic()} color="success"> Toggle Mic </Button>
+        <Button variant="contained" size="medium" onClick={() => toggleWebcam()} color="primary"> Toggle Webcam </Button>
+      </Grid>
     </>
   );
 }
 
 function SpeakerView(props) {
-  const { participants, hlsState } = useMeeting();
+  const { participants } = useMeeting();
   const speakers = [...participants.values()].filter((participant) => {
     return participant.mode === Constants.modes.CONFERENCE;
   });
 
   return (
     <div>
-      <p>Current HLS State: {hlsState}</p>
+      {/* <p>Current HLS State: {hlsState}</p> */}
       <Controls meetingId={props.meetingId} />
       {speakers.map((participant) => (
         <ParticipantView participantId={participant.id} key={participant.id} />
@@ -206,7 +125,7 @@ function ViewerList() {
 
   return (
     <div>
-      <p>Viewer list: </p>
+      {/* <p>Viewer list: </p> */}
       {viewers.map((participant) => {
         return <ViewerListItem participantId={participant.id} />;
       })}
@@ -369,11 +288,10 @@ function Container(props) {
       setJoinLivestreamRequest(pubSubMessage);
     },
   });
-
   return (
-    <div className="container">
+    <div className="container" style={{width:'100%'}}>
       <FlyingEmojisOverlay />
-      <h3>Meeting Id: {props.meetingId}</h3>
+      <Typography>Meeting Id: {props.meetingId}</Typography>
       {joined && joined === "JOINED" ? (
         mMeeting.localParticipant.mode === Constants.modes.CONFERENCE ? (
           <SpeakerView meetingId={props.meetingId} />
@@ -381,61 +299,67 @@ function Container(props) {
           <>
             {joinLivestreamRequest && (
               <div>
-                {joinLivestreamRequest.senderName} requested you to join
-                Livestream
-                <button
-                  onClick={() => {
+                {joinLivestreamRequest.senderName} requested you to join Livestream
+                <button onClick={() => {
                     changeMode(joinLivestreamRequest.message);
                     setJoinLivestreamRequest(null);
                   }}
-                >
-                  Accept
-                </button>
-                <button
-                  onClick={() => {
-                    setJoinLivestreamRequest(null);
-                  }}
-                >
-                  Reject
-                </button>
+                > Accept</button>
+                <button onClick={() => { setJoinLivestreamRequest(null);  }}  >  Reject </button>
               </div>
             )}
             <ViewerView />
           </>
         ) : null
       ) : joined && joined === "JOINING" ? (
-        <p>Joining the meeting...</p>
+        <Grid display={'flex'} justifyContent={'center'} alignItems={'center'} sx={{m:2 ,height:{xs: '300px', md: '400px'},width:{xs: '360px', md: '450px'},backgroundColor:'black'}}>
+            <Typography>Joining to the meeting...</Typography>
+        </Grid>
       ) : (
-        <button onClick={joinMeeting}>Join</button>
+        <Grid display={'flex'} justifyContent={'center'} alignItems={'center'} sx={{m:2 ,height:{xs: '300px', md: '400px'},width:{xs: '360px', md: '450px'},backgroundColor:'black'}}>
+          <Grid display={'flex'} justifyContent={'center'} alignItems={'center'} direction={'column'} gap={2}>
+            <Typography>Now You can join to the meeting,</Typography>
+            <Button onClick={joinMeeting} variant="outlined" size="medium" color="primary" >Join Now</Button>
+          </Grid>
+        </Grid>
       )}
     </div>
   );
 }
 
-function App() {
+function App({meetingIdProps}) {
   const [meetingId, setMeetingId] = useState(null);
   const [mode, setMode] = useState("CONFERENCE");
+
   const getMeetingAndToken = async (id) => {
-    const meetingId =
-      id == null ? await createMeeting({ token: authToken }) : id;
-    setMeetingId(meetingId);
+  //   // const meetingId =
+  //   //   id == null ? await createMeeting({ token: authToken }) : id;
+  //   // setMeetingId(meetingId);
   };
 
+  useEffect(() => {
+    if(meetingIdProps?.vet?.meeting_id){
+      setMeetingId(meetingIdProps?.vet?.meeting_id);
+    }else{
+      setMeetingId(null);
+    }
+    // return setMeetingId(null);
+}, [meetingIdProps]);
+
+
+  
   const onMeetingLeave = () => {
     setMeetingId(null);
   };
 
   return authToken && meetingId ? (
     <MeetingProvider
-      config={{
-        meetingId,
-        micEnabled: true,
+      config={{  meetingId,  micEnabled: true,
         webcamEnabled: true,
-        name: "C.V. Raman",
+        name: meetingIdProps?.vet?.has_pet?.name || 'N/A',
         mode: mode,
-      }}
-      token={authToken}
-    >
+      }} token={authToken} >
+
       <MeetingConsumer>
         {() => (
           <Container meetingId={meetingId} onMeetingLeave={onMeetingLeave} />

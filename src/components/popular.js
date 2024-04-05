@@ -43,8 +43,8 @@ export default function FixedBottomNavigation() {
 
 const messageExamples = [
   {
-    primary: 'Brunch this week?',
-    secondary: "I'll be in the Do you have a suggestion.I'll be in the Do you have a suggestion",
+    primary: 'New features',
+    secondary: "You can add missing dog details from now on",
     person: 'https://thepet.community/wp-content/uploads/2020/05/yanchep_vet.png',
   },
   {
@@ -58,8 +58,8 @@ const messageExamples = [
     person: 'https://thepet.community/wp-content/uploads/2020/05/homestead_boarding.png',
   },
   {
-    primary: 'Brunch this week?',
-    secondary: "I'll be in the neighbourhood",
+    primary: 'New features',
+    secondary: "You can add missing dog details from now on",
     person: 'https://thepet.community/wp-content/uploads/2020/05/yanchep_vet.png',
   },
   {

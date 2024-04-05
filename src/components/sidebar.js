@@ -126,6 +126,14 @@ export default function Sidebar() {
             </ListItemIcon>
             <ListItemText primary="My Service" />
           </ListItemButton>
+
+          <ListItemButton onClick={()=>navigate('doctorList')}  sx={selectActive('/doctorList')}>
+            <ListItemIcon>
+            <CalendarMonthIcon sx={{...iconstyle}}/>
+            </ListItemIcon>
+            <ListItemText primary="Doctor Confirmation" />
+          </ListItemButton>
+
         </Box> : null }
     </Grid>
    )}

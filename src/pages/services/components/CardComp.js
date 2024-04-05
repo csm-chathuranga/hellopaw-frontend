@@ -78,6 +78,7 @@ const textProps = {
 };
 
 export default function CardComp({item,pet}) {
+  let itemData={...item};
   item= item?.other ? JSON.parse(item?.other) : null;
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -114,6 +115,7 @@ export default function CardComp({item,pet}) {
     try {
       data.checkin=dayjs(checkIn).format('YYYY-MM-DD') ;
       data.checkout=dayjs(checkOut).format('YYYY-MM-DD');
+      data.service_id=itemData.id;
       setLoad(true);
       let res=await setAppointment(data);
       if(res) toast.success('Sheduled successfull')

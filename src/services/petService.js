@@ -56,7 +56,7 @@ export function getMyPetsById (id){
 //    return http.get(apiEndpoint+'/owner/myPets/'+id);
 }
 
-export function createMeeting() {
+export function createMeetingServer() {
   return request({
     path: '/owner/create-meeting',
     method: 'GET',

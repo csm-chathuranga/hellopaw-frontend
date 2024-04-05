@@ -20,6 +20,10 @@ import PostList from "./pages/post/PostList";
 import AddBank from "./pages/Bank/AddBank";
 import BankList from "./pages/Bank/BankList";
 
+
+import DoctorList from "./pages/DoctorConfirm/DoctorList";
+
+
 const routes = [
   { path: "/", element: <Home />, label: "home" },
   { path: "/doctor", element: <DoctorHome />, label: "doctor" },
@@ -46,6 +50,9 @@ const routes = [
   { path: "/bank/add", element: <AddBank />, label: "Add bank" },
   { path: "/bank/add/:id", element: <AddBank />, label: "Edit bank" },
   { path: "/banks", element: <BankList />, label: "bank list" },
+
+
+  { path: "/doctorList", element: <DoctorList />, label: "Doctor list" },
 
   // { path: "/zoom", element: <ZoomMeeting />, label: "zoom" },
 

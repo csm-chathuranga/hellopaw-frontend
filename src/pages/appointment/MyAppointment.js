@@ -66,7 +66,7 @@ export default function MyAppointment() {
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
               id="panel1a-header"  >
-                <Grid display={"flex"} gap={2}>
+                <Grid display={"flex"} gap={2} direction={{xs: "column", md: "row"}}>
                     {statusMap[item?.status]}
                     <Typography>{item?.created_At || 'N/A'}</Typography>
                     <Typography> ( {item?.has_pet?.type || 'N/A'}  ) </Typography>
@@ -77,6 +77,7 @@ export default function MyAppointment() {
               <Typography sx={{p:0.5}}>Note:{item?.note || 'N/A'} </Typography>
               <Typography sx={{p:0.5}}>Doctor:{item?.has_doc?.name || 'N/A'} </Typography>
               <Typography sx={{p:0.5}}>Contact details(Doctor):{item?.has_doc?.email || 'N/A'} </Typography>
+              <Typography sx={{p:0.5}}>Contact details(Phone Number):{item?.has_doc?.phone_number || 'N/A'} </Typography>
               {item?.status==1 ? <Button color='success' variant='contained' sx={{m:2}} onClick={()=>navigate('/session/'+item.id)}>Start Session Now</Button> : null}
             </AccordionDetails>
           </Accordion>
@@ -84,30 +85,27 @@ export default function MyAppointment() {
         
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel3a-content"
-            id="panel3a-header"
-          >
-            <Typography>Accordion 1 in Tab 2</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>Content for Accordion 1 in Tab 2</Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel4a-content"
-            id="panel4a-header"
-          >
-            <Typography>Accordion 2 in Tab 2</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>Content for Accordion 2 in Tab 2</Typography>
-          </AccordionDetails>
-        </Accordion>
+      {row?.other?.map((item)=>{
+            return <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"  >
+                <Grid display={"flex"} gap={2}>
+                    {/* {statusMap[item?.status]} */}
+                    <Typography>{item?.created_at || 'N/A'}</Typography>
+                    <Typography> ( {item?.has_pets?.name || 'N/A'}  ) </Typography>
+                </Grid>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography sx={{p:0.5}}>Check In: {item?.checkin || 'N/A'} </Typography>
+              <Typography sx={{p:0.5}}>Check Out: {item?.checkout || 'N/A'} </Typography>
+              <Typography sx={{p:0.5}}>Service Type: {item?.has_service?.type || 'N/A'} </Typography>
+              <Typography sx={{p:0.5}}>Service Provider :{item?.has_service?.name || 'N/A'} </Typography>
+              <Typography sx={{p:0.5}}>Service Provider Email:{item?.has_service?.email || 'N/A'} </Typography>
+            </AccordionDetails>
+          </Accordion>
+        })}
       </TabPanel>
     </div>
   );

@@ -48,8 +48,8 @@ function App() {
                 </Routes>
            </Grid>  
               {loggedStatus ? 
-                    <Paper sx={{ position: 'fixed', bottom: -0, left: 0, right: 0 ,display:{ xs: 'block', md: 'none',height:'80px' }}} elevation={3} >
-                      <BottomNavigation showLabels value={value} sx={{mt:'20px'}}
+                    <Paper sx={{ position: 'fixed', bottom: -0, left: 0, right: 0 ,display:{ xs: 'block', md: 'none' }}} elevation={3} >
+                      <BottomNavigation showLabels value={value} sx={{mt:'0px',height:'70px'}}
                         onChange={(event, newValue) => {
                           setValue(newValue);
                         }}
@@ -57,7 +57,7 @@ function App() {
                         <BottomNavigationAction label="Home" icon={<HomeIcon />} onClick={()=>navigate('/')} />
                         <BottomNavigationAction label="My pets" icon={<PetsIcon />} onClick={()=>navigate('pet')}/>
                         <BottomNavigationAction label="Appointment" icon={<BookOnlineIcon />} onClick={()=>navigate('appointment')}/>
-                        <BottomNavigationAction label="Service" icon={<DisplaySettingsIcon />} />
+                        <BottomNavigationAction label="My Appointment" icon={<DisplaySettingsIcon />} onClick={()=>navigate('myAppointment')}/>
                         <BottomNavigationAction  icon={<MoreVertIcon sx={{mt:'-20px'}}/>} />
                       </BottomNavigation>
                   </Paper>
