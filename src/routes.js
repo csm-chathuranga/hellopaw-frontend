@@ -15,9 +15,10 @@ import PetConsultation from "./pages/appointment/StartSession";
 // import ZoomMeeting from "./pages/zoom/ZoomMeeting";
 
 import PostForm from "./pages/post/Addpost";
-import PostList from "./pages/post//PostList";
+import PostList from "./pages/post/PostList";
 
-
+import AddBank from "./pages/Bank/AddBank";
+import BankList from "./pages/Bank/BankList";
 
 const routes = [
   { path: "/", element: <Home />, label: "home" },
@@ -42,6 +43,9 @@ const routes = [
   { path: "/post/add/:id", element: <PostForm />, label: "Edit Post" },
   { path: "/posts", element: <PostList />, label: "Add Post" },
 
+  { path: "/bank/add", element: <AddBank />, label: "Add bank" },
+  { path: "/bank/add/:id", element: <AddBank />, label: "Edit bank" },
+  { path: "/banks", element: <BankList />, label: "bank list" },
 
   // { path: "/zoom", element: <ZoomMeeting />, label: "zoom" },
 
