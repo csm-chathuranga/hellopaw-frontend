@@ -9,8 +9,8 @@ import { getSession } from "../../services/doctor";
 import { getZoom } from "../../services/zoom";
 import { useParams } from 'react-router-dom'
 // import ZoomMeeting from "./components/zoom";
-import VideoCall from "./components/stream";
-import JitsiComponent from "./components/JitsiComponent";
+import App from "./components/stream";
+// import MeetingComponent from "./components/JitsiComponent";
 
 // import { ZoomMtg } from '@zoomus/websdk'
 
@@ -69,19 +69,19 @@ const PetConsultation = () => {
     { date: '2021-12-15', event: 'Checkup', details: 'Details: Routine checkup' },
   ];
 
-  const getMyAppointment = async () => {
-    let res = await getZoom();
-    console.log(res);
-    // let res = await getSession(params.id);
-    // setRows(res.body);
-    // setValue('petName',res?.body?.vet?.has_pet?.name || '');
-    // setValue('petType',res?.body?.vet?.has_pet?.type || '');
-    // // console.log(res);
-  }
+//   const getMyAppointment = async () => {
+//     let res = await getZoom();
+//     console.log(res);
+//     // let res = await getSession(params.id);
+//     // setRows(res.body);
+//     // setValue('petName',res?.body?.vet?.has_pet?.name || '');
+//     // setValue('petType',res?.body?.vet?.has_pet?.type || '');
+//     // // console.log(res);
+//   }
 
-  useEffect(() => {
-    getMyAppointment();
-}, []);
+//   useEffect(() => {
+//     getMyAppointment();
+// }, []);
 
 
   return (
@@ -89,7 +89,7 @@ const PetConsultation = () => {
       <Grid item xs={12} md={6}>
         <div >
           <Typography variant="h6">Video Area </Typography>
-        <JitsiComponent/>
+        <App/>
           
           {/* <iframe allow="camera; microphone; fullscreen; display-capture; autoplay" src="https://meet.jit.si/meeting_660e6d08c8df8?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3B2MS5oYXBweWJhdy5jb20iLCJzdWIiOjEyMywibW9kZXJhdG9yIjp0cnVlfQ.cDxEI25z5EawRxgX1_50oCS-C8tC0ebQyjsHmC9GWNM" style={{width:'700px', height:'400px'}}></iframe> */}
           {/* <Meeting/> */}
