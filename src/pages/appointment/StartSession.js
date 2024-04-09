@@ -91,6 +91,9 @@ const PetConsultation = () => {
 
   useEffect(() => {
     getMyAppointment();
+    return () => {
+      return setMeetingId(null);
+    };
 }, []);
 
 

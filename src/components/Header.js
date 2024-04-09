@@ -20,7 +20,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {  login } from "../services/authService";
-import { logged } from "../../src/store";
+import { logged,user } from "../../src/store";
 import { useAtom } from "jotai";
 import localStore from 'store2';
 import { useNavigate } from "react-router-dom"
@@ -78,6 +78,7 @@ export default function PrimarySearchAppBar({isDarkTheme, setIsDarkTheme}) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [loggedStatus, setLogged] = useAtom(logged);
+  const [userLocal, setUserLocal] = useAtom(user);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [load, setLoad] = React.useState(false);
@@ -95,8 +96,11 @@ export default function PrimarySearchAppBar({isDarkTheme, setIsDarkTheme}) {
       setLoginError(false);
         setLoad(true);
         let res=await login(data);
+        console.log(res);
         setLogged(true);
+        setUserLocal(res.body.user);
         localStore('authToken', res.body.res);
+        localStore('user', res.body.user);
         handleClose();
         // toast.success('Registration successfull')
     } catch (error) {
@@ -113,6 +117,7 @@ const logout = (event) => {
   localStorage.removeItem('loggedPet')
   localStore('authToken', null);
   navigate('/')
+  handleMenuClose();
 };
 
 
@@ -196,12 +201,12 @@ const logout = (event) => {
           </Grid>
         </MenuItem>
 
-        <MenuItem>
+        {/* <MenuItem>
               <ListItemIcon>
                 <PersonOutlineOutlinedIcon fontSize="small" />
               </ListItemIcon>
               My Profile
-        </MenuItem>
+        </MenuItem> */}
 
       <MenuItem sx={{...dropdownMenu,position:'relative'}}>
         <ListItemIcon>

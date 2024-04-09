@@ -20,7 +20,7 @@ export default function CustomImageList() {
       {itemData.map((item) => {
 
         return (
-          <ImageListItem key={item.img} cols={2} rows={1} sx={{height:'400px',borderRadius:'100px'}}>
+          <ImageListItem key={item.img} cols={2} rows={1} sx={{height:'500px',borderRadius:'100px'}}>
             <img {...srcset(item.img, 200, 700, 1, 2)} alt={item.title} loading="lazy" />
             <ImageListItemBar  title={ <Typography>Full description here</Typography>} position="bottom"  actionIcon={
                 <IconButton  sx={{ color: 'white' }} aria-label={`star ${item.title}`} >

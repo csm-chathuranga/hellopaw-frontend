@@ -344,6 +344,9 @@ function App({meetingIdProps}) {
       setMeetingId(null);
     }
     // return setMeetingId(null);
+    return () => {
+      return setMeetingId(null);
+    };
 }, [meetingIdProps]);
 
 

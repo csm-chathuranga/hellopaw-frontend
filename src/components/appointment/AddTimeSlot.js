@@ -1,4 +1,4 @@
-import React ,{useState} from 'react';
+import React ,{useState,useEffect} from 'react';
 import Grid from "@mui/material/Grid";
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -6,13 +6,22 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Select, MenuItem} from '@mui/material';
 import { setShedule } from "../../services/doctor";
+import { user } from "../../../src/store";
+import { useAtom } from "jotai";
+import { toast } from 'react-toastify';
+import InputLabel from '@mui/material/InputLabel';
 
 const AddTimeSlot = () => {
-const [open, setOpen] = React.useState(true);
+const [userData, setUser] = useAtom(user);
+const [open, setOpen] = React.useState(false);
 const [startTime, setStartTime] = useState('16:00');
 const [endTime, setEndTime] = useState('18:00');
+const [load, setLoad] = React.useState(false);
+
 
 let submitHandler = async () => {
+  try {
+    setLoad(true);
     const slots = [];
     let currentTime = new Date(`2024-03-08T${startTime}`);
     while (currentTime < new Date(`2024-03-08T${endTime}`)) {
@@ -20,24 +29,17 @@ let submitHandler = async () => {
       slots.push({time_slot:timeSlot});
       currentTime.setMinutes(currentTime.getMinutes() + 15); 
     }
-    // setTimeSlots(slots);
-    let res=await setShedule(slots);
-    console.log(res);
-//   try {
-//     console.log(start,end);
-//     // setLoginError(false);
-//     //   setLoad(true);
-//     //   let res=await login(data);
-//     //   setLogged(true);
-//     //   localStore('authToken', res.body.res);
-//     //   handleClose();
-//       // toast.success('Registration successfull')
-//   } catch (error) {
-//     //   setLoginError(true);
-//     //   setLoad(false);
-//   } finally{
-//     //   setLoad(false);
-//   }
+    
+      let res=await setShedule(slots);
+      if(res){
+        toast.success('New Time slots Added')
+        setOpen(false);
+      }
+     } catch (error) {
+      setLoad(false);
+  } finally{
+      setLoad(false);
+  }
 }
 
 const style = {
@@ -55,6 +57,11 @@ const style = {
 
 const handleClose = () => setOpen(false);
 
+useEffect(() => {
+  if(userData?.has_shedule?.length>0) return setOpen(true);
+    return setOpen(true);
+}, []);
+
   return (
     <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description" >
     <Box sx={style}>
@@ -63,7 +70,7 @@ const handleClose = () => setOpen(false);
         </Typography>
         
         <Grid item xs={12} md={12} sx={{mt:2}} >
-          <label>Start Time <span style={{color:'red'}}>*</span></label>
+          <InputLabel>Start Time <span style={{color:'red'}}>*</span></InputLabel>
           <Select  value={startTime} onChange={(e) => setStartTime(e.target.value)}  fullWidth >
           <MenuItem value="">Select Start Time</MenuItem>
           {[...Array(24).keys()].map(hour => (
@@ -74,7 +81,7 @@ const handleClose = () => setOpen(false);
         </Select>
         </Grid>
         <Grid item xs={12} md={12} sx={{mt:2}} >
-          <label>End Time <span style={{color:'red'}}>*</span></label>
+          <InputLabel>End Time <span style={{color:'red'}}>*</span></InputLabel>
           <Select
           value={endTime}
           onChange={(e) => setEndTime(e.target.value)}
@@ -88,7 +95,7 @@ const handleClose = () => setOpen(false);
           ))}
         </Select>
         </Grid>
-        <Button type="button" fullWidth variant="contained"  sx={{  mb: 2,mt:4 ,fontSize:'12px'}}  onClick={submitHandler}>Save </Button>
+        <Button type="button" fullWidth variant="contained"  sx={{  mb: 2,mt:4 ,fontSize:'12px'}}  onClick={submitHandler} disabled={load}>  {load ? ('Wait') : ('Save')} </Button>
       </Box>
     </Modal>
   );

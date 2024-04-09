@@ -23,6 +23,8 @@ import BankList from "./pages/Bank/BankList";
 
 import DoctorList from "./pages/DoctorConfirm/DoctorList";
 
+import NewList from "./pages/newList/NewList";
+import AddNew from "./pages/newList/AddNew";
 
 const routes = [
   { path: "/", element: <Home />, label: "home" },
@@ -53,6 +55,9 @@ const routes = [
 
 
   { path: "/doctorList", element: <DoctorList />, label: "Doctor list" },
+
+  { path: "/newSection", element: <NewList />, label: "New section" },
+  { path: "/newSection/add", element: <AddNew />, label: "Add New Section" },
 
   // { path: "/zoom", element: <ZoomMeeting />, label: "zoom" },
 

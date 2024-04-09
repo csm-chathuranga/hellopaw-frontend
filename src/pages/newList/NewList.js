@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { myPosts, deletePosts } from "../../services/post";
+import { getNewSection,deleteNewSection } from "../../services/newSection";
 import { toast } from 'react-toastify';
 import { DataGrid } from '@mui/x-data-grid';
 import { Box, Button, Grid, Typography } from '@mui/material';
@@ -8,7 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { IMG_URL } from "../../utils/constant";
 
-const PostList = () => {
+const NewList = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
 
@@ -19,13 +19,6 @@ const PostList = () => {
       sortable: false,
       renderCell: (params) => (
         <React.Fragment>
-          <Button
-            variant="outlined"
-            startIcon={<EditIcon />}
-            onClick={() => navigate('/post/add/' + params.id)}
-          >
-            Edit
-          </Button>
           <Button
             variant="outlined"
             color="error"
@@ -55,7 +48,7 @@ const PostList = () => {
 
   const handleDelete = async (id) => {
     try {
-      let res = await deletePosts(id);
+      let res = await deleteNewSection(id);
       if (res) {
         toast.success('Successfully deleted...!');
         fetchPosts();
@@ -66,8 +59,8 @@ const PostList = () => {
   };
 
   const fetchPosts = async () => {
-    let res = await myPosts();
-    setData(res?.body?.posts?.map(post => ({
+    let res = await getNewSection();
+    setData(res.body.map(post => ({
       id: post.id, // Assuming each post has a unique ID
       ...post,
     })));
@@ -80,11 +73,11 @@ const PostList = () => {
   return (
     <Box sx={{ height: 400, width: '100%' }}>
       <Grid sx={{ p: 1, pr: 2 }}>
-        <Typography sx={{ m: 1, fontSize: '22px' }}>Post List</Typography>
+        <Typography sx={{ m: 1, fontSize: '22px' }}>What's New List</Typography>
         <Box display="flex" flexDirection="column" alignItems="flex-end" mb={2}>
           <Button
             variant="contained"
-            onClick={() => navigate('/post/add')}
+            onClick={() => navigate('/newSection/add')}
             style={{ backgroundColor: '#4caf50', color: 'white' }}
           >
             + Add new
@@ -102,4 +95,4 @@ const PostList = () => {
   );
 };
 
-export default PostList;
+export default NewList;
