@@ -26,6 +26,11 @@ import DoctorList from "./pages/DoctorConfirm/DoctorList";
 import NewList from "./pages/newList/NewList";
 import AddNew from "./pages/newList/AddNew";
 
+import LegalDocuments from "./pages/policy/LegalDocuments";
+
+import DashboardTile from "./pages/dashboard/dash";
+
+
 const routes = [
   { path: "/", element: <Home />, label: "home" },
   { path: "/doctor", element: <DoctorHome />, label: "doctor" },
@@ -58,6 +63,12 @@ const routes = [
 
   { path: "/newSection", element: <NewList />, label: "New section" },
   { path: "/newSection/add", element: <AddNew />, label: "Add New Section" },
+
+
+  { path: "/dashboard", element: <DashboardTile />, label: "New section" },
+
+  { path: "/policy", element: <LegalDocuments />, label: "policy" },
+
 
   // { path: "/zoom", element: <ZoomMeeting />, label: "zoom" },
 

@@ -25,6 +25,7 @@ import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 export default function Sidebar() {
   const theme = useTheme();
@@ -96,7 +97,14 @@ export default function Sidebar() {
             {/* {JSON.stringify(localUser.type)} */}
           </Typography>
           {localUser?.type == 'owner' ? 
-          <><ListItemButton onClick={()=>navigate('pet')} sx={selectActive('/pet')}>
+          <>
+            <ListItemButton onClick={()=>navigate('dashboard')}  sx={selectActive('/dashboard')}>
+              <ListItemIcon>
+              <AccountBalanceIcon sx={{...iconstyle}}/>
+              </ListItemIcon>
+              <ListItemText primary="Dashboard" />
+            </ListItemButton> 
+          <ListItemButton onClick={()=>navigate('pet')} sx={selectActive('/pet')}>
             <ListItemIcon>
             <PetsIcon sx={iconstyle}/>
             </ListItemIcon>
@@ -135,12 +143,18 @@ export default function Sidebar() {
             <ListItemText primary="Doctor Confirmation" />
           </ListItemButton>
 
-          {localUser?.type == 'doctor' ? <ListItemButton onClick={()=>navigate('banks')}  sx={selectActive('/banks')}>
-            <ListItemIcon>
-            <AccountBalanceIcon sx={{...iconstyle}}/>
-            </ListItemIcon>
-            <ListItemText primary="Bank List" />
-          </ListItemButton> :null }
+
+
+          {localUser?.type == 'doctor' ? 
+          <>
+            <ListItemButton onClick={()=>navigate('banks')}  sx={selectActive('/banks')}>
+              <ListItemIcon>
+              <AccountBalanceIcon sx={{...iconstyle}}/>
+              </ListItemIcon>
+              <ListItemText primary="Bank List" />
+            </ListItemButton> 
+          </>
+          :null }
 
 
           {localUser?.type == 'doctor' ? <ListItemButton onClick={()=>navigate('newSection')}  sx={selectActive('/newSection')}>
@@ -151,5 +165,11 @@ export default function Sidebar() {
           </ListItemButton> :null }
 
         </Box> : null }
+        <Box sx={{ padding: 2, width: '100%', position: 'absolute', bottom: 0 }}>
+      <Typography variant="body2" sx={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }} onClick={() => navigate('/policy')}>
+        Privacy Policy
+        <ArrowForwardIosIcon sx={{ fontSize: '1rem', marginLeft: 0.5 }} />
+      </Typography>
+    </Box>
     </Grid>
    )}

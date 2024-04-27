@@ -58,7 +58,8 @@ function App() {
                         <BottomNavigationAction label="My pets" icon={<PetsIcon />} onClick={()=>navigate('pet')}/>
                         <BottomNavigationAction label="Appointment" icon={<BookOnlineIcon />} onClick={()=>navigate('appointment')}/>
                         <BottomNavigationAction label="My Appointment" icon={<DisplaySettingsIcon />} onClick={()=>navigate('myAppointment')}/>
-                        <BottomNavigationAction  icon={<MoreVertIcon sx={{mt:'-20px'}}/>} />
+                        <BottomNavigationAction label="More" icon={<DisplaySettingsIcon />} onClick={()=>navigate('dashboard')}/>
+                        {/* <BottomNavigationAction  icon={<MoreVertIcon sx={{mt:'-20px'}}/>} /> */}
                       </BottomNavigation>
                   </Paper>
               :null}

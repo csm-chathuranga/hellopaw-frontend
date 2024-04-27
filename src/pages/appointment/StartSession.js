@@ -24,21 +24,21 @@ const textProps = {
 
 
 const schema = yup.object().shape({
-  petName: yup.string().required('Pet name is required'),
-  petType: yup.string().required('Pet type is required'),
+  // petName: yup.string().required('Pet name is required'),
+  // petType: yup.string().required('Pet type is required'),
   Prescription: yup.string().required('Consultation reason is required'),
-  zoomLink: yup.string().required('Zoom link is required'),
-  isVaccinated: yup.boolean(),
-  vaccineName: yup.string().when('isVaccinated', {
-    is: true,
-    then: yup.string().required('Vaccine name is required'),
-    otherwise: yup.string().notRequired()
-  }),
-  vaccineReason: yup.string().when('isVaccinated', {
-    is: true,
-    then: yup.string().required('Vaccine reason is required'),
-    otherwise: yup.string().notRequired()
-  }),
+  // zoomLink: yup.string().required('Zoom link is required'),
+  // isVaccinated: yup.boolean(),
+  // vaccineName: yup.string().when('isVaccinated', {
+  //   is: true,
+  //   then: yup.string().required('Vaccine name is required'),
+  //   otherwise: yup.string().notRequired()
+  // }),
+  // vaccineReason: yup.string().when('isVaccinated', {
+  //   is: true,
+  //   then: yup.string().required('Vaccine reason is required'),
+  //   otherwise: yup.string().notRequired()
+  // }),
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -73,10 +73,6 @@ const PetConsultation = () => {
     // Handle submission
   };
 
-  const medicalHistory = [
-    { date: '2022-01-01', event: 'Vaccination', details: 'Vaccine: XYZ, Reason: Routine vaccination' },
-    { date: '2021-12-15', event: 'Checkup', details: 'Details: Routine checkup' },
-  ];
 
   const getMyAppointment = async () => {
     // let res = await getZoom();
@@ -187,7 +183,7 @@ const PetConsultation = () => {
                 )}
               />
               </Grid>
-              {watch('isVaccinated') && (
+              {/* {watch('isVaccinated') && (
                 <>
                 <Grid  xs={12} md={12} sx={{ p: 1 }} >
                   <Controller
@@ -227,7 +223,7 @@ const PetConsultation = () => {
                   />
                  </Grid> 
                  </>
-              )}
+              )} */}
                <Grid item xs={12} sx={{p:2,pl:0}}>
                    <Button variant="contained" color="success" type="submit" sx={{width:'250px',height:'40px'}}>Complete the Session</Button>
                </Grid>
