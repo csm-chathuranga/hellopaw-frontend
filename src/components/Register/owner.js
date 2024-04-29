@@ -49,11 +49,12 @@ let schema = yup.object().shape({
     email: yup.string().required("Email is required"),
     password:yup.string()
     .required('Password is required')
-    .min(8, 'Password must be at least 8 characters')
+    .min(5, 'Password must be at least 5 characters') 
     .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
-      'Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character'
-    ),
+      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/,
+      'Password must contain at least one letter and one number'
+    ) 
+    .required('Password is required'),
     street:yup.string(),
     // city:yup.string().required(),
     state:yup.string(),
