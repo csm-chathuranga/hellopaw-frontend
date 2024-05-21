@@ -66,7 +66,19 @@ function App() {
            </Grid>  
       </Grid>
         {/* <Home /> */}
-        <ToastContainer position="top-center"
+        <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="dark"
+/>
+        {/* <ToastContainer position="top-center"
 					toastStyle={{ border:'1px solid #b7b7b7', width:'370px'}}
 					autoClose={5000}
 					hideProgressBar={true}
@@ -75,7 +87,7 @@ function App() {
 					rtl={false}
 					pauseOnFocusLoss
 					draggable
-					pauseOnHover />
+					pauseOnHover /> */}
       <ScrollTop/>
     </div>
     {/* </CssVarsProvider> */}

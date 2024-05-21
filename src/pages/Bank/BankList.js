@@ -167,9 +167,9 @@ function BankList() {
               {errors.accountNumber && <Typography color="error">{errors.accountNumber.message}</Typography>}
             </Grid>
           </Grid>
-          <Box sx={{ display: 'flex', justifyContent: 'space-around', mt: 2 }}>
-            <Button type="submit" color="primary" variant="contained">{editId ? 'Update' : 'Add'}</Button>
-            <Button onClick={handleClose} color="secondary" variant="contained">Cancel</Button>
+          <Box sx={{ display: 'flex', justifyContent: 'space-around', mt: 2 }} gap={1}>
+            <Button type="submit" color="primary" variant="contained" fullWidth>{editId ? 'Update' : 'Add'}</Button>
+            <Button onClick={handleClose} color="secondary" variant="contained" fullWidth>Cancel</Button>
           </Box>
         </Box>
       </Modal>
@@ -186,10 +186,10 @@ function BankList() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleDeleteConfirmationClose} color="primary">
+          <Button onClick={handleDeleteConfirmationClose} color="primary" variant='contained'>
             Cancel
           </Button>
-          <Button onClick={handleDeleteConfirmed} color="secondary" autoFocus>
+          <Button onClick={handleDeleteConfirmed} color="secondary" autoFocus variant='contained'>
             Confirm
           </Button>
         </DialogActions>

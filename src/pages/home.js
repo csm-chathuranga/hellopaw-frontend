@@ -70,7 +70,7 @@ function Home() {
         <Grid item xs={12} sx={{ mt: 2, overflowX: 'scroll' }}>
           <CustomImageList />
           {rows.map((item, index) => (
-            <RecipeReviewCard key={index} img={IMG_URL + item?.image_path} item={item} />
+            <RecipeReviewCard key={index} img={IMG_URL + item?.image_path} item={item} getPost={getPost}/>
           ))}
           <div ref={loadMoreRef} className="bottom-element" style={{ height: '10px' }}></div>
         </Grid>

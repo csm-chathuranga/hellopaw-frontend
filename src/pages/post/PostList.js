@@ -3,14 +3,27 @@ import { useNavigate } from "react-router-dom";
 import { myPosts, deletePosts } from "../../services/post";
 import { toast } from 'react-toastify';
 import { DataGrid } from '@mui/x-data-grid';
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography, Modal, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { IMG_URL } from "../../utils/constant";
 
+const modalStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+  p: 4,
+};
+
 const PostList = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+  const [postIdToDelete, setPostIdToDelete] = useState(null);
 
   const columns = [
     {
@@ -31,7 +44,7 @@ const PostList = () => {
             color="error"
             startIcon={<DeleteIcon />}
             style={{ marginLeft: '5px' }}
-            onClick={() => handleDelete(params.id)}
+            onClick={() => handleClickOpen(params.id)}
           >
             Delete
           </Button>
@@ -50,18 +63,29 @@ const PostList = () => {
     },
     { field: 'description', headerName: 'Description', width: 300 },
     { field: 'created_at', headerName: 'Created At', width: 200 },
-
   ];
 
-  const handleDelete = async (id) => {
+  const handleClickOpen = (id) => {
+    setPostIdToDelete(id);
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setPostIdToDelete(null);
+  };
+
+  const handleDelete = async () => {
     try {
-      let res = await deletePosts(id);
+      let res = await deletePosts(postIdToDelete);
       if (res) {
         toast.success('Successfully deleted...!');
         fetchPosts();
+        handleCloseModal();
       }
     } catch (error) {
       toast.error(error?.response?.data || 'Delete failed');
+      handleCloseModal();
     }
   };
 
@@ -98,6 +122,45 @@ const PostList = () => {
           checkboxSelection={false}
         />
       </Grid>
+
+      <Modal
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="delete-modal-title"
+        aria-describedby="delete-modal-description"
+      >
+        <Box sx={modalStyle}>
+          <DialogTitle id="delete-modal-title">Confirm Delete</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="delete-modal-description">
+              Are you sure you want to delete this post? This action cannot be undone.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Grid container spacing={2} sx={{ mt: 3 }}>
+              <Grid item xs={6}>
+                <Button
+                  onClick={handleCloseModal}
+                  fullWidth
+                  variant="outlined"
+                >
+                  Cancel
+                </Button>
+              </Grid>
+              <Grid item xs={6}>
+                <Button
+                  onClick={handleDelete}
+                  fullWidth
+                  variant="contained"
+                  color="error"
+                >
+                  Delete
+                </Button>
+              </Grid>
+            </Grid>
+          </DialogActions>
+        </Box>
+      </Modal>
     </Box>
   );
 };

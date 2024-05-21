@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { getPending,confirm } from "../../services/doctor";
+import { getPending, confirm, Reject } from "../../services/doctor";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -23,19 +23,17 @@ const modalStyle = {
   p: 4,
 };
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiInputBase-input': {
       borderRadius: 5,
       padding: '10px 15px',
-      outline:'none',
-      height:'50px',
+      outline: 'none',
+      height: '50px',
     }
   },
 }));
 
-// Yup validation schema
 const validationSchema = Yup.object().shape({
   clinic_name: Yup.string().required('Clinic name is required'),
   license_img: Yup.string().required('License number is required'),
@@ -47,6 +45,8 @@ const DoctorList = () => {
   const [data, setData] = useState([]);
   const [select, setSelected] = useState(null);
   const [openModal, setOpenModal] = useState(false);
+  const [openRejectModal, setOpenRejectModal] = useState(false);
+  const [rejectId, setRejectId] = useState(null);
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm({
     resolver: yupResolver(validationSchema),
@@ -58,26 +58,45 @@ const DoctorList = () => {
     reset();
   };
 
+  const handleOpenRejectModal = (id) => {
+    setRejectId(id);
+    setOpenRejectModal(true);
+  };
+
   const handleCloseModal = () => setOpenModal(false);
 
-  const onSubmit =async (data) => {
+  const handleCloseRejectModal = () => setOpenRejectModal(false);
+
+  const handleConfirmReject = async () => {
+    try {
+      let res = await Reject(rejectId);
+      if (res) {
+        reset();
+        toast.success('Doctor Rejected successfully')
+        fetchPosts();
+      }
+    } catch (error) {
+      toast.error(error?.response?.data || 'Something went wrong..')
+    } finally {
+      handleCloseRejectModal();
+    }
+  };
+
+  const onSubmit = async (data) => {
     try {
       let res;
       data.id = select;
       data.status = 1;
-        res=await confirm(data);
-      if(res){
+      res = await confirm(data);
+      if (res) {
         reset();
-        toast.success('Doctor Confirmed successfull')
+        toast.success('Doctor Confirmed successfully')
         handleCloseModal();
         fetchPosts();
-      } 
-  } catch (error) {
-      toast.error(error?.response?.data || 'Registraion failed')
-      // setLoad(false);
-  } finally{
-      // setLoad(false);
-  }
+      }
+    } catch (error) {
+      toast.error(error?.response?.data || 'Registration failed')
+    }
   };
 
   const columns = [
@@ -99,7 +118,7 @@ const DoctorList = () => {
             color="error"
             startIcon={<DeleteIcon />}
             style={{ marginLeft: '5px' }}
-            // onClick={() => handleDelete(params.id)}
+            onClick={() => handleOpenRejectModal(params.id)}
           >
             Reject
           </Button>
@@ -134,6 +153,7 @@ const DoctorList = () => {
           pageSize={5}
           rowsPerPageOptions={[5]}
           checkboxSelection={false}
+          rowSelection={false}
         />
       </Grid>
       <Modal
@@ -143,49 +163,86 @@ const DoctorList = () => {
         aria-describedby="modal-description"
       >
         <Box sx={modalStyle} component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
-          {/* <Typography sx={{p:1,pl:0}}>
-            Approve Doctor
-          </Typography> */}
-          <Grid item xs={12} md={12} sx={{ p: 1 }} >
-              <InputLabel>Clinic Name</InputLabel>
-              <TextField
-                  className={classes.root}
-                  id="clinic_name"
-                  name="clinic_name"
-                  fullWidth
-                  {...register("clinic_name")}
-                  aria-describedby="clinic_name-text"
-                />
-                <FormHelperText id="clinic_name-text" sx={{color:'red'}}>{errors.clinic_name ? errors.clinic_name.message : ""}</FormHelperText>
-            </Grid>
-          <Grid item xs={12} md={12} sx={{ p: 1 }} >
-          <InputLabel>License Number</InputLabel>
+          <Grid item xs={12} md={12} sx={{ p: 1 }}>
+            <InputLabel>Clinic Name</InputLabel>
             <TextField
-                className={classes.root}
-                id="license_img"
-                name="license_img"
+              className={classes.root}
+              id="clinic_name"
+              name="clinic_name"
+              fullWidth
+              {...register("clinic_name")}
+              aria-describedby="clinic_name-text"
+            />
+            <FormHelperText id="clinic_name-text" sx={{ color: 'red' }}>{errors.clinic_name ? errors.clinic_name.message : ""}</FormHelperText>
+          </Grid>
+          <Grid item xs={12} md={12} sx={{ p: 1 }}>
+            <InputLabel>License Number</InputLabel>
+            <TextField
+              className={classes.root}
+              id="license_img"
+              name="license_img"
+              fullWidth
+              {...register("license_img")}
+              aria-describedby="license_img-text"
+            />
+            <FormHelperText id="license_img-text" sx={{ color: 'red' }}>{errors.license_img ? errors.license_img.message : ""}</FormHelperText>
+          </Grid>
+          <Grid container spacing={2} sx={{ mt: 3 }}>
+            <Grid item xs={6}>
+              <Button
+                type="submit"
                 fullWidth
-                {...register("license_img")}
-                aria-describedby="license_img-text"
-              />
-              <FormHelperText id="license_img-text" sx={{color:'red'}}>{errors.license_img ? errors.license_img.message : ""}</FormHelperText>
+                variant="contained"
+              >
+                Confirm
+              </Button>
             </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Confirm
-          </Button>
-          <Button
-            onClick={handleCloseModal}
-            fullWidth
-            variant="outlined"
-            sx={{ mb: 2 }}
-          >
-            Cancel
-          </Button>
+            <Grid item xs={6}>
+              <Button
+                onClick={handleCloseModal}
+                fullWidth
+                variant="outlined"
+              >
+                Cancel
+              </Button>
+            </Grid>
+          </Grid>
+        </Box>
+      </Modal>
+      <Modal
+        open={openRejectModal}
+        onClose={handleCloseRejectModal}
+        aria-labelledby="reject-modal-title"
+        aria-describedby="reject-modal-description"
+      >
+        <Box sx={modalStyle}>
+          <Typography id="reject-modal-title" variant="h6" component="h2">
+            Confirm Rejection
+          </Typography>
+          <Typography id="reject-modal-description" sx={{ mt: 2 }}>
+            Are you sure you want to reject this doctor?
+          </Typography>
+          <Grid container spacing={2} sx={{ mt: 3 }}>
+            <Grid item xs={6}>
+              <Button
+                onClick={handleConfirmReject}
+                fullWidth
+                variant="contained"
+                color="error"
+              >
+                Confirm
+              </Button>
+            </Grid>
+            <Grid item xs={6}>
+              <Button
+                onClick={handleCloseRejectModal}
+                fullWidth
+                variant="outlined"
+              >
+                Cancel
+              </Button>
+            </Grid>
+          </Grid>
         </Box>
       </Modal>
     </Box>

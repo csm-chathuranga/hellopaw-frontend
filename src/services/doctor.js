@@ -28,6 +28,14 @@ export function confirm (data){
   // return http.post(apiEndpoint+'/owner/save',data);
 }
 
+export function Reject(id) {
+  return request({
+    path: '/doctor/reject/'+id,
+    method: 'GET',
+    dataType: JsonRequestDataType,
+  }).then((response) => response);
+}
+
  export function getShedule() {
   return request({
     path: '/doctor/getShedule/3',

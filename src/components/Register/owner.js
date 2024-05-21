@@ -6,7 +6,6 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
-// import { getOrganization,getRoleByOrganization,storeUser,getByIdUsers,updateUser } from "../../../pages/api/acl";
 import { useTheme } from "@mui/material/styles";
 import { toast } from 'react-toastify';
 import { create } from "../../services/PetOwner";
@@ -18,15 +17,20 @@ import City from '../../json/Citiies.json';
 import Autocomplete from '@mui/material/Autocomplete';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    '& .MuiInputBase-input': {
-      borderRadius: 5,
-      padding: '10px 15px',
-      outline:'none',
-      height:'45px',
-    }
-  },
-}));
+    root: {
+      '& .MuiInputBase-input': {
+        borderRadius: 5,
+        padding: '10px 15px',
+        outline: 'none',
+        height: '45px',
+      }
+    },
+    autocompleteRoot: {
+      '& .MuiAutocomplete-input': {
+        border: 'none',
+      },
+    },
+  }));
 
 const cities = [
     'Colombo',
@@ -151,14 +155,6 @@ export default function Ownner({completed, setCompleted,handleClose}) {
                             <ToggleButton value="male" sx={{width:'120px'}}>Male</ToggleButton>
                             <ToggleButton value="female" sx={{width:'120px'}}>Female</ToggleButton>
                         </ToggleButtonGroup>
-                        {/* <TextField
-                        className={classes.root}
-                        {...register("gender")}
-                        {...textProps}
-                        error={errors?.gender ? true : false}
-                        helperText={errors?.gender ? errors.gender.message : null}
-                        placeholder="Please Gender"
-                        /> */}
                     </Grid>
 
                     <Grid item xs={12} md={6} sx={{ p: 1 }} >
@@ -216,14 +212,6 @@ export default function Ownner({completed, setCompleted,handleClose}) {
                             options={cities}
                             renderInput={(params) => <TextField {...params}  sx={{border:'none'}}/>}
                             />
-
-                        {/* <TextField
-                        className={classes.root}
-                        {...register("city")}
-                        {...textProps}
-                        error={errors?.city ? true : false}
-                        helperText={errors?.city ? errors.city.message : null}
-                        placeholder="Please enter Street Name"  /> */}
                     </Grid>
 
                     <Grid item xs={12} md={6} sx={{ p: 1 }}>

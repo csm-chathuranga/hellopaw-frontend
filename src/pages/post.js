@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useHistory } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -7,36 +8,104 @@ import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { green, red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import SpeakerNotesIcon from '@mui/icons-material/SpeakerNotes';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
 import { IMG_URL } from "../utils/constant";
+import { user } from "../../src/store";
+import { useAtom } from "jotai";
+import { useNavigate } from "react-router-dom"
+import {  deletePosts } from "../services/post";
+import { toast } from 'react-toastify';
 
 
-export default function RecipeReviewCard({img,item}) {
-  let imgAvatar=item?.user?.other ? JSON.parse(item?.user?.other) : null;
+export default function RecipeReviewCard({ img, item,getPost }) {
+  let imgAvatar = item?.user?.other ? JSON.parse(item?.user?.other) : null;
+  const [localUser, setLocalUser] = useAtom(user);
+  const navigate = useNavigate()
+  console.log(localUser, item);
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+
+  const handleMenuClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleEdit = () => {
+    handleMenuClose();
+    navigate(`/post/add/${item.id}`)
+  };
+
+  const handleDelete = () => {
+    handleMenuClose();
+    setDialogOpen(true);
+    getPost();
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
+  const confirmDelete =async () => {
+    try {
+      setDialogOpen(false);
+      let res = await deletePosts(item.id);
+      if (res) {
+        // toast.success('Successfully deleted...!');
+      }
+    } catch (error) {
+      toast.error(error?.response?.data || 'Delete failed');
+    }
+  };
+
   return (
-    <Card sx={{ mt:2 }}>
-      {/* {JSON.stringify(item)} */}
+    <Card sx={{ mt: 2 }}>
       <CardHeader
         avatar={
-          <Avatar alt="Profile Picture" src={IMG_URL+imgAvatar?.image || null} />
-
-          // <Avatar sx={{ bgcolor: green[500] }} aria-label="recipe">
-          //   B
-          // </Avatar>
+          <Avatar alt="Profile Picture" src={IMG_URL + imgAvatar?.image || null} />
         }
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
+          localUser.id == item.user_id && (
+            <>
+              <IconButton aria-label="settings" onClick={handleMenuClick}>
+                <MoreVertIcon />
+              </IconButton>
+              <Menu
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleMenuClose}
+              >
+                <MenuItem onClick={handleEdit}>
+                  <EditIcon sx={{ mr: 1 }} />
+                  Edit
+                </MenuItem>
+                <MenuItem onClick={handleDelete}>
+                  <DeleteIcon sx={{ mr: 1 }} />
+                  Delete
+                </MenuItem>
+              </Menu>
+            </>
+          )
         }
         title={item?.user?.name || ''}
         subheader={item?.created_at || ''}
       />
-      <CardMedia  component="img"  height="500"  image={img}   alt="Paella dish"/>
+      <CardMedia component="img" height="500" image={img} alt="Paella dish" />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
           {item?.description || ''}
@@ -44,16 +113,30 @@ export default function RecipeReviewCard({img,item}) {
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
-          <FavoriteIcon sx={{fontSize:'20px',color:'red'}}/>
-          <Typography sx={{ml:2}}>100</Typography>
+          <FavoriteIcon sx={{ fontSize: '20px', color: 'red' }} />
+          <Typography sx={{ ml: 2 }}>100</Typography>
         </IconButton>
-        {/* <IconButton aria-label="share">
-          <ShareIcon sx={{fontSize:'20px'}}/>
-        </IconButton>
-        <IconButton aria-label="share">
-          <SpeakerNotesIcon sx={{fontSize:'20px'}}/>
-        </IconButton> */}
       </CardActions>
+
+      <Dialog
+        open={dialogOpen}
+        onClose={handleDialogClose}
+      >
+        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this item?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose}  variant="outlined">
+            Cancel
+          </Button>
+          <Button onClick={confirmDelete} color="error" variant="contained">
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Card>
   );
 }

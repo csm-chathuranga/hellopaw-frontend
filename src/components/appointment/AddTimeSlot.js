@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Select, MenuItem} from '@mui/material';
 import { setShedule } from "../../services/doctor";
-import { user } from "../../../src/store";
+import { user,logged } from "../../../src/store";
 import { useAtom } from "jotai";
 import { toast } from 'react-toastify';
 import InputLabel from '@mui/material/InputLabel';
@@ -17,7 +17,7 @@ const [open, setOpen] = React.useState(false);
 const [startTime, setStartTime] = useState('16:00');
 const [endTime, setEndTime] = useState('18:00');
 const [load, setLoad] = React.useState(false);
-
+const [loggedStatus, setLogged] = useAtom(logged);
 
 let submitHandler = async () => {
   try {
@@ -58,8 +58,8 @@ const style = {
 const handleClose = () => setOpen(false);
 
 useEffect(() => {
-  if(userData?.has_shedule?.length>0) return setOpen(true);
-    return setOpen(true);
+  if(userData?.has_shedule?.length>0 && loggedStatus) return setOpen(true);
+    return setOpen(false);
 }, []);
 
   return (

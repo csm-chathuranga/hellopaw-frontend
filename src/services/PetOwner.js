@@ -26,6 +26,14 @@ export function createMeeting() {
    }).then((response) => response);
  }
 
+ export function deletePet(id) {
+  return request({
+    path: '/owner/deletePet/'+id,
+    method: 'GET',
+  //   data,
+    dataType: JsonRequestDataType,
+  }).then((response) => response);
+}
 // export function update (data){
 //    return http.put(apiEndpoint+'/pet',data);
 // }
