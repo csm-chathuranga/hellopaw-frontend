@@ -1,74 +1,67 @@
+// File path: src/components/FixedBottomNavigation.jsx
+
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CssBaseline from '@mui/material/CssBaseline';
-
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
-import { Typography } from '@mui/material';
-import { IMG_URL } from "../utils/constant";
+import { Typography, Skeleton } from '@mui/material';
+import { IMG_URL } from '../utils/constant';
 
-
-export default function FixedBottomNavigation({data}) {
-  console.log(data);
+export default function FixedBottomNavigation({ data, isLoading }) {
+  const navigate = useNavigate();
   const ref = React.useRef(null);
 
+  const handleItemClick = (id) => {
+    navigate(`/whatsNew/${id}`);
+  };
+
+  const truncateText = (text, maxLength) => {
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength) + '...';
+  };
+
   return (
-    <Box sx={{ pb: 7,position:'fixed' }} ref={ref}>
+    <Box sx={{ pb: 7, position: 'fixed' }} ref={ref}>
       <CssBaseline />
-       <Card sx={{ mt:2,borderRadius:'10px' }}>
-        <Typography sx={{fontSize:'18px',color:'#ffff',p:2}}>What's new</Typography>
-        <List sx={{opacity:0.8}}>
-          {data?.map((item, index) => (
-            <ListItem button key={index + item.description}>
-              <ListItemAvatar>
-                <Avatar alt="Profile Picture" src={IMG_URL+item?.image_path || ''} />
-              </ListItemAvatar>
-              <ListItemText primary={item?.title || ''} secondary={item?.description || ''} sx={{fontSize:'10px'}}/>
-            </ListItem>
-            
-          ))}
+      <Card sx={{ mt: 2, borderRadius: '10px', width: '300px' }}>
+        <Typography sx={{ fontSize: '18px', p: 2 }}>
+          What's news
+        </Typography>
+        <List sx={{ opacity: 0.8 }}>
+          {isLoading ? (
+            Array.from(new Array(5)).map((_, index) => (
+              <ListItem key={index}>
+                <ListItemAvatar>
+                  <Skeleton variant="circular" width={40} height={40} />
+                </ListItemAvatar>
+                <ListItemText
+                  primary={<Skeleton variant="text" width="80%" />}
+                  secondary={<Skeleton variant="text" width="60%" />}
+                />
+              </ListItem>
+            ))
+          ) : (
+            data?.map((item, index) => (
+              <ListItem button key={index + item.description} onClick={() => handleItemClick(item.id)}>
+                <ListItemAvatar>
+                  <Avatar alt="Profile Picture" src={IMG_URL + item?.image_path || ''} />
+                </ListItemAvatar>
+                <ListItemText
+                  primary={item?.title || ''}
+                  secondary={truncateText(item?.description || '', 20)}
+                  sx={{ fontSize: '10px' }}
+                />
+              </ListItem>
+            ))
+          )}
         </List>
-
       </Card>
-
     </Box>
   );
-
 }
-
-// const messageExamples = [
-//   {
-//     primary: 'New features',
-//     secondary: "You can add missing dog details from now on",
-//     person: 'https://thepet.community/wp-content/uploads/2020/05/yanchep_vet.png',
-//   },
-//   {
-//     primary: 'Birthday Gift',
-//     secondary: `Do you have a suggestion.`,
-//     person: 'https://thepet.community/wp-content/uploads/2020/05/the_blackburn_vet.png',
-//   },
-//   {
-//     primary: 'Recipe to try',
-//     secondary: 'I am try out this new',
-//     person: 'https://thepet.community/wp-content/uploads/2020/05/homestead_boarding.png',
-//   },
-//   {
-//     primary: 'New features',
-//     secondary: "You can add missing dog details from now on",
-//     person: 'https://thepet.community/wp-content/uploads/2020/05/yanchep_vet.png',
-//   },
-//   {
-//     primary: 'Birthday Gift',
-//     secondary: `Do you have a suggestion.`,
-//     person: 'https://thepet.community/wp-content/uploads/2020/05/the_blackburn_vet.png',
-//   },
-//   {
-//     primary: 'Recipe to try',
-//     secondary: 'I am try out this new',
-//     person: 'https://thepet.community/wp-content/uploads/2020/05/homestead_boarding.png',
-//   },
-// ];

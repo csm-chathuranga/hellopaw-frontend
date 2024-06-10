@@ -23,20 +23,21 @@ import Button from '@mui/material/Button';
 import { IMG_URL } from "../utils/constant";
 import { user } from "../../src/store";
 import { useAtom } from "jotai";
-import { useNavigate } from "react-router-dom"
-import {  deletePosts } from "../services/post";
+import { useNavigate } from "react-router-dom";
+import { deletePosts,addLike} from "../services/post";
 import { toast } from 'react-toastify';
 
-
-export default function RecipeReviewCard({ img, item,getPost }) {
+export default function RecipeReviewCard({ img, item, getPost,updateLikes }) {
   let imgAvatar = item?.user?.other ? JSON.parse(item?.user?.other) : null;
   const [localUser, setLocalUser] = useAtom(user);
-  const navigate = useNavigate()
-  console.log(localUser, item);
+  const navigate = useNavigate();
+  // console.log(localUser, item);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [likes, setLikes] = React.useState(item.likes || 0);
+  const [liked, setLiked] = React.useState(false);
 
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -48,39 +49,55 @@ export default function RecipeReviewCard({ img, item,getPost }) {
 
   const handleEdit = () => {
     handleMenuClose();
-    navigate(`/post/add/${item.id}`)
+    navigate(`/post/add/${item.id}`);
   };
 
   const handleDelete = () => {
     handleMenuClose();
     setDialogOpen(true);
-    getPost();
   };
 
   const handleDialogClose = () => {
     setDialogOpen(false);
   };
 
-  const confirmDelete =async () => {
+  const confirmDelete = async () => {
     try {
       setDialogOpen(false);
       let res = await deletePosts(item.id);
       if (res) {
-        // toast.success('Successfully deleted...!');
+        toast.success('Successfully deleted...!');
+        getPost();
       }
     } catch (error) {
       toast.error(error?.response?.data || 'Delete failed');
     }
   };
 
+  const handleLike = async () => {
+    try {
+      // alert();
+      const res = await addLike({post_id:item.id});
+console.log(item.id,res.body.likes);
+      updateLikes(item.id,res.body.likes);
+      // if (res) {
+      //   setLiked(true);
+      //   setLikes(likes + 1);
+      //   toast.success('Reaction updated!');
+      // }
+    } catch (error) {
+      toast.error(error?.response?.data || 'Failed to update reaction');
+    }
+  };
+
   return (
-    <Card sx={{ mt: 2 }}>
+    <Card sx={{ mt: 2, overflow: 'hidden' }}>
       <CardHeader
         avatar={
           <Avatar alt="Profile Picture" src={IMG_URL + imgAvatar?.image || null} />
         }
         action={
-          localUser.id == item.user_id && (
+          localUser.id === item.user_id && (
             <>
               <IconButton aria-label="settings" onClick={handleMenuClick}>
                 <MoreVertIcon />
@@ -112,9 +129,9 @@ export default function RecipeReviewCard({ img, item,getPost }) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon sx={{ fontSize: '20px', color: 'red' }} />
-          <Typography sx={{ ml: 2 }}>100</Typography>
+        <IconButton aria-label="add to favorites" onClick={handleLike} disabled={liked}>
+          <FavoriteIcon sx={{ fontSize: '20px', color: liked ? 'red' : 'grey' }} />
+          <Typography sx={{ ml: 2 }}>{JSON.parse(item?.likes || 0)?.length || 0}</Typography>
         </IconButton>
       </CardActions>
 
@@ -129,7 +146,7 @@ export default function RecipeReviewCard({ img, item,getPost }) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleDialogClose}  variant="outlined">
+          <Button onClick={handleDialogClose} variant="outlined">
             Cancel
           </Button>
           <Button onClick={confirmDelete} color="error" variant="contained">

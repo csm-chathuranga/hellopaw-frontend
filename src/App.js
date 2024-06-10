@@ -32,6 +32,7 @@ function App() {
       {/* <CssVarsProvider> */}
        
     <div className="App">  
+    <div id="back-to-top-anchor" style={{ position: 'absolute', top: 0 }} />
     <Grid sx={{position:'relative'}}>
     {/* <ModeToggle /> */}
     <PrimarySearchAppBar isDarkTheme={isDarkTheme} setIsDarkTheme={setIsDarkTheme}/>
@@ -67,17 +68,17 @@ function App() {
       </Grid>
         {/* <Home /> */}
         <ToastContainer
-position="top-right"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="dark"
-/>
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+          />
         {/* <ToastContainer position="top-center"
 					toastStyle={{ border:'1px solid #b7b7b7', width:'370px'}}
 					autoClose={5000}

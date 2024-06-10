@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { myPosts, deletePosts } from "../../services/post";
+import { getPostsMe, deletePosts } from "../../services/post";
 import { toast } from 'react-toastify';
 import { DataGrid } from '@mui/x-data-grid';
 import { Box, Button, Grid, Typography, Modal, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
@@ -90,7 +90,7 @@ const PostList = () => {
   };
 
   const fetchPosts = async () => {
-    let res = await myPosts();
+    let res = await getPostsMe();
     setData(res?.body?.posts?.map(post => ({
       id: post.id, // Assuming each post has a unique ID
       ...post,
@@ -120,6 +120,7 @@ const PostList = () => {
           pageSize={5}
           rowsPerPageOptions={[5]}
           checkboxSelection={false}
+          rowSelection={false}
         />
       </Grid>
 

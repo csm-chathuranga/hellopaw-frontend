@@ -8,7 +8,7 @@ const ScrollTop = (props) => {
   const trigger = useScrollTrigger({
     target: window ? window() : undefined,
     disableHysteresis: true,
-    threshold: 500,
+    threshold: 50,  // Show button after scrolling 50px
   });
 
   const handleClick = (event) => {
@@ -21,7 +21,7 @@ const ScrollTop = (props) => {
 
   return (
     <Zoom in={trigger}>
-      <div onClick={handleClick} role="presentation">
+      <div onClick={handleClick} role="presentation" style={{ position: 'fixed', bottom: 16, right: 16 }}>
         {children}
       </div>
     </Zoom>

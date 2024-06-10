@@ -46,6 +46,8 @@ const sidebarConfig = {
   transfer: [
     { text: "My Post", icon: <DynamicFeedIcon />, path: 'posts' },
     { text: "My Service", icon: <CalendarMonthIcon />, path: 'myService' },
+    { text: "Make an appointment", icon: <BookOnlineRoundedIcon sx={{ color: 'green' }} />, path: 'appointment' },
+    { text: "My Appointment", icon: <CalendarMonthIcon sx={{ color: 'blue' }} />, path: 'myAppointment' },
   ],
 };
 

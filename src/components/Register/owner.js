@@ -15,6 +15,11 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import InputLabel from '@mui/material/InputLabel';
 import City from '../../json/Citiies.json';
 import Autocomplete from '@mui/material/Autocomplete';
+import PetsIcon from '@mui/icons-material/Pets';
+import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk';
+import TransferWithinAStationIcon from '@mui/icons-material/TransferWithinAStation';
+import PersonIcon from '@mui/icons-material/Person';
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -110,14 +115,29 @@ export default function Ownner({completed, setCompleted,handleClose}) {
      <form onSubmit={handleSubmit(submitHandler)} id="hook-form">
             <Grid container direction="row">
                     <Grid item xs={12} md={12} sx={{ p: 1 }} display={'flex'} alignItems={'center'} justifyContent={'center'}>
-                    <ToggleButtonGroup  color="primary" value={alignment} exclusive
-                        onChange={handleChange}  aria-label="Platform"  >
-                        <ToggleButton sx={{width:'100px'}} value="grooming">Grooming</ToggleButton>
-                        <ToggleButton sx={{width:'100px'}} value="walking">walking</ToggleButton>
-                        <ToggleButton sx={{width:'100px'}} value="transfer">transfer</ToggleButton>
-                        <ToggleButton sx={{width:'100px'}} value="owner">Pet Owner</ToggleButton>
-                        <ToggleButton sx={{width:'100px'}} value="doctor">Doctor</ToggleButton>
-                    </ToggleButtonGroup>
+                    <ToggleButtonGroup
+                        color="primary"
+                        value={alignment}
+                        exclusive
+                        onChange={handleChange}
+                        aria-label="Platform"
+                      >
+                        <ToggleButton sx={{ width: '100px' }} value="grooming" startIcon={<PetsIcon />}>
+                          Grooming
+                        </ToggleButton>
+                        <ToggleButton sx={{ width: '100px' }} value="walking" startIcon={<DirectionsWalkIcon />}>
+                          Walking
+                        </ToggleButton>
+                        <ToggleButton sx={{ width: '100px' }} value="transfer" startIcon={<TransferWithinAStationIcon />}>
+                          Transfer
+                        </ToggleButton>
+                        <ToggleButton sx={{ width: '100px' }} value="owner" startIcon={<PersonIcon />}>
+                          Pet Owner
+                        </ToggleButton>
+                        <ToggleButton sx={{ width: '100px' }} value="doctor" startIcon={<LocalHospitalIcon />}>
+                          Doctor
+                        </ToggleButton>
+                      </ToggleButtonGroup>
                     </Grid>
                     <Grid item xs={12} md={6} sx={{ p: 1 }} >
                         <InputLabel>Name <span style={{color:'red'}}>*</span></InputLabel>

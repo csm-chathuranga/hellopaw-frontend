@@ -30,6 +30,10 @@ import LegalDocuments from "./pages/policy/LegalDocuments";
 
 import DashboardTile from "./pages/dashboard/dash";
 
+import ItemDetail from "./pages/dashboard/ItemDetail";
+
+import Reservation from "./pages/services/Reservation";
+
 
 const routes = [
   { path: "/", element: <Home />, label: "home" },
@@ -68,6 +72,10 @@ const routes = [
   { path: "/dashboard", element: <DashboardTile />, label: "New section" },
 
   { path: "/policy", element: <LegalDocuments />, label: "policy" },
+
+  { path: "/whatsNew/:id", element: <ItemDetail />, label: "item" },
+
+  { path: "/reservation/:id", element: <Reservation />, label: "reservation" },
 
 
   // { path: "/zoom", element: <ZoomMeeting />, label: "zoom" },

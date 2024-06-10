@@ -3,7 +3,7 @@ import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import IconButton from '@mui/material/IconButton';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography, Skeleton } from '@mui/material';
 
 function srcset(image, width, height, rows = 1, cols = 1) {
   return {
@@ -14,32 +14,40 @@ function srcset(image, width, height, rows = 1, cols = 1) {
   };
 }
 
-export default function CustomImageList() {
+export default function CustomImageList({ isLoading }) {
   return (
     <Grid display={"flex"} gap={1}>
-      {itemData.map((item) => {
-
-        return (
-          <ImageListItem key={item.img} cols={2} rows={1} sx={{height:'500px',borderRadius:'100px'}}>
+      {isLoading ? (
+        itemData.map((item, index) => (
+          <Skeleton
+            key={index}
+            variant="rectangular"
+            width={400}
+            height={250}
+            sx={{ borderRadius: '10px' }}
+          />
+        ))
+      ) : (
+        itemData.map((item) => (
+          <ImageListItem key={item.img} cols={2} rows={1} sx={{ height: '500px', borderRadius: '100px' }}>
             <img {...srcset(item.img, 200, 700, 1, 2)} alt={item.title} loading="lazy" />
-            <ImageListItemBar  title={ <Typography>Full description here</Typography>} position="bottom"  actionIcon={
-                <IconButton  sx={{ color: 'white' }} aria-label={`star ${item.title}`} >
+            <ImageListItemBar
+              title={<Typography>Full description here</Typography>}
+              position="bottom"
+              actionIcon={
+                <IconButton sx={{ color: 'white' }} aria-label={`star ${item.title}`}>
                   <StarBorderIcon />
                 </IconButton>
-              }  actionPosition="left" />
-             
+              }
+              actionPosition="left"
+            />
           </ImageListItem>
-        );
-      })}
-      </Grid>
+        ))
+      )}
+    </Grid>
   );
 }
-    // <ImageList sx={{
-    //     width: '100%',
-    //     height: 450,
-    //     transform: 'translateZ(0)',
-    //   }} rowHeight={400} gap={1}  >
-        
+
 const itemData = [
   {
     img: 'https://hgtvhome.sndimg.com/content/dam/images/hgtv/fullset/2022/6/16/1/shutterstock_1862856634.jpg.rend.hgtvcom.791.527.suffix/1655430860853.jpeg',
@@ -56,9 +64,4 @@ const itemData = [
     title: 'Ruwanthika',
     author: '@silverdalex',
   },
-//   {
-//     img: 'https://thepet.community/wp-content/uploads/2020/05/homestead_boarding.png',
-//     title: 'Uysee',
-//     author: '@tjdragotta',
-//   },
 ];
