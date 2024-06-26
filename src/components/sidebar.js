@@ -2,7 +2,7 @@ import * as React from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { Box, Typography, Grid, Divider } from '@mui/material';
+import { Box, Typography, Grid, Divider, Avatar } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import { logged, user } from "../../src/store";
 import { useAtom } from "jotai";
@@ -22,6 +22,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import { useLocation } from 'react-router-dom';
 import { useTheme } from "@mui/material/styles";
+import MedicationIcon from '@mui/icons-material/Medication';
 
 const sidebarConfig = {
   owner: [
@@ -46,7 +47,13 @@ const sidebarConfig = {
   transfer: [
     { text: "My Post", icon: <DynamicFeedIcon />, path: 'posts' },
     { text: "My Service", icon: <CalendarMonthIcon />, path: 'myService' },
-    { text: "Make an appointment", icon: <BookOnlineRoundedIcon sx={{ color: 'green' }} />, path: 'appointment' },
+    // { text: "Make an appointment", icon: <BookOnlineRoundedIcon sx={{ color: 'green' }} />, path: 'appointment' },
+    { text: "My Appointment", icon: <CalendarMonthIcon sx={{ color: 'blue' }} />, path: 'myAppointment' },
+  ],
+  google_auth: [
+    { text: "My Pets", icon: <PetsIcon />, path: 'pet' },
+    { text: "My Post", icon: <DynamicFeedIcon />, path: 'posts' },
+    // { text: "Make an appointment", icon: <BookOnlineRoundedIcon sx={{ color: 'green' }} />, path: 'appointment' },
     { text: "My Appointment", icon: <CalendarMonthIcon sx={{ color: 'blue' }} />, path: 'myAppointment' },
   ],
 };
@@ -83,25 +90,31 @@ export default function Sidebar() {
         </Typography>
         <ListItemButton onClick={() => navigate('service/grooming')} sx={selectActive('/service/grooming')}>
           <ListItemIcon>
-            <ShoppingCartIcon sx={iconstyle} />
+            <Avatar src="/pet-grooming.png" sx={iconstyle} />
           </ListItemIcon>
           <ListItemText primary="Grooming" />
         </ListItemButton>
+        <ListItemButton onClick={() => navigate('/appointment')} sx={selectActive('/appointment')}>
+          <ListItemIcon>
+          <Avatar src="/360_F_601954739_dJ0VcsEl7js0vq8Ag2hx8giMpo71km3o.jpg" sx={iconstyle} />
+          </ListItemIcon>
+          <ListItemText primary="Doctor Channeling" />
+        </ListItemButton>
         <ListItemButton>
           <ListItemIcon>
-            <PeopleIcon sx={iconstyle} />
+          <Avatar src="/black-circle-pet-shop5686.logowik.com.webp" sx={iconstyle} />
           </ListItemIcon>
           <ListItemText primary="Stores" />
         </ListItemButton>
         <ListItemButton onClick={() => navigate('service/boarding')} sx={selectActive('/service/boarding')}>
           <ListItemIcon>
-            <BarChartIcon sx={iconstyle} />
+          <Avatar src="/pet-boarding.png" sx={iconstyle} />
           </ListItemIcon>
           <ListItemText primary="Boarding" />
         </ListItemButton>
         <ListItemButton onClick={() => navigate('service/transfer')} sx={selectActive('/service/transfer')}>
           <ListItemIcon>
-            <LayersIcon sx={iconstyle} />
+          <Avatar src="/pet-taxi.png" sx={iconstyle} />
           </ListItemIcon>
           <ListItemText primary="Transport" />
         </ListItemButton>

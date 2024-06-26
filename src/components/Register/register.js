@@ -9,10 +9,12 @@ import Typography from '@mui/material/Typography';
 import PetOwner from "./owner";
 import { useTheme } from "@mui/material/styles";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import EmailIcon from '@mui/icons-material/Email';
-import FacebookIcon from '@mui/icons-material/Facebook';
 import GoogleIcon from '@mui/icons-material/Google';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from "jwt-decode";
+import HowToRegIcon from '@mui/icons-material/HowToReg';
+import { create } from "../../services/PetOwner";
+
 
 const CLIENT_ID = '989579985190-pq2ofa7jcbevvbfqvdh0gh3tfro798c7.apps.googleusercontent.com'; // Replace with your actual client ID
 
@@ -29,9 +31,24 @@ const Register = () => {
   }
   const handleServiceProviderRegistration = () => setShowButtons(false);
 
-  const onSuccess = (response) => {
-    console.log('Login Success:', response);
-    alert('Login Success: ' + response.credential);
+  const onSuccess =async (response) => {
+    const decoded = jwtDecode(response.credential);
+    let data={};
+    const { email, given_name, family_name, picture, birthdate, gender } = decoded;
+    try {
+      data['name']=given_name+' '+family_name;
+      data['email']=email;
+      data['password']=email+'google_auth';
+      data['type']='google_auth';
+      let res=await create(data);
+      setCompleted(true);
+      // toast.success('Registration successfull')
+  } catch (error) {
+      // toast.error(error?.response?.data || 'Registraion failed')
+      // setLoad(false);
+  } finally{
+      // setLoad(false);
+  }
   };
 
   const onFailure = (response) => {
@@ -65,33 +82,25 @@ const Register = () => {
           <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
             Sign Up
           </Typography>
-          <Grid container display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"} sx={{ height: '100%' }}>
+          <Grid container display={"flex"} direction={"column"} justifyContent={"center"} alignItems={"center"} sx={{ height:showButtons ? '80%' : '100%' }}>
             {showButtons ? (
               <>
                 <Typography sx={{ mb: 1, textAlign: 'center' }}>
-                  Login as a normal user using your email
+                  Login as a normal user using your credential
                 </Typography>
+                <Grid item xs={12} md={12} sx={{ mt: 1,mb:1 }} display={'flex'} justifyContent={'center'} alignItems={'center'} direction={'column'}>
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={() => alert('Login with Email')}
-                  startIcon={<EmailIcon />}
+                  onClick={() => setShowButtons(false)}
+                  startIcon={<HowToRegIcon />}
                   sx={{ mb: 2, width: '80%' }}
                 >
-                  Login with Email
+                  Register Now
                 </Button>
                 <Box sx={{ width: '100%', textAlign: 'center', mb: 2 }}>
                   <Typography variant="body1">or Continue with</Typography>
                 </Box>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => alert('Login with Facebook')}
-                  startIcon={<FacebookIcon />}
-                  sx={{ mb: 2, width: '80%', backgroundColor: '#3b5998', '&:hover': { backgroundColor: '#3b5998' } }}
-                >
-                  Login with Facebook
-                </Button>
                 <GoogleLogin
                   onSuccess={onSuccess}
                   onError={onFailure}
@@ -109,6 +118,7 @@ const Register = () => {
                     </Button>
                   )}
                 />
+            </Grid>
               </>
             ) : (
               <PetOwner setCompleted={setCompleted} handleClose={handleClose} />

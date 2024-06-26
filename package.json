@@ -28,6 +28,7 @@
     "emoji-mart": "^5.6.0",
     "hls.js": "^1.5.7",
     "jotai": "^2.6.4",
+    "jwt-decode": "^4.0.0",
     "mui-file-input": "^4.0.3",
     "object-to-formdata": "^4.5.1",
     "path-browserify": "^1.0.1",
