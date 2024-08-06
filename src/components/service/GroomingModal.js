@@ -26,6 +26,7 @@ import * as yup from "yup";
 import dayjs from "dayjs";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { setAppointment } from "../../services/service";
+import { getMyPets } from "../../services/petService";
 import { toast } from 'react-toastify';
 
 const useStyles = makeStyles((theme) => ({
@@ -86,11 +87,12 @@ const schema = yup.object().shape({
   }),
 });
 
-export default function GroomingModal({ open, handleClose, item, pet }) {
+export default function GroomingModal({ open, handleClose, item,id }) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [load, setLoad] = React.useState(false);
   const [pickupNeeded, setPickupNeeded] = React.useState(false);
+  const [pet, setPet] = React.useState([]);
 
   const {
     register,
@@ -132,6 +134,20 @@ export default function GroomingModal({ open, handleClose, item, pet }) {
       setLoad(false);
     }
   };
+
+  const getService = async () => {
+    try {
+      let res = await getMyPets();
+      setPet(res.body);
+    } catch (error) {
+      toast.success('My pet request failed');
+    }
+
+  }
+
+  React.useEffect(() => {
+    getService();
+  }, []);
 
   const StepContentComponent = () => {
     switch (activeStep) {

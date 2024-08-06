@@ -19,6 +19,7 @@ const Reservation = () => {
   const getService = async () => {
     try {
       let res = await getServiceById(id);
+      console.log(res);
       setRow(res.body);
       setService(JSON.parse(res.body.other));
     } catch (error) {
@@ -68,10 +69,10 @@ const Reservation = () => {
         
         {/* Reservation Section */}
         <Grid item xs={12} md={4}>
-          <ReservationCard />
+          <ReservationCard row={row} handleOpen={handleOpen}/>
         </Grid>
       </Grid>
-      {/* <GroomingModal open={open} handleClose={handleClose} item={item} pet={pet} /> */}
+      <GroomingModal open={open} handleClose={handleClose} item={row} id={id}/>
     </Container>
   );
 };

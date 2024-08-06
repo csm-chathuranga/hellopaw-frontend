@@ -69,3 +69,11 @@ export function addLike (data){
     dataType: JsonRequestDataType,
   }).then((response) => response);
 }
+
+export function getWhatsNew() {
+  return request({
+    path: '/newSection',
+    method: 'GET',
+    dataType: JsonRequestDataType,
+  }).then((response) => response);
+} 

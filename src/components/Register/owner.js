@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import Button from "@mui/material/Button";
-import {  Divider, Grid, TextField, Typography } from "@mui/material";
+import {  Divider, Grid, TextField, Typography,Avatar } from "@mui/material";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -50,6 +50,8 @@ const cities = [
     'Ratnapura'
   ];
 
+  const iconstyle = { fontSize: '10px',marginRight:'10px' };
+
 let schema = yup.object().shape({
     name: yup.string().required("Full Name is required"),
     nic: yup.string().required("NIC is required"),
@@ -74,7 +76,7 @@ export default function Ownner({completed, setCompleted,handleClose}) {
     const theme = useTheme();
     const [load, setLoad] = useState(false);
     const classes = useStyles();
-    const [alignment, setAlignment] = React.useState('grooming');
+    const [alignment, setAlignment] = React.useState('boarding');
     const [gender, setGender] = React.useState('male');
     const [value, setValue] = React.useState('Negombo');
 
@@ -122,22 +124,23 @@ export default function Ownner({completed, setCompleted,handleClose}) {
                         onChange={handleChange}
                         aria-label="Platform"
                       >
-                        <ToggleButton sx={{ width: '100px' }} value="grooming" startIcon={<PetsIcon />}>
-                          Grooming
-                        </ToggleButton>
-                        <ToggleButton sx={{ width: '100px' }} value="walking" startIcon={<DirectionsWalkIcon />}>
-                          Walking
-                        </ToggleButton>
-                        <ToggleButton sx={{ width: '100px' }} value="transfer" startIcon={<TransferWithinAStationIcon />}>
-                          Transfer
-                        </ToggleButton>
-                        <ToggleButton sx={{ width: '100px' }} value="owner" startIcon={<PersonIcon />}>
-                          Pet Owner
-                        </ToggleButton>
-                        <ToggleButton sx={{ width: '100px' }} value="doctor" startIcon={<LocalHospitalIcon />}>
+                        <ToggleButton sx={{ width: '130px' }} value="doctor" startIcon={<LocalHospitalIcon />}>
+                          <Avatar src="/360_F_601954739_dJ0VcsEl7js0vq8Ag2hx8giMpo71km3o.jpg" sx={iconstyle} />
                           Doctor
                         </ToggleButton>
                       </ToggleButtonGroup>
+                        <ToggleButton sx={{ width: '130px' }} value="grooming" startIcon={<PetsIcon />}>
+                        <Avatar src="/pet-grooming.png" sx={iconstyle} /> Grooming
+                        </ToggleButton>
+                        <ToggleButton sx={{ width: '130px' }} value="boarding" startIcon={<DirectionsWalkIcon />}>
+                        <Avatar src="/pet-boarding.png" sx={iconstyle} /> Boarding
+                        </ToggleButton>
+                        <ToggleButton sx={{ width: '130px' }} value="transfer" startIcon={<TransferWithinAStationIcon />}>
+                        <Avatar src="/pet-taxi.png" sx={iconstyle} /> Transfer
+                        </ToggleButton>
+                        <ToggleButton sx={{ width: '130px' }} value="owner" startIcon={<PersonIcon />}>
+                        <Avatar src="/pet-owner.jpeg" sx={iconstyle} /> Pet Owner
+                        </ToggleButton>
                     </Grid>
                     <Grid item xs={12} md={6} sx={{ p: 1 }} >
                         <InputLabel>Name <span style={{color:'red'}}>*</span></InputLabel>

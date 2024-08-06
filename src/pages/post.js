@@ -31,13 +31,14 @@ export default function RecipeReviewCard({ img, item, getPost,updateLikes }) {
   let imgAvatar = item?.user?.other ? JSON.parse(item?.user?.other) : null;
   const [localUser, setLocalUser] = useAtom(user);
   const navigate = useNavigate();
-  // console.log(localUser, item);
+  console.log(localUser, item?.likes);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const [dialogOpen, setDialogOpen] = React.useState(false);
-  const [likes, setLikes] = React.useState(item.likes || 0);
+  const [likes, setLikes] = React.useState(item?.likes ? JSON.parse(item?.likes) : 0);
   const [liked, setLiked] = React.useState(false);
+  // const [liked, setLiked] = React.useState(item?.likes ? JSON.parse(item?.likes).includes(localUser.id) : false);
 
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -77,13 +78,13 @@ export default function RecipeReviewCard({ img, item, getPost,updateLikes }) {
   const handleLike = async () => {
     try {
       // alert();
-      const res = await addLike({post_id:item.id});
-console.log(item.id,res.body.likes);
-      updateLikes(item.id,res.body.likes);
-      // if (res) {
-      //   setLiked(true);
-      //   setLikes(likes + 1);
-      //   toast.success('Reaction updated!');
+      const res= await addLike({post_id:item.id});
+      setLikes(res.body.likes);
+      setLiked(res.body.likes.includes(localUser.id));
+      // if(res.body.likes.include(item.id)){
+        // console.log('this',res.body.likes.includes(localUser.id));
+        // console.log('this',res.body.likes);
+      // }
       // }
     } catch (error) {
       toast.error(error?.response?.data || 'Failed to update reaction');
@@ -97,7 +98,7 @@ console.log(item.id,res.body.likes);
           <Avatar alt="Profile Picture" src={IMG_URL + imgAvatar?.image || null} />
         }
         action={
-          localUser.id === item.user_id && (
+          localUser?.id === item?.user_id && (
             <>
               <IconButton aria-label="settings" onClick={handleMenuClick}>
                 <MoreVertIcon />
@@ -129,9 +130,10 @@ console.log(item.id,res.body.likes);
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites" onClick={handleLike} disabled={liked}>
+        <IconButton aria-label="add to favorites" onClick={handleLike} >
           <FavoriteIcon sx={{ fontSize: '20px', color: liked ? 'red' : 'grey' }} />
-          <Typography sx={{ ml: 2 }}>{JSON.parse(item?.likes || 0)?.length || 0}</Typography>
+          {/* dd{likes} */}
+          <Typography sx={{ ml: 2 }}>{likes?.length || 0}</Typography>
         </IconButton>
       </CardActions>
 

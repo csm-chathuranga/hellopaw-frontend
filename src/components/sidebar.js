@@ -33,9 +33,12 @@ const sidebarConfig = {
 
   ],
   doctor: [
-    { text: "Dashboard", icon: <DashboardIcon />, path: 'dashboard' },
+    // { text: "Dashboard", icon: <DashboardIcon />, path: 'dashboard' },
+    { text: "Appointments", icon: <CalendarMonthIcon sx={{ color: 'blue' }} />, path: 'DoctorAppointment' },
     { text: "Bank List", icon: <AccountBalanceIcon />, path: 'banks' },
     { text: "My Post", icon: <DynamicFeedIcon />, path: 'posts' },
+    { text: "My Service", icon: <CalendarMonthIcon />, path: 'myService' },
+
   ],
   admin: [
     { text: "Dashboard", icon: <DashboardIcon />, path: 'dashboard' },
@@ -43,6 +46,8 @@ const sidebarConfig = {
     { text: "My Service", icon: <CalendarMonthIcon />, path: 'myService' },
     { text: "Doctor Confirmation", icon: <ConfirmationNumberIcon />, path: 'doctorList' },
     { text: "What's New Section", icon: <CreateNewFolderIcon />, path: 'newSection' },
+    { text: "My Appointment", icon: <CalendarMonthIcon sx={{ color: 'blue' }} />, path: 'myAppointment' },
+
   ],
   transfer: [
     { text: "My Post", icon: <DynamicFeedIcon />, path: 'posts' },
@@ -84,7 +89,8 @@ export default function Sidebar() {
           </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItemButton>
-
+        {/* {localUser?.type} */}
+        {localUser?.type!='doctor' ? <>
         <Typography sx={{ color: 'grey', p: 1 }}>
           Book a Services
         </Typography>
@@ -118,7 +124,9 @@ export default function Sidebar() {
           </ListItemIcon>
           <ListItemText primary="Transport" />
         </ListItemButton>
+        </>:''}
       </Box>
+
       <Divider sx={{ my: 1 }} />
       {loggedStatus ?
         <Box sx={{ p: 2 }}>

@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   card: {
     mt: 2,
     borderRadius: '10px',
-    height: '450px',
+    height: '350px',
     position: 'relative',
     [theme.breakpoints.down('sm')]: {
       height: 'auto',
@@ -84,15 +84,15 @@ export default function CardComp({ item, pet }) {
         <CardMedia
           component="img"
           className={classes.cardMedia}
-          src={item?.image ? IMG_URL + item?.image : 'https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg'}
+          src={item?.image ?  item?.image : 'https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg'}
           alt="Paella dish"
         />
         <Rating name="read-only" value={2} readOnly sx={{ ml: 2 }} />
-        <CardContent className={classes.cardContent}>
+        {/* <CardContent className={classes.cardContent}>
           <Typography variant="body2" color="text.secondary">
             {truncateText(item?.des, 150)}
           </Typography>
-        </CardContent>
+        </CardContent> */}
         <Typography sx={{ bottom: 3, left: 20, position: 'absolute' }}>Rs : {item?.amount}.00 (LKR)</Typography>
       </Card>
 

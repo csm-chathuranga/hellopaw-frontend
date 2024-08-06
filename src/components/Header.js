@@ -20,7 +20,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { login } from "../services/authService";
-import { logged, user } from "../../src/store";
+import { logged, user,stOpen } from "../../src/store";
 import { useAtom } from "jotai";
 import localStore from 'store2';
 import { useNavigate } from "react-router-dom";
@@ -76,7 +76,8 @@ const style = {
 };
 
 export default function PrimarySearchAppBar({ isDarkTheme, setIsDarkTheme }) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useAtom(stOpen);
+  // const [open, setOpen] = React.useState(false);
   const [loginError, setLoginError] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -103,8 +104,12 @@ export default function PrimarySearchAppBar({ isDarkTheme, setIsDarkTheme }) {
       type: 'google_auth'
     };
     
+    // console.log(data);
+    // return;
     try {
       const res = await login(data);
+      // console.log(res.body.user);
+      // return;
       setLogged(true);
       setUserLocal(res.body.user);
       localStore('authToken', res.body.res);
@@ -130,6 +135,7 @@ export default function PrimarySearchAppBar({ isDarkTheme, setIsDarkTheme }) {
     try {
       setLoginError(false);
       setLoad(true);
+      data['type']=null;
       let res = await login(data);
       console.log(res);
       setLogged(true);
@@ -150,6 +156,9 @@ export default function PrimarySearchAppBar({ isDarkTheme, setIsDarkTheme }) {
     setLogged(false);
     localStorage.removeItem('token');
     localStorage.removeItem('loggedPet');
+    localStorage.removeItem('user');
+    localStorage.removeItem('loggedUser');
+    setUserLocal(null);
     localStore('authToken', null);
     navigate('/');
     handleMenuClose();
@@ -230,8 +239,8 @@ export default function PrimarySearchAppBar({ isDarkTheme, setIsDarkTheme }) {
 
       <MenuItem sx={{ ...dropdownMenu }}>
         <Grid display={"flex"} direction={"column"}>
-          <Typography sx={{ fontSize: '14px', fontWeight: 600 }}>dcsm</Typography>
-          <Typography sx={{ fontSize: '10px', mt: 0.5 }}>dev.chathu@gmail.com</Typography>
+          <Typography sx={{ fontSize: '14px', fontWeight: 600 }}>{userLocal?.name || 'N/A'}</Typography>
+          <Typography sx={{ fontSize: '10px', mt: 0.5 }}>{userLocal?.email || 'N/A'}</Typography>
         </Grid>
       </MenuItem>
 

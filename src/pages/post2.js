@@ -13,7 +13,7 @@ import { IMG_URL } from "../utils/constant";
 
 export default function RecipeReviewCard2({item}) {
   let itemJson= item?.other ? JSON.parse(item?.other) : null;
-
+console.log(itemJson);
   return (
     <Card sx={{ mt:2 ,borderRadius:'30px'}}>
       <CardHeader

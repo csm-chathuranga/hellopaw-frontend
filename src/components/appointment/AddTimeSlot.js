@@ -58,11 +58,13 @@ const style = {
 const handleClose = () => setOpen(false);
 
 useEffect(() => {
-  if(userData?.has_shedule?.length>0 && loggedStatus) return setOpen(true);
+  // console.log(userData?.shedule?.length || 'n');
+  if(userData?.shedule?.length==0 && loggedStatus) return setOpen(true);
     return setOpen(false);
-}, []);
+}, [userData]);
 
   return (
+
     <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description" >
     <Box sx={style}>
         <Typography  sx={{mb:2}}>

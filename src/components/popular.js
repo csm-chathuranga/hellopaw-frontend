@@ -1,6 +1,5 @@
 // File path: src/components/FixedBottomNavigation.jsx
-
-import * as React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -12,10 +11,13 @@ import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
 import { Typography, Skeleton } from '@mui/material';
 import { IMG_URL } from '../utils/constant';
+import { getWhatsNew } from "../services/post";
 
-export default function FixedBottomNavigation({ data, isLoading }) {
+export default function FixedBottomNavigation() {
   const navigate = useNavigate();
   const ref = React.useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState([]);
 
   const handleItemClick = (id) => {
     navigate(`/whatsNew/${id}`);
@@ -25,6 +27,22 @@ export default function FixedBottomNavigation({ data, isLoading }) {
     if (text.length <= maxLength) return text;
     return text.substring(0, maxLength) + '...';
   };
+
+  const getPost = async () => {
+    try {
+      setIsLoading(true);
+      let res = await getWhatsNew();
+      setData(res?.body || [])
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  useEffect(() => {
+    getPost();
+  }, []);
 
   return (
     <Box sx={{ pb: 7, position: 'fixed' }} ref={ref}>

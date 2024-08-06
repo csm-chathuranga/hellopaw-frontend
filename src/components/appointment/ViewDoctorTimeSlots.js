@@ -1,20 +1,27 @@
 import React ,{useState,useEffect} from 'react';
 import Button from '@mui/material/Button';
 import { setShedule } from "../../services/doctor";
-import {  Divider, Grid, TextField, Typography,Avatar, IconButton} from "@mui/material";
+import {  Divider, Grid, TextField, Typography,Avatar, IconButton,Alert} from "@mui/material";
 import Rating from '@mui/material/Rating';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import AccordionWithButton from "./AccordionWithButton";
 import { getShedule } from "../../services/doctor";
+import { useParams } from 'react-router-dom'
 
-
-const ViewDoctorTimeSlots = ({setBooking,setSelect}) => {
+const ViewDoctorTimeSlots = ({setBooking,setSelect,setDoctorDetail}) => {
   const [rows, setRows] = useState([]);
-
+  const params = useParams();
+// console.log(params.id);
   const getSheduleHandle = async () => {
-    let res = await getShedule();
-    setRows(res.body);
+    try {
+        let res = await getShedule(params.id);
+        setRows(res.body);
+        setDoctorDetail(res?.body?.doctor || {})
+    } catch (error) {
+      
+    }
+
   }
   useEffect(() => {
     getSheduleHandle();
@@ -27,7 +34,8 @@ const ViewDoctorTimeSlots = ({setBooking,setSelect}) => {
 
                     <Grid  alignItems={"center"} justifyContent={{ xs: 'center', md: 'center' }} display={'flex'} direction={'column'} gap={1}>
                       <Grid>
-                        <Avatar alt="Remy Sharp"  sx={{width:'100px',height:'100px',borderRadius:'5px'}} src="https://www.petvet.lk/wp-content/uploads/2019/05/Nalinika.jpg"/>
+                        {}
+                        <Avatar alt="Remy Sharp"  sx={{width:'100px',height:'100px',borderRadius:'5px'}} src={rows?.doctor?.other ? JSON.parse(rows?.doctor?.other)?.image : ''}/>
                       </Grid>
                       <Grid display={'flex'} alignItems={'center'} >
                         <Rating name="read-only" value={2} readOnly />
@@ -64,6 +72,15 @@ const ViewDoctorTimeSlots = ({setBooking,setSelect}) => {
                         </Grid>
                       </Grid>
 
+                      <Grid display={'flex'} alignItems={'left'} justifyContent={'left'} sx={{width:'100%',mt:2}}>
+                        <Grid xs={6}>
+                          <Typography sx={{ fontSize: '16px', fontWeight: 500, lineHeight: '22px',fontWeight:800  }}>{'License'}:</Typography>
+                        </Grid>
+                        <Grid xs={6}>
+                          <Typography sx={{ fontSize: '16px', fontWeight: 500, lineHeight: '22px'  }}>{rows?.doctor?.license_img || 'N/A'}</Typography>
+                        </Grid>
+                      </Grid>
+
                       {/* <Button variant="contained" color="success" sx={{mt:2}}>  + View Profile </Button> */}
                     </Grid>
             </Grid>
@@ -80,7 +97,7 @@ const ViewDoctorTimeSlots = ({setBooking,setSelect}) => {
                 })}
  
               </List>
-              {/* <Alert severity="warning" sx={{mt:2,width:'96%',ml:'2%'}}> Shedule not updated</Alert> */}
+              {rows?.time?.length==0 && <Alert severity="warning" sx={{mt:2,width:'96%',ml:'2%'}}> Shedule not updated</Alert>}
           </Grid>
         </Grid>
     </>

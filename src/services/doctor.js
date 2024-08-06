@@ -36,9 +36,9 @@ export function Reject(id) {
   }).then((response) => response);
 }
 
- export function getShedule() {
+ export function getShedule(id) {
   return request({
-    path: '/doctor/getShedule/3',
+    path: '/doctor/getShedule/'+id,
     method: 'GET',
   //   data,
     dataType: JsonRequestDataType,
@@ -75,6 +75,16 @@ export function getMyShedule() {
     dataType: JsonRequestDataType,
   }).then((response) => response);
 }
+
+export function getMySheduleDoctor() {
+  return request({
+    path: '/doctorShedule',
+    method: 'GET',
+  //   data,
+    dataType: JsonRequestDataType,
+  }).then((response) => response);
+}
+
 
 export function getSession(id) {
   return request({

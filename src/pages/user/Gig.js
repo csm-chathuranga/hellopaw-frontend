@@ -17,6 +17,7 @@ import { IMG_URL } from "../../utils/constant";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import { handleUpload } from "../../utils/uploadUtils"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -112,10 +113,11 @@ export default function Gig() {
 
   let submitHandler = async (data) => {
     try {
-      data.image = selectedImage;
+      setLoad(true);
+      let resImg = await handleUpload(selectedImage);
+      data.image = resImg.data.url;
       data.des = description;
       console.log(data);
-      setLoad(true);
       let res = await saveService(data);
       console.log(res);
       if (res) toast.success('Service updated successfully');

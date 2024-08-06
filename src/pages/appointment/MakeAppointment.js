@@ -58,6 +58,7 @@ export default function MakeAppointment() {
     const [rows, setRows] = useState([]);
     const [booking, setBooking] = useState(false);
     const [selectedTmeSlot, setSelectTimeSlot] = useState(null);
+    const [doctorDetail, setDoctorDetail] = useState({});
   
     const handleChange = (event) => {
       setGender(event.target.value);
@@ -180,12 +181,12 @@ export default function MakeAppointment() {
                       <label>Summary</label>
                       <Grid container direction="row">
                           <Grid item md={3} sx={{ pt: 1 }} >Price</Grid>
-                          <Grid item md={9} sx={{ pt: 1 }} >: 300LKR</Grid>
+                          <Grid item md={9} sx={{ pt: 1 }} >{doctorDetail?.other ? JSON.parse(doctorDetail?.other)?.amount+' LKR' : 'N/A'}</Grid>
                       </Grid>
-                      <Grid container direction="row">
+                      {/* <Grid container direction="row">
                           <Grid item md={3} sx={{ pt: 1 }} >Date</Grid>
                           <Grid item md={9} sx={{ pt: 1 }} >: 2024-03-25</Grid>
-                      </Grid>
+                      </Grid> */}
                     </Grid>
 
                     <Grid item md={12} display="flex" container direction="row">
@@ -214,7 +215,7 @@ export default function MakeAppointment() {
         </form>
         </Grid>
         : 
-            <ViewDoctorTimeSlots setBooking={setBooking} setSelect={setSelectTimeSlot}/>
+            <ViewDoctorTimeSlots setBooking={setBooking} setSelect={setSelectTimeSlot} setDoctorDetail={setDoctorDetail}/>
         }
         
         {/* <TimeSlotCalculator/>

@@ -43,14 +43,24 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MyPets() {
   const [rows, setRows] = useState([]);
+  const [load, setLoad] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [petIdToDelete, setPetIdToDelete] = useState(null);
   const navigate = useNavigate();
   const classes = useStyles();
 
   const getPets = async () => {
-    let res = await getMyPets();
-    setRows(res.body);
+    try {
+      setLoad(true);
+      let res = await getMyPets();
+      setRows(res.body);
+    } catch (error) {
+      
+    }finally{
+      setLoad(false);
+
+    }
+
   };
 
   useEffect(() => {
@@ -135,7 +145,9 @@ export default function MyPets() {
             </div>
           ))}
         </List>
-        : <>
+        :
+        load ?
+        <>
           <Box sx={{ width: '100%', mt: 1 }}>
             <Skeleton animation="wave" sx={{ height: '40px' }} />
             <Skeleton animation="wave" sx={{ height: '40px' }} />
@@ -156,7 +168,7 @@ export default function MyPets() {
             <Skeleton animation="wave" sx={{ height: '40px' }} />
             <Skeleton animation="wave" sx={{ height: '40px' }} />
           </Box>
-        </>
+        </> :''
       }
 
       <Modal

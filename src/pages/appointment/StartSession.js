@@ -88,18 +88,18 @@ const PetConsultation = () => {
           <Grid item xs={12}>
             <Typography variant="h6" sx={{ pb: 2 }}>Online Pet Consultation</Typography>
             <form onSubmit={handleSubmit(onSubmit)} className={classes.root}>
-              <Grid xs={12} md={12} sx={{ p: 1 }}>
-                <InputLabel shrink={false}>Pet Name</InputLabel>
+              <Grid xs={12} md={12} sx={{ p: 1,pb:2 }}>
+                <label >Pet Name</label>
                 <Typography variant="body1">{watch('petName')}</Typography>
               </Grid>
 
-              <Grid xs={12} md={12} sx={{ p: 1 }}>
-                <InputLabel shrink={false}>Pet Type</InputLabel>
+              <Grid xs={12} md={12} sx={{ p: 1,pb:2 }}>
+                <label>Pet Type</label>
                 <Typography variant="body1">{watch('petType')}</Typography>
               </Grid>
 
-              <Grid xs={12} md={12} sx={{ p: 1 }}>
-                <InputLabel shrink={false}>Prescription</InputLabel>
+              <Grid xs={12} md={12} sx={{ p: 1,pb:2 }}>
+                <label>Prescription</label>
                 <Controller
                   name="Prescription"
                   control={control}

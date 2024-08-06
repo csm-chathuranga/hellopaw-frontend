@@ -84,10 +84,10 @@ const Register = () => {
           </Typography>
           <Grid container display={"flex"} direction={"column"} justifyContent={"center"} alignItems={"center"} sx={{ height:showButtons ? '80%' : '100%' }}>
             {showButtons ? (
-              <>
-                <Typography sx={{ mb: 1, textAlign: 'center' }}>
+              <Grid container display={"flex"} direction={"column"} justifyContent={"center"} alignItems={"center"} >
+                {/* <Typography sx={{ mb: 1, textAlign: 'center' }}>
                   Login as a normal user using your credential
-                </Typography>
+                </Typography> */}
                 <Grid item xs={12} md={12} sx={{ mt: 1,mb:1 }} display={'flex'} justifyContent={'center'} alignItems={'center'} direction={'column'}>
                 <Button
                   variant="contained"
@@ -99,7 +99,7 @@ const Register = () => {
                   Register Now
                 </Button>
                 <Box sx={{ width: '100%', textAlign: 'center', mb: 2 }}>
-                  <Typography variant="body1">or Continue with</Typography>
+                  <Typography variant="body1">Or Continue with</Typography>
                 </Box>
                 <GoogleLogin
                   onSuccess={onSuccess}
@@ -119,17 +119,20 @@ const Register = () => {
                   )}
                 />
             </Grid>
-              </>
+            </Grid>
             ) : (
-              <PetOwner setCompleted={setCompleted} handleClose={handleClose} />
+              <>
+              {completed ? 
+                <Grid sx={{ p: 1, width: '100%' }} display={'flex'} flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
+                  <CheckCircleIcon sx={{ fontSize: '120px', m: 2, color: theme.palette.success.main }} />
+                  <Typography sx={{ fontSize: '14px', color: theme.palette.text.primary, p: 2 }}>Signup Completed!</Typography>
+                </Grid>
+              :<PetOwner setCompleted={setCompleted} handleClose={handleClose} /> }
+              
+              </>
             )}
           </Grid>
-          {completed && (
-            <Grid sx={{ p: 1, width: '100%' }} display={'flex'} flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
-              <CheckCircleIcon sx={{ fontSize: '120px', m: 2, color: theme.palette.success.main }} />
-              <Typography sx={{ fontSize: '14px', color: theme.palette.text.primary, p: 2 }}>Signup Completed!</Typography>
-            </Grid>
-          )}
+
         </Box>
       </Modal>
     </GoogleOAuthProvider>

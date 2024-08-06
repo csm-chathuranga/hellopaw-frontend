@@ -1,14 +1,14 @@
 // src/components/service/ReservationCard.js
 import React, { useState } from 'react';
 import { Card, CardContent, Typography, Box, Button, Divider } from '@mui/material';
+import ImageUpload from "./ImageUpload";
 
-const ReservationCard = () => {
+const ReservationCard = ({row,handleOpen}) => {
   const [showContact, setShowContact] = useState(false);
 
   const handleContactClick = () => {
     setShowContact(true);
   };
-
   return (
     <Box sx={{ position: 'sticky', top: '20px' }}>
       <Card sx={{ p: 2, border: '1px solid rgba(0, 0, 0, 0.1)' }}>
@@ -36,14 +36,14 @@ const ReservationCard = () => {
             {showContact ? (
               <>
                 <Typography variant="body2" color="primary" component="p" mt={1}>
-                  📞 Contact Number: +65 1234 5678
+                  📞 Contact Number: {row?.phone_number}
                 </Typography>
                 <Button
                   variant="contained"
                   color="secondary"
                   fullWidth
                   sx={{ mt: 1 }}
-                  href="tel:+6512345678"
+                  href={'tel:'+row?.phone_number }
                 >
                   Call Now
                 </Button>
@@ -60,14 +60,14 @@ const ReservationCard = () => {
                   🏠
                 </Typography>
                 <Typography variant="body2" component="span">
-                  Pet Boarding
+                  {row?.type || 'N/A'}
                 </Typography>
               </Box>
               <Typography variant="body2" component="span">
                 From SGD 40 /night
               </Typography>
             </Box>
-            <Button variant="outlined" color="primary" fullWidth sx={{ mt: 1 }}>
+            <Button variant="outlined" color="primary" fullWidth sx={{ mt: 1 }} onClick={handleOpen}>
               Make Reservation
             </Button>
           </Box>
@@ -83,6 +83,7 @@ const ReservationCard = () => {
           </Box>
         </CardContent>
       </Card>
+      {/* <ImageUpload/> */}
     </Box>
   );
 };

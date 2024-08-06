@@ -23,7 +23,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { getMyPetsById } from "../../services/petService";
 import { useParams } from 'react-router-dom'
 import { IMG_URL } from "../../utils/constant";
-
+import { handleUpload } from "../../utils/uploadUtils"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -81,10 +81,12 @@ export default function RegisterPet() {
     let submitHandler = async (data) => {
         try {
             setLoad(true);
+            let resImg = await handleUpload(selectedImage);
+            data.image = resImg.data.url;
             let res=null
             if (dob == null) return setDobErr(true);
             data.birth_date = dob;
-            data.image=selectedImage;
+            // data.image=selectedImage;
             data.gender=gender;
             if(params?.id){
               // if(edit)

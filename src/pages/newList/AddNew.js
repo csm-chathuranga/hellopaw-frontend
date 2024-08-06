@@ -14,7 +14,7 @@ import InputLabel from '@mui/material/InputLabel';
 import { saveNewSection } from "../../services/newSection";
 import { useParams } from 'react-router-dom'
 import { IMG_URL } from "../../utils/constant";
-
+import { handleUpload } from "../../utils/uploadUtils"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,10 +59,11 @@ export default function AddNew() {
       };
       
     let submitHandler = async (data) => {
+      setLoad(true);
         try {
+          let resImg = await handleUpload(selectedImage);
             let res;
-            data.image=selectedImage;
-            setLoad(true);
+            data.image_path = resImg.data.url;
             // if(params?.id){
             //   data.id=params.id;
             //   res=await updatePost(data);
@@ -101,7 +102,7 @@ export default function AddNew() {
     <div className="main-wrapper">
           <form onSubmit={handleSubmit(submitHandler)} id="hook-form">
          <Grid container direction="row" sx={{p:2}}>
-          <Typography sx={{m:1,fontSize:'22px'}}>Add New Post</Typography>
+          <Typography sx={{m:1,fontSize:'22px'}}>Add New News</Typography>
             <Grid container direction="row" display={'flex'} alignItems={'center'} >
 
             <Grid item xs={12} md={5} sx={{ p: 1 }} >
