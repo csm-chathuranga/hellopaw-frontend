@@ -31,10 +31,16 @@ import LegalDocuments from "./pages/policy/LegalDocuments";
 
 import DashboardTile from "./pages/dashboard/dash";
 
+import DashboardDoctor from "./pages/dashboard/doctor";
+
 import ItemDetail from "./pages/dashboard/ItemDetail";
 
 import Reservation from "./pages/services/Reservation";
 
+import UserLists from "./pages/userList/UserLists";
+
+import NewStory from "./pages/story/NewStorys";
+import AddStory from "./pages/story/AddStory";
 
 const routes = [
   { path: "/", element: <Home />, label: "home" },
@@ -70,14 +76,20 @@ const routes = [
   { path: "/newSection", element: <NewList />, label: "New section" },
   { path: "/newSection/add", element: <AddNew />, label: "Add New Section" },
 
+  { path: "/story", element: <NewStory />, label: "Story section" },
+  { path: "/story/add", element: <AddStory />, label: "Add New Story" },
 
   { path: "/dashboard", element: <DashboardTile />, label: "New section" },
+
+  { path: "/dashboardDoctor", element: <DashboardDoctor />, label: "Dashboard" },
 
   { path: "/policy", element: <LegalDocuments />, label: "policy" },
 
   { path: "/whatsNew/:id", element: <ItemDetail />, label: "item" },
 
   { path: "/reservation/:id", element: <Reservation />, label: "reservation" },
+
+  { path: "/userList/:type", element: <UserLists />, label: "user list" },
 
 
   // { path: "/zoom", element: <ZoomMeeting />, label: "zoom" },

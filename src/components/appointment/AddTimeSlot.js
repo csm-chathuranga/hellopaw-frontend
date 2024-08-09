@@ -59,7 +59,7 @@ const handleClose = () => setOpen(false);
 
 useEffect(() => {
   // console.log(userData?.shedule?.length || 'n');
-  if(userData?.shedule?.length==0 && loggedStatus) return setOpen(true);
+  if(userData?.shedule?.length==0 && loggedStatus && userData?.type=='doctor') return setOpen(true);
     return setOpen(false);
 }, [userData]);
 

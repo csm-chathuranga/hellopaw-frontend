@@ -50,14 +50,14 @@ const Reservation = () => {
                     by {row?.name || 'N/A'} <span style={{ color: '#FFD700' }}>★★★★★</span> <Typography variant="body2" component="span" color="primary">(10 Reviews)</Typography>
                   </Typography>
                   <Box mt={1} display="flex" alignItems="center">
-                    <Typography variant="body2" color="textSecondary" component="div">
+                    {/* <Typography variant="body2" color="textSecondary" component="div">
                       📅 0 Completed Bookings
-                    </Typography>
+                    </Typography> */}
                   </Box>
                 </Box>
               </Box>
-              <Box>
-              <Typography dangerouslySetInnerHTML={{ __html: service?.des }} sx={{color:'green'}}/>
+              <Box sx={{background:'white',p:2}}>
+              <Typography dangerouslySetInnerHTML={{ __html: service?.des }} sx={{color:'green',backgroundColor:'white'}}/>
                 
               </Box>
 

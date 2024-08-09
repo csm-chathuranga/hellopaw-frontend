@@ -95,6 +95,15 @@ export function getSession(id) {
   }).then((response) => response);
 }
 
+export function getDoctorDashCount() {
+  return request({
+    path: '/dashSum',
+    method: 'GET',
+  //   data,
+    dataType: JsonRequestDataType,
+  }).then((response) => response);
+}
+
 // import http from './httpServices'
 
 // // const apiEndpoint = "https://pv1.happybaw.com/api";

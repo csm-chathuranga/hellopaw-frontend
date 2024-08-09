@@ -48,3 +48,7 @@ code {
   font-size: 100px;
   cursor: pointer;
 }
+
+.ql-editor p {
+  color: aliceblue;
+}

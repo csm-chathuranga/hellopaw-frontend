@@ -15,7 +15,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import GroomingModal from '../../../components/service/GroomingModal'; // import the new component
 import { IMG_URL } from "../../../utils/constant";
 import { useNavigate } from "react-router-dom"
-
+import { stOpen } from "../../../store";
+import { useAtom } from "jotai";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,14 +49,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CardComp({ item, pet }) {
+export default function CardComp({ item, pet,isUserLoggedIn }) {
   const classes = useStyles();
   const def=item;
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useAtom(stOpen);
   const navigate = useNavigate()
   
   const handleOpen = () => {
-    navigate('/reservation/'+def.id)
+    isUserLoggedIn ? navigate('/reservation/'+def.id) :setOpen(true);
     
   };
 

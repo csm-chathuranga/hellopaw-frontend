@@ -1,3 +1,5 @@
+// File: src/components/Sidebar.js
+
 import * as React from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -7,67 +9,17 @@ import { useNavigate } from "react-router-dom";
 import { logged, user } from "../../src/store";
 import { useAtom } from "jotai";
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import PeopleIcon from '@mui/icons-material/People';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import LayersIcon from '@mui/icons-material/Layers';
-import PetsIcon from '@mui/icons-material/Pets';
-import BookOnlineRoundedIcon from '@mui/icons-material/BookOnlineRounded';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
-import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import DashboardIcon from '@mui/icons-material/Dashboard';
 import { useLocation } from 'react-router-dom';
 import { useTheme } from "@mui/material/styles";
-import MedicationIcon from '@mui/icons-material/Medication';
-
-const sidebarConfig = {
-  owner: [
-    { text: "My Pets", icon: <PetsIcon />, path: 'pet' },
-    { text: "Make an appointment", icon: <BookOnlineRoundedIcon sx={{ color: 'green' }} />, path: 'appointment' },
-    { text: "My Appointment", icon: <CalendarMonthIcon sx={{ color: 'blue' }} />, path: 'myAppointment' },
-    { text: "My Post", icon: <DynamicFeedIcon />, path: 'posts' },
-
-  ],
-  doctor: [
-    // { text: "Dashboard", icon: <DashboardIcon />, path: 'dashboard' },
-    { text: "Appointments", icon: <CalendarMonthIcon sx={{ color: 'blue' }} />, path: 'DoctorAppointment' },
-    { text: "Bank List", icon: <AccountBalanceIcon />, path: 'banks' },
-    { text: "My Post", icon: <DynamicFeedIcon />, path: 'posts' },
-    { text: "My Service", icon: <CalendarMonthIcon />, path: 'myService' },
-
-  ],
-  admin: [
-    { text: "Dashboard", icon: <DashboardIcon />, path: 'dashboard' },
-    { text: "My Post", icon: <DynamicFeedIcon />, path: 'posts' },
-    { text: "My Service", icon: <CalendarMonthIcon />, path: 'myService' },
-    { text: "Doctor Confirmation", icon: <ConfirmationNumberIcon />, path: 'doctorList' },
-    { text: "What's New Section", icon: <CreateNewFolderIcon />, path: 'newSection' },
-    { text: "My Appointment", icon: <CalendarMonthIcon sx={{ color: 'blue' }} />, path: 'myAppointment' },
-
-  ],
-  transfer: [
-    { text: "My Post", icon: <DynamicFeedIcon />, path: 'posts' },
-    { text: "My Service", icon: <CalendarMonthIcon />, path: 'myService' },
-    // { text: "Make an appointment", icon: <BookOnlineRoundedIcon sx={{ color: 'green' }} />, path: 'appointment' },
-    { text: "My Appointment", icon: <CalendarMonthIcon sx={{ color: 'blue' }} />, path: 'myAppointment' },
-  ],
-  google_auth: [
-    { text: "My Pets", icon: <PetsIcon />, path: 'pet' },
-    { text: "My Post", icon: <DynamicFeedIcon />, path: 'posts' },
-    // { text: "Make an appointment", icon: <BookOnlineRoundedIcon sx={{ color: 'green' }} />, path: 'appointment' },
-    { text: "My Appointment", icon: <CalendarMonthIcon sx={{ color: 'blue' }} />, path: 'myAppointment' },
-  ],
-};
+import sidebarConfig from '../utils/sidebarConfig';
+import Chip from '@mui/material/Chip';
+import FaceIcon from '@mui/icons-material/Face';
 
 export default function Sidebar() {
   const theme = useTheme();
   const navigate = useNavigate();
-  const [loggedStatus, setLogged] = useAtom(logged);
-  const [localUser, setLocalUser] = useAtom(user);
+  const [loggedStatus] = useAtom(logged);
+  const [localUser] = useAtom(user);
   const location = useLocation();
 
   const iconstyle = { fontSize: '23px' };
@@ -89,46 +41,51 @@ export default function Sidebar() {
           </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItemButton>
-        {/* {localUser?.type} */}
-        {localUser?.type!='doctor' ? <>
-        <Typography sx={{ color: 'grey', p: 1 }}>
-          Book a Services
-        </Typography>
-        <ListItemButton onClick={() => navigate('service/grooming')} sx={selectActive('/service/grooming')}>
-          <ListItemIcon>
-            <Avatar src="/pet-grooming.png" sx={iconstyle} />
-          </ListItemIcon>
-          <ListItemText primary="Grooming" />
-        </ListItemButton>
-        <ListItemButton onClick={() => navigate('/appointment')} sx={selectActive('/appointment')}>
-          <ListItemIcon>
-          <Avatar src="/360_F_601954739_dJ0VcsEl7js0vq8Ag2hx8giMpo71km3o.jpg" sx={iconstyle} />
-          </ListItemIcon>
-          <ListItemText primary="Doctor Channeling" />
-        </ListItemButton>
-        <ListItemButton>
-          <ListItemIcon>
-          <Avatar src="/black-circle-pet-shop5686.logowik.com.webp" sx={iconstyle} />
-          </ListItemIcon>
-          <ListItemText primary="Stores" />
-        </ListItemButton>
-        <ListItemButton onClick={() => navigate('service/boarding')} sx={selectActive('/service/boarding')}>
-          <ListItemIcon>
-          <Avatar src="/pet-boarding.png" sx={iconstyle} />
-          </ListItemIcon>
-          <ListItemText primary="Boarding" />
-        </ListItemButton>
-        <ListItemButton onClick={() => navigate('service/transfer')} sx={selectActive('/service/transfer')}>
-          <ListItemIcon>
-          <Avatar src="/pet-taxi.png" sx={iconstyle} />
-          </ListItemIcon>
-          <ListItemText primary="Transport" />
-        </ListItemButton>
-        </>:''}
+        {localUser?.type !== 'doctor' && (
+          <>
+            <Typography sx={{ color: 'grey', p: 1 }}>
+              Book a Services
+            </Typography>
+            <ListItemButton onClick={() => navigate('service/grooming')} sx={selectActive('/service/grooming')}>
+              <ListItemIcon>
+                <Avatar src="/pet-grooming.png" sx={iconstyle} />
+              </ListItemIcon>
+              <ListItemText primary="Grooming" />
+            </ListItemButton>
+            <ListItemButton onClick={() => navigate('/appointment')} sx={selectActive('/appointment')}>
+              <ListItemIcon>
+                <Avatar src="/360_F_601954739_dJ0VcsEl7js0vq8Ag2hx8giMpo71km3o.jpg" sx={iconstyle} />
+              </ListItemIcon>
+              <ListItemText primary="Doctor Channeling" />
+            </ListItemButton>
+            <ListItemButton>
+              <ListItemIcon>
+                <Avatar src="/black-circle-pet-shop5686.logowik.com.webp" sx={iconstyle} />
+              </ListItemIcon>
+              <ListItemText primary="Stores" />
+              <Box sx={{ ml: 1, color: 'green', fontSize: '12px'}}>
+              <Chip  label="Coming Soon" />
+                
+              </Box>
+            </ListItemButton>
+            <ListItemButton onClick={() => navigate('service/boarding')} sx={selectActive('/service/boarding')}>
+              <ListItemIcon>
+                <Avatar src="/pet-boarding.png" sx={iconstyle} />
+              </ListItemIcon>
+              <ListItemText primary="Boarding" />
+            </ListItemButton>
+            <ListItemButton onClick={() => navigate('service/transfer')} sx={selectActive('/service/transfer')}>
+              <ListItemIcon>
+                <Avatar src="/pet-taxi.png" sx={iconstyle} />
+              </ListItemIcon>
+              <ListItemText primary="Transport" />
+            </ListItemButton>
+          </>
+        )}
       </Box>
 
       <Divider sx={{ my: 1 }} />
-      {loggedStatus ?
+      {loggedStatus && (
         <Box sx={{ p: 2 }}>
           <Typography sx={{ color: 'grey' }}>
             My List
@@ -142,13 +99,7 @@ export default function Sidebar() {
             </ListItemButton>
           ))}
         </Box>
-        : null}
-      <Box sx={{ padding: 2, width: '100%', position: 'absolute', bottom: 0 }}>
-        <Typography variant="body2" sx={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }} onClick={() => navigate('/policy')}>
-          Privacy Policy
-          <ArrowForwardIosIcon sx={{ fontSize: '1rem', marginLeft: 0.5 }} />
-        </Typography>
-      </Box>
+      )}
     </Grid>
   );
 }

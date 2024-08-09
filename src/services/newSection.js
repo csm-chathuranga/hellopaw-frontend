@@ -9,6 +9,15 @@ export function getNewSection() {
    }).then((response) => response);
  }
  
+ export function getStory() {
+  return request({
+    path: '/newSection/getStory',
+    method: 'GET',
+  //   data,
+    dataType: JsonRequestDataType,
+  }).then((response) => response);
+}
+
  export function getNewSectionById(id) {
   return request({
     path: '/newSection/byId/'+id,

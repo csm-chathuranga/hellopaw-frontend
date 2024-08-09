@@ -1,4 +1,3 @@
-// GroomingModal.js
 import React from 'react';
 import {
   Box,
@@ -17,7 +16,6 @@ import {
   TextField,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { makeStyles } from '@mui/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker, TimePicker } from '@mui/x-date-pickers';
 import { useForm } from "react-hook-form";
@@ -28,40 +26,37 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { setAppointment } from "../../services/service";
 import { getMyPets } from "../../services/petService";
 import { toast } from 'react-toastify';
+import { styled } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme) => ({
-  modalContent: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    height: 'calc(100% - 100px)',
-  },
-  modalFooter: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    marginTop: '20px',
-  },
-  modal: {
-    position: 'absolute',
+// Replace the useStyles hook with styled components
+const ModalContent = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexDirection: 'column',
+  height: 'calc(100% - 100px)',
+}));
+
+const ModalFooter = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'flex-end',
+  marginTop: '20px',
+}));
+
+const CustomModal = styled(Box)(({ theme }) => ({
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '60%',
+  backgroundColor: theme.palette.surfaceLight.primary,
+  padding: '20px',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+  [theme.breakpoints.down('sm')]: {
+    width: '95%',
     top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '60%',
-    backgroundColor: theme.palette.surfaceLight.primary,
-    padding: '20px',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-    [theme.breakpoints.down('sm')]: {
-      width: '95%',
-      top: '50%',
-    },
-  },
-  stepper: {
-    [theme.breakpoints.down('sm')]: {
-      display: 'none',
-    },
   },
 }));
 
@@ -87,8 +82,14 @@ const schema = yup.object().shape({
   }),
 });
 
-export default function GroomingModal({ open, handleClose, item,id }) {
-  const classes = useStyles();
+const StepperWrapper = styled(Grid)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    display: 'none',
+  },
+}));
+
+export default function GroomingModal({ open, handleClose, item, id }) {
+  // Use the styled components instead of classes
   const [activeStep, setActiveStep] = React.useState(0);
   const [load, setLoad] = React.useState(false);
   const [pickupNeeded, setPickupNeeded] = React.useState(false);
@@ -142,8 +143,7 @@ export default function GroomingModal({ open, handleClose, item,id }) {
     } catch (error) {
       toast.success('My pet request failed');
     }
-
-  }
+  };
 
   React.useEffect(() => {
     getService();
@@ -168,8 +168,10 @@ export default function GroomingModal({ open, handleClose, item,id }) {
           <TextField
             {...register("weight")}
             label="Weight"
+            sx={{height:'80px'}}
             fullWidth
             variant="outlined"
+            InputLabelProps={{ shrink: false }}
             error={!!errors.weight}
             helperText={errors.weight?.message}
           />
@@ -182,13 +184,13 @@ export default function GroomingModal({ open, handleClose, item,id }) {
                 label="Check-In Date"
                 value={getValues("checkin")}
                 onChange={(value) => setValue("checkin", value)}
-                renderInput={(params) => <TextField {...params} fullWidth error={!!errors.checkin} helperText={errors.checkin?.message} />}
+                renderInput={(params) => <TextField {...params} fullWidth InputLabelProps={{ shrink: false }} error={!!errors.checkin} helperText={errors.checkin?.message} />}
               />
               <TimePicker
                 label="Check-In Time"
                 value={getValues("checkin")}
                 onChange={(value) => setValue("checkin", value)}
-                renderInput={(params) => <TextField {...params} fullWidth error={!!errors.checkin} helperText={errors.checkin?.message} />}
+                renderInput={(params) => <TextField {...params} fullWidth InputLabelProps={{ shrink: false }} error={!!errors.checkin} helperText={errors.checkin?.message} />}
               />
             </Box>
             <Box sx={{ mb: 2 }}>
@@ -196,13 +198,13 @@ export default function GroomingModal({ open, handleClose, item,id }) {
                 label="Check-Out Date"
                 value={getValues("checkout")}
                 onChange={(value) => setValue("checkout", value)}
-                renderInput={(params) => <TextField {...params} fullWidth error={!!errors.checkout} helperText={errors.checkout?.message} />}
+                renderInput={(params) => <TextField {...params} fullWidth InputLabelProps={{ shrink: false }} error={!!errors.checkout} helperText={errors.checkout?.message} />}
               />
               <TimePicker
                 label="Check-Out Time"
                 value={getValues("checkout")}
                 onChange={(value) => setValue("checkout", value)}
-                renderInput={(params) => <TextField {...params} fullWidth error={!!errors.checkout} helperText={errors.checkout?.message} />}
+                renderInput={(params) => <TextField {...params} fullWidth InputLabelProps={{ shrink: false }} error={!!errors.checkout} helperText={errors.checkout?.message} />}
               />
             </Box>
           </LocalizationProvider>
@@ -216,6 +218,7 @@ export default function GroomingModal({ open, handleClose, item,id }) {
             variant="outlined"
             multiline
             rows={4}
+            InputLabelProps={{ shrink: false }}
             error={!!errors.remark}
             helperText={errors.remark?.message}
           />
@@ -237,6 +240,7 @@ export default function GroomingModal({ open, handleClose, item,id }) {
                 label="Pickup Location"
                 fullWidth
                 variant="outlined"
+                InputLabelProps={{ shrink: false }}
                 error={!!errors.pickup_location}
                 helperText={errors.pickup_location?.message}
               />
@@ -263,13 +267,13 @@ export default function GroomingModal({ open, handleClose, item,id }) {
 
   return (
     <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
-      <Box className={classes.modal}>
+      <CustomModal>
         <Grid container display={"flex"} justifyContent={"right"} alignItems={"right"}>
           <CloseIcon sx={{ mt: '-10px', cursor: 'pointer', mb: '20px' }} onClick={handleClose} />
         </Grid>
         <form onSubmit={handleSubmit(onSubmit)} id="hook-form">
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={3} className={classes.stepper}>
+            <StepperWrapper item xs={12} sm={3}>
               <Stepper activeStep={activeStep} orientation="vertical">
                 {steps.map((label, index) => (
                   <Step key={label}>
@@ -277,14 +281,14 @@ export default function GroomingModal({ open, handleClose, item,id }) {
                   </Step>
                 ))}
               </Stepper>
-            </Grid>
-            <Grid item xs={12} sm={9} className={classes.modalContent}>
-              <Box sx={{ width: '100%' }} display={'flex'} justifyContent={'center'} alignItems={'center'}>
+            </StepperWrapper>
+            <Grid item xs={12} sm={9}>
+              <ModalContent sx={{ width: '100%' }} display={'flex'} justifyContent={'center'} alignItems={'center'}>
                 {StepContentComponent()}
-              </Box>
+              </ModalContent>
             </Grid>
           </Grid>
-          <Box className={classes.modalFooter}>
+          <ModalFooter>
             <Button
               color="inherit"
               disabled={activeStep === 0}
@@ -298,9 +302,9 @@ export default function GroomingModal({ open, handleClose, item,id }) {
             ) : (
               <Button variant="contained" onClick={handleNext}>Next</Button>
             )}
-          </Box>
+          </ModalFooter>
         </form>
-      </Box>
+      </CustomModal>
     </Modal>
   );
 }

@@ -1,3 +1,4 @@
+// File: Gig.js
 "use client";
 import * as React from "react";
 import Button from "@mui/material/Button";
@@ -17,7 +18,7 @@ import { IMG_URL } from "../../utils/constant";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import { handleUpload } from "../../utils/uploadUtils"
+import { handleUpload } from "../../utils/uploadUtils";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,6 +73,11 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     padding: theme.spacing(2),
   },
+  quill: {
+    '& .ql-editor': {
+      minHeight: '200px', // Ensures the editor has enough height
+    },
+  },
 }));
 
 let schema = yup.object().shape({
@@ -91,7 +97,6 @@ const toolbarOptions = [
   ['clean']
 ];
 
-
 export default function Gig() {
   const [load, setLoad] = useState(false);
   const navigate = useNavigate();
@@ -110,6 +115,21 @@ export default function Gig() {
     variant: "outlined",
     fullWidth: true,
   };
+
+  // Inject styles using useEffect to ensure they apply after the component mounts
+  useEffect(() => {
+    const style = document.createElement("style");
+    style.innerHTML = `
+      .ql-editor {
+        color: white;  /* Set the text color to white */
+        background-color: #333; /* Optional: set a dark background */
+      }
+    `;
+    document.head.appendChild(style);
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
 
   let submitHandler = async (data) => {
     try {
@@ -235,6 +255,7 @@ export default function Gig() {
                   value={description}
                   onChange={setDescription}
                   modules={{ toolbar: toolbarOptions }}
+                  className={classes.quill} // Use the quill style class
                 />
                 {errors.des && <p style={{ color: 'red' }}>{errors.des.message}</p>}
               </Grid>

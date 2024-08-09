@@ -68,7 +68,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: 450,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -162,6 +162,7 @@ export default function PrimarySearchAppBar({ isDarkTheme, setIsDarkTheme }) {
     localStore('authToken', null);
     navigate('/');
     handleMenuClose();
+    window.location.reload();
   };
 
   const handleMobileMenuClose = () => {
@@ -227,7 +228,7 @@ export default function PrimarySearchAppBar({ isDarkTheme, setIsDarkTheme }) {
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
-    <Menu anchorEl={mobileMoreAnchorEl}
+    <Menu anchorEl={anchorEl}
       anchorOrigin={{
         vertical: 'top',
         horizontal: 'right',
@@ -235,7 +236,7 @@ export default function PrimarySearchAppBar({ isDarkTheme, setIsDarkTheme }) {
       transformOrigin={{
         vertical: 'top',
         horizontal: 'right',
-      }} open={isMobileMenuOpen} onClose={handleMobileMenuClose}>
+      }} open={isMobileMenuOpen} onClose={handleMobileMenuClose} >
 
       <MenuItem sx={{ ...dropdownMenu }}>
         <Grid display={"flex"} direction={"column"}>

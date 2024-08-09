@@ -10,14 +10,18 @@ import { useNavigate } from "react-router-dom";
 import { getService } from "../../services/service";
 import { useParams } from 'react-router-dom';
 import { getMyPets } from "../../services/petService";
+import { logged, user } from "../../store";
+import { useAtom } from "jotai";
 
 export default function Service() {
   const theme = useTheme();
   const [GlobalSearch, setGlobalSearch] = useState('');
   const navigate = useNavigate();
+  const [loggedStatus] = useAtom(logged);
   const [rows, setRows] = useState([]);
   const [filteredRows, setFilteredRows] = useState([]);
   const [pet, setPet] = useState([]);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false); // Example state for user authentication
   let { type } = useParams();
 
   const handleClick = () => {
@@ -29,35 +33,42 @@ export default function Service() {
       let res = await getService(type);
       setRows(res.body);
     } catch (error) {
-      
+      console.error(error);
     }
   }
 
   const getPets = async () => {
     try {
-    let res = await getMyPets();
-    setPet(res.body);
-  } catch (error) {
-      
-  }
+      let res = await getMyPets();
+      setPet(res.body);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   useEffect(() => {
     getDoctorHandle();
     getPets();
+    // Example logic for checking if the user is logged in
+    const checkUserAuth = () => {
+      setIsUserLoggedIn(loggedStatus);
+    };
+    checkUserAuth();
   }, [type]);
 
   useEffect(() => {
     const filterData = () => {
-      const filteredData = rows.filter(row => {
-        const other = row.other ? JSON.parse(row.other) : {};
-        const title = other.title || '';
-        const des = other.des || '';
-        return (
-          title.toLowerCase().includes(GlobalSearch.toLowerCase()) ||
-          des.toLowerCase().includes(GlobalSearch.toLowerCase())
-        );
-      });
+      const filteredData = rows
+        .filter(row => row.other && row.other.trim() !== '') 
+        .filter(row => {
+          const other = JSON.parse(row.other || '{}');
+          const title = other.title || '';
+          const des = other.des || '';
+          return (
+            title.toLowerCase().includes(GlobalSearch.toLowerCase()) ||
+            des.toLowerCase().includes(GlobalSearch.toLowerCase())
+          );
+        });
       setFilteredRows(filteredData);
     };
     filterData();
@@ -79,9 +90,9 @@ export default function Service() {
               ml: 1,
               flex: 1,
               color: theme.palette.txt.muted,
-              border: 'none', // Remove the border
+              border: 'none',
               '& .MuiInputBase-input': {
-                border: 'none', // Ensure the input itself has no border
+                border: 'none',
               },
             }}
             placeholder="Search by any name or description..."
@@ -92,20 +103,30 @@ export default function Service() {
 
         <Typography sx={{ fontSize: '20px', p: 1 }}>{capitalizeFirstLetter(type)}</Typography>
         <Stack direction="row" spacing={1}>
-          <Chip sx={{ fontSize: '12px', width: '100px' }} label="All" onClick={handleClick} />
-          <Chip sx={{ fontSize: '12px', width: '100px' }} label="Near me" variant="outlined" onClick={handleClick} />
+          <Chip 
+            sx={{ fontSize: '12px', width: '100px' }} 
+            label="All" 
+            onClick={isUserLoggedIn ? handleClick : null} 
+            // disabled={!isUserLoggedIn} // Disable if not logged in
+          />
+          <Chip 
+            sx={{ fontSize: '12px', width: '100px' }} 
+            label="Near me" 
+            variant="outlined" 
+            onClick={isUserLoggedIn ? handleClick : null} 
+            // disabled={!isUserLoggedIn} // Disable if not logged in
+          />
         </Stack>
       </Grid>
       <Grid container direction={'row'}>
         {filteredRows.map((item) => {
           return (
             <Grid xs={12} md={4} sx={{ p: 1, cursor: 'pointer' }}>
-              {/* <Grid xs={12} md={4} sx={{p:1,cursor:'pointer'}} onClick={()=>navigate(`/appointment/${item.id}`)}> */}
-              <CardComp item={item} pet={pet} />
+              <CardComp item={item} pet={pet} isUserLoggedIn={isUserLoggedIn}/>
             </Grid>
           );
         })}
-        {filteredRows.length == 0 ? <Typography sx={{ textAlign: 'center', fontSize: '18px', p: 2 }}>No data found...</Typography> : null}
+        {filteredRows.length === 0 ? <Typography sx={{ textAlign: 'center', fontSize: '18px', p: 2 }}>No data found...</Typography> : null}
       </Grid>
     </Grid>
   );

@@ -82,7 +82,7 @@ export default function MyAppointment() {
             </AccordionDetails>
           </Accordion>
         })}
-        
+         {row?.vet?.length==0 && <Typography>No record found</Typography>}
       </TabPanel>
       <TabPanel value={value} index={1}>
       {row?.other?.map((item)=>{
@@ -106,6 +106,8 @@ export default function MyAppointment() {
             </AccordionDetails>
           </Accordion>
         })}
+         {row?.other?.length==0 && <Typography>No record found</Typography>}
+
       </TabPanel>
     </div>
   );

@@ -13,7 +13,6 @@ import { IMG_URL } from "../utils/constant";
 
 export default function RecipeReviewCard2({item}) {
   let itemJson= item?.other ? JSON.parse(item?.other) : null;
-console.log(itemJson);
   return (
     <Card sx={{ mt:2 ,borderRadius:'30px'}}>
       <CardHeader
@@ -36,9 +35,9 @@ console.log(itemJson);
       />
         <Rating name="read-only" value={2} readOnly sx={{m:2}}/>
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
+        {/* <Typography variant="body2" color="text.secondary">
         {itemJson?.des}
-        </Typography>
+        </Typography> */}
       </CardContent>
       <Typography sx={{pl:2,pb:1}}>Rs : {itemJson?.amount}.00 (LKR)</Typography>
     </Card>

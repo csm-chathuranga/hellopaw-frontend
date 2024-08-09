@@ -4,6 +4,7 @@ import { Card, CardContent, Typography, Box, Button, Divider } from '@mui/materi
 import ImageUpload from "./ImageUpload";
 
 const ReservationCard = ({row,handleOpen}) => {
+  let jsonData=row?.other ? JSON.parse(row?.other) : {};
   const [showContact, setShowContact] = useState(false);
 
   const handleContactClick = () => {
@@ -64,7 +65,7 @@ const ReservationCard = ({row,handleOpen}) => {
                 </Typography>
               </Box>
               <Typography variant="body2" component="span">
-                From SGD 40 /night
+              LKR {jsonData?.amount || 0}  / Per day
               </Typography>
             </Box>
             <Button variant="outlined" color="primary" fullWidth sx={{ mt: 1 }} onClick={handleOpen}>
@@ -73,7 +74,7 @@ const ReservationCard = ({row,handleOpen}) => {
           </Box>
           <Divider sx={{ my: 2 }} />
           <Typography variant="body2" color="textSecondary" component="p" align="center">
-            Book via Petbacker to enjoy <a href="#" style={{ textDecoration: 'none' }}>Premium Insurance</a>, 24/7 support, booking guarantee, safe cashless payments, photo updates and more!
+            Make reservation through pawsbook.lk and get more discounts and offers in future,Also we accept,
           </Typography>
           <Box display="flex" justifyContent="center" mt={2}>
             <img src="/visa.jpg" alt="Visa" width={70} height={50} style={{ marginRight: 10 }} />

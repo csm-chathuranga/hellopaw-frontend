@@ -4,13 +4,14 @@ import { Card, CardContent, Typography, Box, Button, TextField, Avatar, Divider 
 import { addReview } from "../../services/service";
 
 const ReviewSection = ({ row, updateRecord }) => {
-  console.log(row);
   const [reviews, setReviews] = useState(row?.has_review || []);
   const [showForm, setShowForm] = useState(false);
   const [newReview, setNewReview] = useState('');
+  const [load, setLoad] = useState(false);
 
   const handleAddReview = async () => {
     try {
+      setLoad(true);
       await addReview({
         review: newReview,
         user_id: row.id
@@ -20,6 +21,8 @@ const ReviewSection = ({ row, updateRecord }) => {
       setNewReview('');
     } catch (error) {
       console.error(error);
+    }finally{
+      setLoad(false);
     }
   };
 
@@ -58,11 +61,12 @@ const ReviewSection = ({ row, updateRecord }) => {
               sx={{ mb: 2 }}
             />
             <Button variant="contained" color="primary" onClick={handleAddReview}>
-              Submit Review
+            {load ? 'Wait' : ' Submit Review'}  
+             
             </Button>
           </Box>
         ) : (
-          <Button variant="contained" color="primary" onClick={() => setShowForm(true)}>
+          <Button variant="contained" color="primary" onClick={() => setShowForm(true)} disabled={load}>
             Write a Review
           </Button>
         )}

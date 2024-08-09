@@ -10,6 +10,16 @@ export function getService(type) {
    }).then((response) => response);
  }
 
+ export function completeSession(data) {
+  return request({
+    path: '/service/completeSession',
+    method: 'POST',
+    data,
+    dataType: JsonRequestDataType,
+  }).then((response) => response);
+}
+
+
  export function getServiceById(id) {
   return request({
     path: '/service/byId/'+id,
