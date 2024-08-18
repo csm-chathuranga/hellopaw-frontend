@@ -27,7 +27,15 @@ import DoctorList from "./pages/DoctorConfirm/DoctorList";
 import NewList from "./pages/newList/NewList";
 import AddNew from "./pages/newList/AddNew";
 
-import LegalDocuments from "./pages/policy/LegalDocuments";
+import LegalDocuments from "./pages/other/LegalDocuments";
+
+import About from "./pages/other/About";
+
+import ContactUs from "./pages/other/Contact";
+
+import Refund from "./pages/other/Refund";
+
+import Terms from "./pages/other/Terms";
 
 import DashboardTile from "./pages/dashboard/dash";
 
@@ -84,6 +92,15 @@ const routes = [
   { path: "/dashboardDoctor", element: <DashboardDoctor />, label: "Dashboard" },
 
   { path: "/policy", element: <LegalDocuments />, label: "policy" },
+
+  { path: "/about", element: <About />, label: "about" },
+
+  { path: "/contact", element: <ContactUs />, label: "contact" },
+
+  { path: "/refund", element: <Refund />, label: "refund" },
+
+  { path: "/term", element: <Terms />, label: "term" },
+
 
   { path: "/whatsNew/:id", element: <ItemDetail />, label: "item" },
 

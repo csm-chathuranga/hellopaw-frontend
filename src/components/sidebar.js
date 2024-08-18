@@ -33,7 +33,28 @@ export default function Sidebar() {
   };
 
   return (
-    <Grid sx={{ position: 'fixed', height: '95vh', top: 50, borderRight: '1px solid #8080801c', overflowX: 'auto' }}>
+    <Grid sx={{ 
+        position: 'fixed', 
+        height: '95vh', 
+        top: 50, 
+        borderRight: '1px solid #8080801c', 
+        overflowX: 'auto', 
+        '&::-webkit-scrollbar': {
+          width: '8px',          // Scrollbar width
+        },
+        '&::-webkit-scrollbar-thumb': {
+          backgroundColor: '#2f2f2f',  // Darker gray (thumb color)
+          borderRadius: '4px',
+        },
+        '&::-webkit-scrollbar-thumb:hover': {
+          backgroundColor: '#2b2b2b',  // Slightly darker on hover
+        },
+        '&::-webkit-scrollbar-track': {
+          backgroundColor: '#5b5b5b',  // Lighter gray (track color)
+        },
+        scrollbarWidth: 'thin',  // For Firefox
+        scrollbarColor: '#2f2f2f #5b5b5b',  // For Firefox
+      }}>
       <Box sx={{ width: '250px', pt: 2 }}>
         <ListItemButton sx={selectActive('/')} onClick={() => navigate('/')}>
           <ListItemIcon>
@@ -56,7 +77,7 @@ export default function Sidebar() {
               <ListItemIcon>
                 <Avatar src="/360_F_601954739_dJ0VcsEl7js0vq8Ag2hx8giMpo71km3o.jpg" sx={iconstyle} />
               </ListItemIcon>
-              <ListItemText primary="Doctor Channeling" />
+              <ListItemText primary="V-Channeling" />
             </ListItemButton>
             <ListItemButton>
               <ListItemIcon>
@@ -64,8 +85,26 @@ export default function Sidebar() {
               </ListItemIcon>
               <ListItemText primary="Stores" />
               <Box sx={{ ml: 1, color: 'green', fontSize: '12px'}}>
-              <Chip  label="Coming Soon" />
-                
+                <Chip 
+                  label="Coming Soon" 
+                  sx={{
+                    animation: 'pulse 1.5s infinite',
+                    '@keyframes pulse': {
+                      '0%': {
+                        transform: 'scale(1)',
+                        opacity: 1,
+                      },
+                      '50%': {
+                        transform: 'scale(1.1)',
+                        opacity: 0.7,
+                      },
+                      '100%': {
+                        transform: 'scale(1)',
+                        opacity: 1,
+                      },
+                    }
+                  }} 
+                />
               </Box>
             </ListItemButton>
             <ListItemButton onClick={() => navigate('service/boarding')} sx={selectActive('/service/boarding')}>
@@ -84,8 +123,9 @@ export default function Sidebar() {
         )}
       </Box>
 
-      <Divider sx={{ my: 1 }} />
       {loggedStatus && (
+        <>
+      <Divider sx={{ my: 1 }} />
         <Box sx={{ p: 2 }}>
           <Typography sx={{ color: 'grey' }}>
             My List
@@ -99,7 +139,24 @@ export default function Sidebar() {
             </ListItemButton>
           ))}
         </Box>
+        </>
       )}
+      <Divider sx={{ my: 1 }} />
+      <ListItemButton  onClick={() => navigate('/about')}>
+          <ListItemText primary="About us" />
+      </ListItemButton>
+      <ListItemButton  onClick={() => navigate('/contact')}>
+          <ListItemText primary="Contact Information" />
+      </ListItemButton>
+      <ListItemButton  onClick={() => navigate('/policy')}>
+          <ListItemText primary="Privacy Policy" />
+      </ListItemButton>
+      <ListItemButton  onClick={() => navigate('/term')}>
+          <ListItemText primary="Terms and Conditions" />
+      </ListItemButton>
+      <ListItemButton  onClick={() => navigate('/refund')}>
+          <ListItemText primary="Refund Policy" />
+      </ListItemButton>
     </Grid>
   );
 }

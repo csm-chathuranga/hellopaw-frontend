@@ -127,7 +127,9 @@ const Register = () => {
                   <CheckCircleIcon sx={{ fontSize: '120px', m: 2, color: theme.palette.success.main }} />
                   <Typography sx={{ fontSize: '14px', color: theme.palette.text.primary, p: 2 }}>Signup Completed!</Typography>
                 </Grid>
-              :<PetOwner setCompleted={setCompleted} handleClose={handleClose} /> }
+              :<Grid sx={{ p: 1, width: '100%' }} display={'flex'} >
+                  <PetOwner setCompleted={setCompleted} handleClose={handleClose} />
+                </Grid> }
               
               </>
             )}

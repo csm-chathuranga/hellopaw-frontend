@@ -1,25 +1,15 @@
 "use client";
 import * as React from "react";
 import Button from "@mui/material/Button";
-import { Divider, Grid, TextField, Typography, Avatar } from "@mui/material";
+import { Grid, TextField, InputLabel, Autocomplete, ToggleButton, ToggleButtonGroup, Avatar } from "@mui/material";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import { toast } from 'react-toastify';
 import { create } from "../../services/PetOwner";
 import { makeStyles } from '@mui/styles';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import InputLabel from '@mui/material/InputLabel';
-import City from '../../json/Citiies.json';
-import Autocomplete from '@mui/material/Autocomplete';
-import PetsIcon from '@mui/icons-material/Pets';
-import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk';
-import TransferWithinAStationIcon from '@mui/icons-material/TransferWithinAStation';
-import PersonIcon from '@mui/icons-material/Person';
-import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,16 +28,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const cities = [
-  'Colombo',
-  'Kandy',
-  'Galle',
-  'Jaffna',
-  'Negombo',
-  'Anuradhapura',
-  'Trincomalee',
-  'Batticaloa',
-  'Matara',
-  'Ratnapura'
+  'Colombo', 'Kandy', 'Galle', 'Jaffna', 'Negombo', 
+  'Anuradhapura', 'Trincomalee', 'Batticaloa', 
+  'Matara', 'Ratnapura'
 ];
 
 const iconstyle = { fontSize: '10px', marginRight: '10px' };
@@ -116,33 +99,86 @@ export default function Owner({ completed, setCompleted, handleClose }) {
   return (
     <div>
       <form onSubmit={handleSubmit(submitHandler)} id="hook-form">
-        <Grid container direction="row">
-          <Grid item xs={12} md={12} sx={{ p: 1 }} display={'flex'} alignItems={'center'} justifyContent={'center'}>
-            <ToggleButtonGroup
-              color="primary"
-              value={alignment}
-              exclusive
-              onChange={handleChange}
-              aria-label="Service Type"
-            >
-              <ToggleButton sx={{ width: '130px' }} value="doctor">
-                <Avatar src="/360_F_601954739_dJ0VcsEl7js0vq8Ag2hx8giMpo71km3o.jpg" sx={iconstyle} />
-                Doctor
-              </ToggleButton>
-              <ToggleButton sx={{ width: '130px' }} value="grooming">
-                <Avatar src="/pet-grooming.png" sx={iconstyle} /> Grooming
-              </ToggleButton>
-              <ToggleButton sx={{ width: '130px' }} value="boarding">
-                <Avatar src="/pet-boarding.png" sx={iconstyle} /> Boarding
-              </ToggleButton>
-              <ToggleButton sx={{ width: '130px' }} value="transfer">
-                <Avatar src="/pet-taxi.png" sx={iconstyle} /> Transfer
-              </ToggleButton>
-              <ToggleButton sx={{ width: '130px' }} value="owner">
-                <Avatar src="/pet-owner.jpeg" sx={iconstyle} /> Pet Owner
-              </ToggleButton>
-            </ToggleButtonGroup>
+        <Grid container direction="row" sx={{ mt: 8 }}>
+          
+          {/* Responsive ToggleButtonGroup */}
+          <Grid container spacing={1} display={"flex"} direction={"row"} justifyContent={"center"} alignItems={"center"} >
+            <Grid item xs={6} sm={6} md={2}>
+              <ToggleButtonGroup
+                color="primary"
+                value={alignment}
+                exclusive
+                onChange={handleChange}
+                aria-label="Service Type"
+                sx={{ width: '100%' }}
+              >
+                <ToggleButton sx={{ width: '100%' }} value="doctor">
+                  <Avatar src="/360_F_601954739_dJ0VcsEl7js0vq8Ag2hx8giMpo71km3o.jpg" sx={iconstyle} />
+                  Doctor
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </Grid>
+            <Grid item xs={6} sm={6} md={2}>
+              <ToggleButtonGroup
+                sx={{ width: '100%' }}
+                color="primary"
+                value={alignment}
+                exclusive
+                onChange={handleChange}
+                aria-label="Service Type"
+              >
+                <ToggleButton sx={{ width: '100%' }} value="grooming">
+                  <Avatar src="/pet-grooming.png" sx={iconstyle} /> Grooming
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </Grid>
+            <Grid item xs={6} sm={6} md={3}>
+              <ToggleButtonGroup
+                sx={{ width: '100%' }}
+                color="primary"
+                value={alignment}
+                exclusive
+                onChange={handleChange}
+                aria-label="Service Type"
+              >
+                <ToggleButton sx={{ width: '100%' }} value="owner">
+                  <Avatar src="/pet-owner.jpeg" sx={iconstyle} /> Pet Owner
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </Grid>
+            <Grid item xs={6} sm={6} md={2}>
+              <ToggleButtonGroup
+                sx={{ width: '100%' }}
+                color="primary"
+                value={alignment}
+                exclusive
+                onChange={handleChange}
+                aria-label="Service Type"
+              >
+                <ToggleButton sx={{ width: '100%' }} value="boarding">
+                  <Avatar src="/pet-boarding.png" sx={iconstyle} /> Boarding
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </Grid>
+
+            <Grid item xs={6} sm={6} md={2}>
+              <ToggleButtonGroup
+                sx={{ width: '100%' }}
+                color="primary"
+                value={alignment}
+                exclusive
+                onChange={handleChange}
+                aria-label="Service Type"
+              >
+                <ToggleButton sx={{ width: '100%' }} value="transfer">
+                  <Avatar src="/pet-taxi.png" sx={iconstyle} /> Transfer
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </Grid>
+
           </Grid>
+          
+          {/* Rest of the form fields */}
 
           <Grid item xs={12} md={6} sx={{ p: 1 }}>
             <InputLabel>Name <span style={{ color: 'red' }}>*</span></InputLabel>
