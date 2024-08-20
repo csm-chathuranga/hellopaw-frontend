@@ -111,7 +111,6 @@ const routes = [
 
   // { path: "/zoom", element: <ZoomMeeting />, label: "zoom" },
 
-
   // { path: "/contact", element: <Contact />, label: "contact" },
   // { path: "/login", element: <Login />, label: "Login" },
   // { path: "/about", element: <About />, label: "About" },
@@ -121,7 +120,6 @@ const routes = [
   //   element: <IngestionStatus />,
   //   label: "ingestion status",
   // },
-
 ];
 
 const labels = {

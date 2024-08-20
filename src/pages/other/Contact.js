@@ -14,8 +14,8 @@ function ContactUs() {
                     Send us a Message
                 </Typography>
                 <Typography variant="body1" color="textSecondary" gutterBottom>
-                    <EmailIcon sx={{ verticalAlign: 'middle' }} /> info@pawsbook.lk &nbsp;&nbsp; | &nbsp;&nbsp;
-                    <PhoneIcon sx={{ verticalAlign: 'middle' }} /> Call Us
+                    <EmailIcon sx={{ verticalAlign: 'middle' }} /> vikumchathuranga007@gmail.com &nbsp;&nbsp; | &nbsp;&nbsp;
+                    <PhoneIcon sx={{ verticalAlign: 'middle' }} /> +94 75 900 6804
                 </Typography>
                 <Typography variant="body1" gutterBottom>
                     Submit the enquiry through the form below:
@@ -69,7 +69,7 @@ function ContactUs() {
                 />
 
                 <Button
-                    type="submit"
+                    type="button"
                     variant="contained"
                     sx={{
                         backgroundColor: '#FF6F00',
