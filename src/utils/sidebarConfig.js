@@ -10,6 +10,7 @@ import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import BookOnlineIcon from '@mui/icons-material/BookOnline';
 // Define sidebar configurations for different user types
 const sidebarConfig = {
   owner: [
@@ -37,16 +38,21 @@ const sidebarConfig = {
     { text: "My Post", icon: <DynamicFeedIcon />, path: 'posts' },
     { text: "My Service", icon: <CalendarMonthIcon />, path: 'myService' },
     { text: "My Appointment", icon: <CalendarMonthIcon sx={{ color: 'blue' }} />, path: 'myAppointment' },
+    { text: "Request", icon: <BookOnlineIcon sx={{ color: 'blue' }} />, path: 'service-provider' },
+    
   ],
   boarding: [
     { text: "My Post", icon: <DynamicFeedIcon />, path: 'posts' },
     { text: "My Service", icon: <CalendarMonthIcon />, path: 'myService' },
     { text: "My Appointment", icon: <CalendarMonthIcon sx={{ color: 'blue' }} />, path: 'myAppointment' },
+    { text: "Request", icon: <BookOnlineIcon sx={{ color: 'blue' }} />, path: 'service-provider' },
+
   ],
   google_auth: [
     { text: "My Pets", icon: <PetsIcon />, path: 'pet' },
     { text: "My Post", icon: <DynamicFeedIcon />, path: 'posts' },
     { text: "My Appointment", icon: <CalendarMonthIcon sx={{ color: 'blue' }} />, path: 'myAppointment' },
+    // { text: "Request", icon: <BookOnlineIcon sx={{ color: 'blue' }} />, path: 'service-provider' },
   ],
 };
 

@@ -4,9 +4,6 @@ import {
   Button,
   Grid,
   Modal,
-  Stepper,
-  Step,
-  StepLabel,
   Typography,
   FormControl,
   InputLabel,
@@ -15,7 +12,6 @@ import {
   FormHelperText,
   TextField,
 } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker, TimePicker } from '@mui/x-date-pickers';
 import { useForm } from "react-hook-form";
@@ -28,7 +24,6 @@ import { getMyPets } from "../../services/petService";
 import { toast } from 'react-toastify';
 import { styled } from '@mui/material/styles';
 
-// Replace the useStyles hook with styled components
 const ModalContent = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -40,6 +35,7 @@ const ModalContent = styled(Box)(({ theme }) => ({
 const ModalFooter = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'flex-end',
+  gap: '10px',
   marginTop: '20px',
 }));
 
@@ -60,37 +56,37 @@ const CustomModal = styled(Box)(({ theme }) => ({
   },
 }));
 
-const steps = [
-  'Select Pet',
-  'Select Weight',
-  'Check-In Date and Time',
-  'Remarks for Service Provider',
-  'Select Pickup Option',
-  'Summary'
+// Define grooming types
+const groomingTypes = [
+  'Full Groom',
+  'Bath and Brush',
+  'Nail Trim',
+  'Ear Cleaning',
+  'Teeth Brushing'
 ];
 
 const schema = yup.object().shape({
-  pet_id: yup.string().required(),
-  weight: yup.string().required(),
-  checkin: yup.date().required(),
-  checkout: yup.date().required(),
+  pet_id: yup.string().required('Pet selection is required'),
+  weight: yup.string().required('Weight is required'),
+  checkin: yup.date().required('Check-in date is required'),
+  checkout: yup.date().required('Check-out date is required'),
   remark: yup.string(),
-  pickup: yup.boolean().required(),
-  pickup_location: yup.string().when('pickup', {
-    is: true,
-    then: yup.string().required('Pickup location is required'),
+  pickup: yup.boolean().required('Pickup option is required'),
+  pickup_location: yup
+    .string()
+    .when('pickup', {
+      is: true,
+      then: (schema) => schema.required('Pickup location is required'),
+      otherwise: (schema) => schema.notRequired(),
+    }),
+  grooming_type: yup.string().when('itemType', {
+    is: 'grooming',
+    then: (schema) => schema.required('Grooming type is required'),
+    otherwise: (schema) => schema.notRequired(),
   }),
 });
 
-const StepperWrapper = styled(Grid)(({ theme }) => ({
-  [theme.breakpoints.down('sm')]: {
-    display: 'none',
-  },
-}));
-
 export default function GroomingModal({ open, handleClose, item, id }) {
-  // Use the styled components instead of classes
-  const [activeStep, setActiveStep] = React.useState(0);
   const [load, setLoad] = React.useState(false);
   const [pickupNeeded, setPickupNeeded] = React.useState(false);
   const [pet, setPet] = React.useState([]);
@@ -112,19 +108,12 @@ export default function GroomingModal({ open, handleClose, item, id }) {
     setPickupNeeded(pickupWatch);
   }, [pickupWatch]);
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
   const onSubmit = async (data) => {
     try {
       data.checkin = dayjs(data.checkin).format('YYYY-MM-DD HH:mm');
       data.checkout = dayjs(data.checkout).format('YYYY-MM-DD HH:mm');
       data.service_id = item.id;
+      data.itemType = item.type;
       setLoad(true);
       let res = await setAppointment(data);
       if (res) toast.success('Scheduled successfully');
@@ -141,7 +130,7 @@ export default function GroomingModal({ open, handleClose, item, id }) {
       let res = await getMyPets();
       setPet(res.body);
     } catch (error) {
-      toast.success('My pet request failed');
+      toast.error('My pet request failed');
     }
   };
 
@@ -149,159 +138,137 @@ export default function GroomingModal({ open, handleClose, item, id }) {
     getService();
   }, []);
 
-  const StepContentComponent = () => {
-    switch (activeStep) {
-      case 0:
-        return (
-          <FormControl fullWidth>
-            <InputLabel>My Pet <span style={{ color: 'red' }}>*</span></InputLabel>
-            <Select {...register("pet_id")} label="Pet">
-              {pet.map((item) => (
-                <MenuItem key={item.id} value={item.id}>{item.type}</MenuItem>
-              ))}
-            </Select>
-            <FormHelperText sx={{ color: 'red' }}>{errors.pet_id?.message}</FormHelperText>
-          </FormControl>
-        );
-      case 1:
-        return (
-          <TextField
-            {...register("weight")}
-            label="Weight"
-            sx={{height:'80px'}}
-            fullWidth
-            variant="outlined"
-            InputLabelProps={{ shrink: false }}
-            error={!!errors.weight}
-            helperText={errors.weight?.message}
-          />
-        );
-      case 2:
-        return (
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <Box sx={{ mb: 2 }}>
-              <DatePicker
-                label="Check-In Date"
-                value={getValues("checkin")}
-                onChange={(value) => setValue("checkin", value)}
-                renderInput={(params) => <TextField {...params} fullWidth InputLabelProps={{ shrink: false }} error={!!errors.checkin} helperText={errors.checkin?.message} />}
-              />
-              <TimePicker
-                label="Check-In Time"
-                value={getValues("checkin")}
-                onChange={(value) => setValue("checkin", value)}
-                renderInput={(params) => <TextField {...params} fullWidth InputLabelProps={{ shrink: false }} error={!!errors.checkin} helperText={errors.checkin?.message} />}
-              />
-            </Box>
-            <Box sx={{ mb: 2 }}>
-              <DatePicker
-                label="Check-Out Date"
-                value={getValues("checkout")}
-                onChange={(value) => setValue("checkout", value)}
-                renderInput={(params) => <TextField {...params} fullWidth InputLabelProps={{ shrink: false }} error={!!errors.checkout} helperText={errors.checkout?.message} />}
-              />
-              <TimePicker
-                label="Check-Out Time"
-                value={getValues("checkout")}
-                onChange={(value) => setValue("checkout", value)}
-                renderInput={(params) => <TextField {...params} fullWidth InputLabelProps={{ shrink: false }} error={!!errors.checkout} helperText={errors.checkout?.message} />}
-              />
-            </Box>
-          </LocalizationProvider>
-        );
-      case 3:
-        return (
-          <TextField
-            {...register("remark")}
-            label="Remark"
-            fullWidth
-            variant="outlined"
-            multiline
-            rows={4}
-            InputLabelProps={{ shrink: false }}
-            error={!!errors.remark}
-            helperText={errors.remark?.message}
-          />
-        );
-      case 4:
-        return (
-          <Box sx={{width:'100%'}}>
-            <FormControl fullWidth sx={{ mb: 2 }}>
-              <InputLabel>Pickup Needed</InputLabel>
-              <Select {...register("pickup")} label="Pickup Needed">
-                <MenuItem value={true}>Yes</MenuItem>
-                <MenuItem value={false}>No</MenuItem>
-              </Select>
-              <FormHelperText sx={{ color: 'red' }}>{errors.pickup?.message}</FormHelperText>
-            </FormControl>
-            {pickupNeeded && (
-              <TextField
-                {...register("pickup_location")}
-                label="Pickup Location"
-                fullWidth
-                variant="outlined"
-                InputLabelProps={{ shrink: false }}
-                error={!!errors.pickup_location}
-                helperText={errors.pickup_location?.message}
-              />
-            )}
-          </Box>
-        );
-      case 5:
-        const formData = getValues();
-        return (
-          <Box>
-            <Typography>Pet: {formData.pet_id}</Typography>
-            <Typography>Weight: {formData.weight}</Typography>
-            <Typography>Check-In: {dayjs(formData.checkin).format('YYYY-MM-DD HH:mm')}</Typography>
-            <Typography>Check-Out: {dayjs(formData.checkout).format('YYYY-MM-DD HH:mm')}</Typography>
-            <Typography>Remark: {formData.remark}</Typography>
-            <Typography>Pickup Needed: {formData.pickup ? 'Yes' : 'No'}</Typography>
-            {formData.pickup && <Typography>Pickup Location: {formData.pickup_location}</Typography>}
-          </Box>
-        );
-      default:
-        return 'Unknown step';
-    }
-  };
-
   return (
     <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
       <CustomModal>
-        <Grid container display={"flex"} justifyContent={"right"} alignItems={"right"}>
-          <CloseIcon sx={{ mt: '-10px', cursor: 'pointer', mb: '20px' }} onClick={handleClose} />
-        </Grid>
         <form onSubmit={handleSubmit(onSubmit)} id="hook-form">
           <Grid container spacing={2}>
-            <StepperWrapper item xs={12} sm={3}>
-              <Stepper activeStep={activeStep} orientation="vertical">
-                {steps.map((label, index) => (
-                  <Step key={label}>
-                    <StepLabel>{label}</StepLabel>
-                  </Step>
-                ))}
-              </Stepper>
-            </StepperWrapper>
-            <Grid item xs={12} sm={9}>
+            <Grid item xs={12}>
               <ModalContent sx={{ width: '100%' }} display={'flex'} justifyContent={'center'} alignItems={'center'}>
-                {StepContentComponent()}
+                <FormControl fullWidth>
+                  <InputLabel>My Pet <span style={{ color: 'red' }}>*</span></InputLabel>
+                  <Select {...register("pet_id")} label="Pet">
+                    {pet.map((item) => (
+                      <MenuItem key={item.id} value={item.id}>{item.type}</MenuItem>
+                    ))}
+                  </Select>
+                  <FormHelperText sx={{ color: 'red' }}>{errors.pet_id?.message}</FormHelperText>
+                </FormControl>
+
+                {item.type === 'grooming' && (
+                  <FormControl fullWidth sx={{ mt: 2 }}>
+                    <InputLabel>Grooming Type <span style={{ color: 'red' }}>*</span></InputLabel>
+                    <Select {...register("grooming_type")} label="Grooming Type">
+                      {groomingTypes.map((type) => (
+                        <MenuItem key={type} value={type}>{type}</MenuItem>
+                      ))}
+                    </Select>
+                    <FormHelperText sx={{ color: 'red' }}>{errors.grooming_type?.message}</FormHelperText>
+                  </FormControl>
+                )}
+
+                <FormControl fullWidth sx={{ mt: 2 }}>
+                  <InputLabel>Weight</InputLabel>
+                  <Select {...register("weight")} label="Weight">
+                    <MenuItem value="1-5kg">1-5kg</MenuItem>
+                    <MenuItem value="5-10kg">5-10kg</MenuItem>
+                    <MenuItem value="10-20kg">10-20kg</MenuItem>
+                    <MenuItem value="20-40kg">20-40kg</MenuItem>
+                    <MenuItem value="40+kg">40+kg</MenuItem>
+                  </Select>
+                  <FormHelperText sx={{ color: 'red' }}>{errors.weight?.message}</FormHelperText>
+                </FormControl>
+
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <Box sx={{ mt: 2 }}>
+                    <InputLabel>check In</InputLabel>
+                    <DatePicker
+                      // label="Check-In Date"
+                      value={getValues("checkin")}
+                      onChange={(value) => setValue("checkin", value)}
+                      renderInput={(params) => <TextField {...params} fullWidth error={!!errors.checkin} helperText={errors.checkin?.message} />}
+                    />
+                    <TimePicker
+                      // label="Check-In Time"
+                      value={getValues("checkin")}
+                      onChange={(value) => setValue("checkin", value)}
+                      renderInput={(params) => <TextField {...params} fullWidth error={!!errors.checkin} helperText={errors.checkin?.message} />}
+                    />
+                  </Box>
+                  <Box sx={{ mt: 2 }}>
+                  <InputLabel>check Out</InputLabel>
+
+                    <DatePicker
+                      // label="Check-Out Date"
+                      value={getValues("checkout")}
+                      onChange={(value) => setValue("checkout", value)}
+                      renderInput={(params) => <TextField {...params} fullWidth error={!!errors.checkout} helperText={errors.checkout?.message} />}
+                    />
+                    <TimePicker
+                      // label="Check-Out Time"
+                      value={getValues("checkout")}
+                      onChange={(value) => setValue("checkout", value)}
+                      renderInput={(params) => <TextField {...params} fullWidth error={!!errors.checkout} helperText={errors.checkout?.message} />}
+                    />
+                  </Box>
+                </LocalizationProvider>
+
+                <TextField
+                  {...register("remark")}
+                  label="Remark"
+                  fullWidth
+                  variant="outlined"
+                  multiline
+                  rows={4}
+                  error={!!errors.remark}
+                  helperText={errors.remark?.message}
+                  sx={{ mt: 2 }}
+                />
+
+                <FormControl fullWidth sx={{ mt: 2 }}>
+                  <InputLabel>Pickup Needed</InputLabel>
+                  <Select {...register("pickup")}>
+                    <MenuItem value={true}>Yes</MenuItem>
+                    <MenuItem value={false}>No</MenuItem>
+                  </Select>
+                  <FormHelperText sx={{ color: 'red' }}>{errors.pickup?.message}</FormHelperText>
+                </FormControl>
+
+                {pickupNeeded && (
+                  <>
+                  <InputLabel>Pickup Location</InputLabel>
+                  
+                  <TextField
+                    {...register("pickup_location")}
+                    // label="Pickup Location"
+                    fullWidth
+                    variant="outlined"
+                    error={!!errors.pickup_location}
+                    helperText={errors.pickup_location?.message}
+                    sx={{ mt: 2 }}
+                  />
+                  </>
+
+                )}
               </ModalContent>
             </Grid>
           </Grid>
           <ModalFooter>
-            <Button
-              color="inherit"
-              disabled={activeStep === 0}
-              onClick={handleBack}
-              sx={{ mr: 1 }}
+            <Button 
+              variant="text" 
+              color="secondary" 
+              onClick={handleClose}
             >
-              Back
+              Cancel
             </Button>
-            {activeStep === steps.length - 1 ? (
-              <Button type="submit" variant="contained" disabled={load}>{load ? "Processing" : "Process to Pay"}</Button>
-            ) : (
-              <Button variant="contained" onClick={handleNext}>Next</Button>
-            )}
+            <Button 
+              type="submit" 
+              variant="contained" 
+              color="primary" 
+              disabled={load}
+            >
+              {load ? "Processing" : "Process to Pay"}
+            </Button>
           </ModalFooter>
         </form>
       </CustomModal>

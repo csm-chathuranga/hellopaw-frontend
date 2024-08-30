@@ -66,6 +66,15 @@ export function setBookingApi (data){
   // return http.post(apiEndpoint+'/owner/save',data);
 }
 
+export function setPayment (data){
+  return request({
+     path: '/processPayment',
+     method: 'POST',
+     data,
+     dataType: JsonRequestDataType,
+   }).then((response) => response);
+  // return http.post(apiEndpoint+'/owner/save',data);
+}
 
 export function getMyShedule() {
   return request({

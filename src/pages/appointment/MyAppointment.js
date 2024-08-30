@@ -2,14 +2,20 @@ import React, { useState,useEffect } from 'react';
 import { AppBar, Tabs, Tab, Typography, Box, Accordion, AccordionSummary, AccordionDetails, Grid, Button } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { getMyShedule } from "../../services/doctor";
+import { payNowService } from "../../services/service";
+import { toast } from 'react-toastify';
+
+
 import Chip from '@mui/material/Chip';
 import { useNavigate } from "react-router-dom"
 
 
 let statusMap={
     "1":<Chip label="pending" color="warning" sx={{fontSize:'12px'}}/>,
-    "2":<Chip label="Completed" color="success" sx={{fontSize:'12px'}}/>,
-    "5":<Chip label="Canceled" color="error" sx={{fontSize:'12px'}}/>
+    "2":<Chip label="Pay Now" color="info" sx={{fontSize:'12px'}}/>,
+    "3":<Chip label="Completed" color="success" sx={{fontSize:'12px'}}/>,
+    "4":<Chip label="Canceled" color="error" sx={{fontSize:'12px'}}/>,
+    "5":<Chip label="payment completed " color="success" sx={{fontSize:'12px'}}/>
 }
 
 function TabPanel(props) {
@@ -46,6 +52,41 @@ export default function MyAppointment() {
     let res = await getMyShedule();
     setRow(res.body);
   }
+
+
+
+  const payNow = async (data) => {
+    // console.log(data);
+    
+    try {
+      // setLoad(true);
+      let paymentData = {
+        firstname: "John",
+        lastname: "Doe",
+        email: "john.doe@example.com",
+        tele: "+94771234567",
+        stuid: "123456",
+        pay: data.amount,  
+        user_id: 26,
+        service_provider_id: data?.has_service?.id,
+        // other: data, 
+        id: data.id,  
+      };
+  
+      let res = await payNowService(paymentData);
+      
+      if (res && res.status === 200 && res.body) {
+        window.location.href = res.body;
+      } else {
+        toast.error('Payment failed, please try again.');
+      }
+    } catch (error) {
+      toast.error(error?.response?.data || 'Registration failed');
+    } finally {
+      // setLoad(false);
+    }
+  };
+
 
   useEffect(() => {
     getMyAppointment();
@@ -92,9 +133,10 @@ export default function MyAppointment() {
               aria-controls="panel1a-content"
               id="panel1a-header"  >
                 <Grid display={"flex"} gap={2}>
-                    {/* {statusMap[item?.status]} */}
                     <Typography>{item?.created_at || 'N/A'}</Typography>
                     <Typography> ( {item?.has_pets?.name || 'N/A'}  ) </Typography>
+                    <Typography> ( LKR {item?.amount || 'N/A'}  ) </Typography>
+                    <Typography onClick={()=>payNow(item)}>{statusMap[item?.status]}</Typography>
                 </Grid>
             </AccordionSummary>
             <AccordionDetails>

@@ -65,7 +65,7 @@ const ReservationCard = ({row,handleOpen}) => {
                 </Typography>
               </Box>
               <Typography variant="body2" component="span">
-              LKR {jsonData?.amount || 0}  / Per day
+              Make request to get Quotation
               </Typography>
             </Box>
             <Button variant="outlined" color="primary" fullWidth sx={{ mt: 1 }} onClick={handleOpen}>

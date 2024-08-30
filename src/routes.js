@@ -50,6 +50,10 @@ import UserLists from "./pages/userList/UserLists";
 import NewStory from "./pages/story/NewStorys";
 import AddStory from "./pages/story/AddStory";
 
+import ServiceProviderTable from "./pages/appointment/ServiceProviderTable";
+
+
+
 const routes = [
   { path: "/", element: <Home />, label: "home" },
   { path: "/doctor", element: <DoctorHome />, label: "doctor" },
@@ -108,7 +112,10 @@ const routes = [
 
   { path: "/userList/:type", element: <UserLists />, label: "user list" },
 
+  { path: "/service-provider", element: <ServiceProviderTable />, label: "service provider" },
 
+
+  
   // { path: "/zoom", element: <ZoomMeeting />, label: "zoom" },
 
   // { path: "/contact", element: <Contact />, label: "contact" },

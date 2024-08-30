@@ -10,6 +10,24 @@ export function getService(type) {
    }).then((response) => response);
  }
 
+ export function getServiceByServiceProvider() {
+  return request({
+    path: '/service/getByServiceProvider',
+    method: 'GET',
+  //   data,
+    dataType: JsonRequestDataType,
+  }).then((response) => response);
+}
+
+export function updateAmount(data) {
+  return request({
+    path: '/service/updateAmount',
+    method: 'POST',
+    data,
+    dataType: JsonRequestDataType,
+  }).then((response) => response);
+}
+
  export function completeSession(data) {
   return request({
     path: '/service/completeSession',
@@ -47,4 +65,13 @@ export function addReview (data){
      dataType: JsonRequestDataType,
    }).then((response) => response);
   // return http.post(apiEndpoint+'/owner/save',data);
+}
+
+export function payNowService(data) {
+  return request({
+    path: '/service/servicePay',
+    method: 'POST',
+    data,
+    dataType: JsonRequestDataType,
+  }).then((response) => response);
 }
