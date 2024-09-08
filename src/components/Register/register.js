@@ -76,6 +76,7 @@ const Register = () => {
 
       <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
         <Box sx={{ ...style, width: { xs: '300px', md: showButtons ? '400px' : '800px' } }}>
+        {/* <Box sx={{ ...style, width: { xs: '300px', md: showButtons ? '400px' : '800px' } }}> */}
           <Grid container display={"flex"} justifyContent={"right"} alignItems={"right"}>
             <CloseIcon sx={{ mt: '-10px', cursor: 'pointer' }} onClick={handleClose} />
           </Grid>
@@ -127,9 +128,11 @@ const Register = () => {
                   <CheckCircleIcon sx={{ fontSize: '120px', m: 2, color: theme.palette.success.main }} />
                   <Typography sx={{ fontSize: '14px', color: theme.palette.text.primary, p: 2 }}>Signup Completed!</Typography>
                 </Grid>
-              :<Grid sx={{ p: 1, width: '100%' }} display={'flex'} >
+              :
+              // <Grid sx={{ p: 1, width: '100%' }} display={'flex'} flexDirection={'row'}>
                   <PetOwner setCompleted={setCompleted} handleClose={handleClose} />
-                </Grid> }
+                // </Grid>
+               }
               
               </>
             )}

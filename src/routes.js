@@ -67,6 +67,7 @@ const routes = [
   { path: "/myAppointment", element: <MyAppointment />, label: "My Appointment" },
   { path: "/DoctorAppointment", element: <DoctorAppointments />, label: "Doctor Appointment" },
   { path: "/appointment/:id", element: <MakeAppointment />, label: "MakeAppointment" },
+  { path: "/myAppointment/:type", element: <MyAppointment />, label: "My Appointment" },
 
   { path: "/vets", element: <Vets />, label: "vets" },
   { path: "/service/:type", element: <Service />, label: "grooming" },

@@ -37,14 +37,14 @@ const sidebarConfig = {
   transfer: [
     { text: "My Post", icon: <DynamicFeedIcon />, path: 'posts' },
     { text: "My Service", icon: <CalendarMonthIcon />, path: 'myService' },
-    { text: "My Appointment", icon: <CalendarMonthIcon sx={{ color: 'blue' }} />, path: 'myAppointment' },
+    // { text: "My Appointment", icon: <CalendarMonthIcon sx={{ color: 'blue' }} />, path: 'myAppointment' },
     { text: "Request", icon: <BookOnlineIcon sx={{ color: 'blue' }} />, path: 'service-provider' },
     
   ],
   boarding: [
     { text: "My Post", icon: <DynamicFeedIcon />, path: 'posts' },
     { text: "My Service", icon: <CalendarMonthIcon />, path: 'myService' },
-    { text: "My Appointment", icon: <CalendarMonthIcon sx={{ color: 'blue' }} />, path: 'myAppointment' },
+    // { text: "My Appointment", icon: <CalendarMonthIcon sx={{ color: 'blue' }} />, path: 'myAppointment' },
     { text: "Request", icon: <BookOnlineIcon sx={{ color: 'blue' }} />, path: 'service-provider' },
 
   ],

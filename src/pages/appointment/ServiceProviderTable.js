@@ -5,9 +5,20 @@ import {
   Modal,
   TextField,
   Typography,
+  Chip
 } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { getServiceByServiceProvider,updateAmount } from "../../services/service";
+
+
+let statusMap={
+  "0":<Chip label="pending" color="pending" sx={{fontSize:'12px'}}/>,
+  "1":<Chip label="pending" color="pending" sx={{fontSize:'12px'}}/>,
+  "2":<Chip label="Waiting for payment" color="info" sx={{fontSize:'12px'}}/>,
+  "3":<Chip label="Completed" color="success" sx={{fontSize:'12px'}}/>,
+  "4":<Chip label="Completed" color="success" sx={{fontSize:'12px'}}/>,
+  "5":<Chip label="Completed" color="success" sx={{fontSize:'12px'}}/>,
+}
 
 export default function ServiceProviderTable() {
   const [selectedAppointment, setSelectedAppointment] = useState(null);
@@ -87,17 +98,34 @@ export default function ServiceProviderTable() {
       valueGetter: (params) => params.row?.pickup_location || 'N/A' 
     },
     {
+      field: 'status',
+      headerName: 'Status',
+      flex: 1,
+      // renderCell: (params) => (statusMap[params.row?.status] ),
+    },
+    {
       field: 'actions',
       headerName: 'Actions',
       flex: 1,
       renderCell: (params) => (
-        <Button
+        <>
+        {params.row.status==1 ? <Button
           variant="contained"
           color="primary"
           onClick={() => handleOpen(params.row)}
         >
           Add Amount
-        </Button>
+        </Button>:
+        <Button
+        variant="contained"
+        color="success"
+        // onClick={() => handleOpen(params.row)}
+      >
+        View
+      </Button>
+        }
+        </>
+        
       ),
     },
   ];
@@ -119,7 +147,7 @@ export default function ServiceProviderTable() {
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
-        disableSelectionOnClick
+        disableColumnSelector={true}
       />
 
       {/* Modal for Updating Amount */}

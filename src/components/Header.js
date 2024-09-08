@@ -345,6 +345,8 @@ export default function PrimarySearchAppBar({ isDarkTheme, setIsDarkTheme }) {
               onSuccess={onSuccess}
               onError={onFailure}
               ux_mode="popup"
+              // ux_mode="redirect"
+              // redirectUri="http://localhost:3000/oauth2/callback"
               render={renderProps => (
                 <Button
                   onClick={renderProps.onClick}
