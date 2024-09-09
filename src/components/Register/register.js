@@ -14,6 +14,7 @@ import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode";
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import { create } from "../../services/PetOwner";
+import { useNavigate } from "react-router-dom";
 
 
 const CLIENT_ID = '989579985190-pq2ofa7jcbevvbfqvdh0gh3tfro798c7.apps.googleusercontent.com'; // Replace with your actual client ID
@@ -23,6 +24,7 @@ const Register = () => {
   const [open, setOpen] = useState(false);
   const [showButtons, setShowButtons] = useState(true);
   const [completed, setCompleted] = useState(false);
+  const navigate = useNavigate();
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -43,6 +45,7 @@ const Register = () => {
       let res=await create(data);
       setCompleted(true);
       // toast.success('Registration successfull')
+      navigate('/')
   } catch (error) {
       // toast.error(error?.response?.data || 'Registraion failed')
       // setLoad(false);
@@ -80,9 +83,9 @@ const Register = () => {
           <Grid container display={"flex"} justifyContent={"right"} alignItems={"right"}>
             <CloseIcon sx={{ mt: '-10px', cursor: 'pointer' }} onClick={handleClose} />
           </Grid>
-          <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
+          {/* <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
             Sign Up
-          </Typography>
+          </Typography> */}
           <Grid container display={"flex"} direction={"column"} justifyContent={"center"} alignItems={"center"} sx={{ height:showButtons ? '80%' : '100%' }}>
             {showButtons ? (
               <Grid container display={"flex"} direction={"column"} justifyContent={"center"} alignItems={"center"} >
@@ -93,7 +96,7 @@ const Register = () => {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={() => setShowButtons(false)}
+                  onClick={() =>{ setOpen(false); navigate('/register')}}
                   startIcon={<HowToRegIcon />}
                   sx={{ mb: 2, width: '80%' }}
                 >

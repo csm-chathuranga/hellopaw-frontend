@@ -52,6 +52,8 @@ import AddStory from "./pages/story/AddStory";
 
 import ServiceProviderTable from "./pages/appointment/ServiceProviderTable";
 
+import Owner from "./components/Register/owner";
+
 
 
 const routes = [
@@ -116,7 +118,7 @@ const routes = [
   { path: "/service-provider", element: <ServiceProviderTable />, label: "service provider" },
 
 
-  
+  { path: "/register", element: <Owner />, label: "register" },
   // { path: "/zoom", element: <ZoomMeeting />, label: "zoom" },
 
   // { path: "/contact", element: <Contact />, label: "contact" },

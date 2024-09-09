@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import Button from "@mui/material/Button";
-import { Grid, TextField, InputLabel, Autocomplete, ToggleButton, ToggleButtonGroup, Avatar, Select, MenuItem } from "@mui/material";
+import { Grid, TextField, InputLabel,Typography, Autocomplete, ToggleButton, ToggleButtonGroup, Avatar, Select, MenuItem } from "@mui/material";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -11,6 +11,8 @@ import { useMediaQuery } from "@mui/material";
 import { toast } from 'react-toastify';
 import { create } from "../../services/PetOwner";
 import { makeStyles } from '@mui/styles';
+import { useNavigate } from "react-router-dom";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,6 +64,7 @@ export default function Owner({ completed, setCompleted, handleClose }) {
   const [alignment, setAlignment] = React.useState('boarding');
   const [gender, setGender] = React.useState('male');
   const [value, setValue] = React.useState('Negombo');
+  const navigate = useNavigate();
 
   const handleChange = (event, newAlignment) => {
     if (newAlignment !== null) {
@@ -75,7 +78,7 @@ export default function Owner({ completed, setCompleted, handleClose }) {
     }
   };
 
-  const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema), });
+  const { register, handleSubmit,reset, formState: { errors } } = useForm({ resolver: yupResolver(schema), });
   const textProps = {
     id: "outlined-basic",
     variant: "outlined",
@@ -89,7 +92,10 @@ export default function Owner({ completed, setCompleted, handleClose }) {
       data.gender = gender;
       data.city = value;
       let res = await create(data);
-      setCompleted(true);
+      // setCompleted(true);
+      toast.success('Registration Completed')
+      navigate('/');
+      reset();
     } catch (error) {
       toast.error(error?.response?.data || 'Registration failed')
       setLoad(false);
@@ -99,9 +105,12 @@ export default function Owner({ completed, setCompleted, handleClose }) {
   }
 
   return (
-    <div>
+    <Grid sx={{p:2,mb:8}}>
+               <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
+            Sign Up
+          </Typography>
       <form onSubmit={handleSubmit(submitHandler)} id="hook-form">
-        <Grid container direction="row" sx={{ mt: 8 }}>
+        <Grid container direction="row" sx={{ mt: 1 }}>
           
           {/* Responsive ToggleButtonGroup / Select */}
           <Grid container spacing={1} display={"flex"} direction={"row"} justifyContent={"center"} alignItems={"center"} >
@@ -344,6 +353,6 @@ export default function Owner({ completed, setCompleted, handleClose }) {
           </Grid>
         </Grid>
       </form>
-    </div>
+    </Grid>
   );
 }
