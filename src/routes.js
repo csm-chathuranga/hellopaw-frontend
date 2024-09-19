@@ -12,6 +12,7 @@ import DoctorAppointments from "./pages/appointment/DoctorAppointments";
 import MakeAppointment from "./pages/appointment/MakeAppointment";
 import Gig from "./pages/user/Gig";
 import PetConsultation from "./pages/appointment/StartSession";
+import OAuthCallback from "./pages/auth-google/OAuthCallback";
 
 // import ZoomMeeting from "./pages/zoom/ZoomMeeting";
 
@@ -119,6 +120,10 @@ const routes = [
 
 
   { path: "/register", element: <Owner />, label: "register" },
+
+  { path: "/redirectTo", element: <About />, label: "redirect" }, 
+
+  { path: "/auth-check", element: <OAuthCallback />, label: "redirect" }, 
   // { path: "/zoom", element: <ZoomMeeting />, label: "zoom" },
 
   // { path: "/contact", element: <Contact />, label: "contact" },

@@ -109,7 +109,7 @@ export default function Gig() {
   }, [params]);
 
   return (
-    <div className="main-wrapper">
+    <Grid sx={{mb:10}}>
       <form onSubmit={handleSubmit(submitHandler)} id="hook-form">
         <Grid container direction="row" sx={{ p: 2 }}>
           <Typography sx={{ m: 1, fontSize: '22px' }}>Add New Post</Typography>
@@ -172,6 +172,6 @@ export default function Gig() {
           </Grid>
         </Grid>
       </form>
-    </div>
+    </Grid>
   );
 }

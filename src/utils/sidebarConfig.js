@@ -21,7 +21,7 @@ const sidebarConfig = {
   ],
   doctor: [
     { text: "Dashboard", icon: <DashboardIcon />, path: 'dashboardDoctor' },
-    { text: "View Appointments", icon: <CalendarMonthIcon sx={{ color: 'blue' }} />, path: 'DoctorAppointment' },
+    { text: "Appointments", icon: <CalendarMonthIcon sx={{ color: 'blue' }} />, path: 'DoctorAppointment' },
     { text: "Bank List", icon: <AccountBalanceIcon />, path: 'banks' },
     { text: "My Post", icon: <DynamicFeedIcon />, path: 'posts' },
     { text: "My Service", icon: <CalendarMonthIcon />, path: 'myService' },
@@ -51,7 +51,7 @@ const sidebarConfig = {
   google_auth: [
     { text: "My Pets", icon: <PetsIcon />, path: 'pet' },
     { text: "My Post", icon: <DynamicFeedIcon />, path: 'posts' },
-    { text: "My Appointment", icon: <CalendarMonthIcon sx={{ color: 'blue' }} />, path: 'myAppointment' },
+    { text: "Appointment", icon: <CalendarMonthIcon sx={{ color: 'blue' }} />, path: 'myAppointment' },
     // { text: "Request", icon: <BookOnlineIcon sx={{ color: 'blue' }} />, path: 'service-provider' },
   ],
 };

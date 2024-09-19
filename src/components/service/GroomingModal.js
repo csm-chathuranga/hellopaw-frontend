@@ -24,13 +24,13 @@ import { getMyPets } from "../../services/petService";
 import { toast } from 'react-toastify';
 import { styled } from '@mui/material/styles';
 
-const ModalContent = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  flexDirection: 'column',
-  height: 'calc(100% - 100px)',
-}));
+// const ModalContent = styled(Box)(({ theme }) => ({
+//   display: 'flex',
+//   alignItems: 'center',
+//   justifyContent: 'center',
+//   flexDirection: 'column',
+//   height: 'calc(100% - 100px)',
+// }));
 
 const ModalFooter = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -144,7 +144,7 @@ export default function GroomingModal({ open, handleClose, item, id }) {
         <form onSubmit={handleSubmit(onSubmit)} id="hook-form">
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <ModalContent sx={{ width: '100%' }} display={'flex'} justifyContent={'center'} alignItems={'center'}>
+              {/* <ModalContent sx={{ width: '100%' }} display={'flex'} justifyContent={'center'} alignItems={'center'}> */}
                 <FormControl fullWidth>
                   <InputLabel>My Pet <span style={{ color: 'red' }}>*</span></InputLabel>
                   <Select {...register("pet_id")} label="Pet">
@@ -250,7 +250,7 @@ export default function GroomingModal({ open, handleClose, item, id }) {
                   </>
 
                 )}
-              </ModalContent>
+              {/* </ModalContent> */}
             </Grid>
           </Grid>
           <ModalFooter>

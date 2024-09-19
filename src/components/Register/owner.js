@@ -61,7 +61,7 @@ export default function Owner({ completed, setCompleted, handleClose }) {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // Detect if mobile view
   const [load, setLoad] = useState(false);
   const classes = useStyles();
-  const [alignment, setAlignment] = React.useState('boarding');
+  const [alignment, setAlignment] = React.useState('owner');
   const [gender, setGender] = React.useState('male');
   const [value, setValue] = React.useState('Negombo');
   const navigate = useNavigate();
@@ -92,11 +92,16 @@ export default function Owner({ completed, setCompleted, handleClose }) {
       data.gender = gender;
       data.city = value;
       let res = await create(data);
+      if(res?.body =='email') return toast.error('Email already registered')
+      // console.log(res.body);
+      
       // setCompleted(true);
       toast.success('Registration Completed')
       navigate('/');
-      reset();
+      // reset();
     } catch (error) {
+      console.log(error);
+      
       toast.error(error?.response?.data || 'Registration failed')
       setLoad(false);
     } finally {
@@ -285,7 +290,7 @@ export default function Owner({ completed, setCompleted, handleClose }) {
           </Grid>
 
           <Grid item xs={12} md={6} sx={{ p: 1 }}>
-            <InputLabel>Street</InputLabel>
+            <InputLabel>House Number and Street</InputLabel>
             <TextField
               className={classes.root}
               {...register("street")}
@@ -309,7 +314,7 @@ export default function Owner({ completed, setCompleted, handleClose }) {
           </Grid>
 
           <Grid item xs={12} md={6} sx={{ p: 1 }}>
-            <InputLabel>State</InputLabel>
+            <InputLabel>District</InputLabel>
             <TextField
               className={classes.root}
               {...register("state")}

@@ -144,7 +144,7 @@ export default function RegisterPet() {
   }, [params]);
 
   return (
-    <div className="main-wrapper">
+    <Grid sx={{mb:10}}>
          <Grid container direction="row" sx={{p:2}}>
           <Typography sx={{m:1,fontSize:'18px'}}>Register Your pet</Typography>
           <form onSubmit={handleSubmit(submitHandler)} id="hook-form">
@@ -279,6 +279,6 @@ export default function RegisterPet() {
             </Grid>
         </form>
         </Grid>
-    </div>
+    </Grid>
   );
 }

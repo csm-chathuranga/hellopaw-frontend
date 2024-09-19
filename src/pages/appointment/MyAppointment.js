@@ -107,7 +107,7 @@ export default function MyAppointment() {
     <div>
       <AppBar position="static">
         <Tabs value={value} onChange={handleChange} aria-label="tabs">
-          <Tab label="Vet d" id="tab-0" />
+          <Tab label="Vet" id="tab-0" />
           <Tab label="Service Appointments" id="tab-1" />
         </Tabs>
       </AppBar>
@@ -149,7 +149,7 @@ export default function MyAppointment() {
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="panel1a-header">
-                <Grid display={"flex"} gap={2}>
+                <Grid display={"flex"} gap={2} direction={{ xs: "column", md: "row" }}>
                   <Typography>{item?.created_at || 'N/A'}</Typography>
                   <Typography> ( {item?.has_pets?.name || 'N/A'} ) </Typography>
                   <Typography> ( LKR {item?.amount || 'N/A'} ) </Typography>

@@ -275,13 +275,13 @@ export default function PrimarySearchAppBar({ isDarkTheme, setIsDarkTheme }) {
           <Box sx={{ display: { xs: 'block', md: 'flex' } }}>
 
             {!loggedStatus ?
-              <>
+              <Grid display={'flex'} direction={'row'}>
                 <Button onClick={handleOpen} variant="contained" color="warning" sx={{ borderRadius: '50px', mr: 2 }}>Sign In</Button>
                 <Register />
-              </> :
+              </Grid> :
 
-              <Grid display={'flex'} direction={'row'} justifyContent={'center'} alignItems={'center'} gap={2}>
-                <Button variant="outlined" color="success" sx={{ borderRadius: '30px', mr: 2, fontSize: '11px' }} onClick={() => navigate('/post/add')}>+ post</Button>
+              <Grid display={'flex'} direction={'row'} justifyContent={'center'} alignItems={'center'} gap={1}>
+                <Button variant="outlined" color="success" sx={{ borderRadius: '30px', mr: 2, fontSize: '11px',whiteSpace:'nowrap' }} onClick={() => navigate('/post/add')}>+ post</Button>
                 <Badge badgeContent={4} color="primary" sx={{ fontSize: '18px' }}>
                   <NotificationsActiveIcon color="action" sx={{ fontSize: '22px', color: 'grey', }} />
                 </Badge>
