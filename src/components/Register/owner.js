@@ -44,13 +44,13 @@ let schema = yup.object().shape({
   phone_number: yup.string().required(),
   email: yup.string().required("Email is required"),
   password: yup.string()
-    .required('Password is required')
-    .min(5, 'Password must be at least 5 characters')
-    .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/,
-      'Password must contain at least one letter and one number'
-    )
-    .required('Password is required'),
+  .required('Password is required')
+  .min(5, 'Password must be at least 5 characters')
+  .matches(
+    /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@]+$/,
+    'Password must contain at least one letter, one number, and can include the @ symbol'
+  )
+  .required('Password is required'),
   street: yup.string(),
   state: yup.string(),
   postal_code: yup.string(),
@@ -286,6 +286,7 @@ export default function Owner({ completed, setCompleted, handleClose }) {
               error={errors?.password ? true : false}
               helperText={errors?.password ? errors.password.message : null}
               placeholder="Please enter Password"
+              type="password"
             />
           </Grid>
 

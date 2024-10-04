@@ -116,7 +116,7 @@ export default function GroomingModal({ open, handleClose, item, id }) {
       data.itemType = item.type;
       setLoad(true);
       let res = await setAppointment(data);
-      if (res) toast.success('Scheduled successfully');
+      if (res) toast.success('Quotation requested successfully');
       handleClose();
     } catch (error) {
       setLoad(false);
@@ -267,7 +267,7 @@ export default function GroomingModal({ open, handleClose, item, id }) {
               color="primary" 
               disabled={load}
             >
-              {load ? "Processing" : "Process to Pay"}
+              {load ? "Processing" : "Request a quotation"}
             </Button>
           </ModalFooter>
         </form>

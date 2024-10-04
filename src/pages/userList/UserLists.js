@@ -136,9 +136,11 @@ const UserLists = () => {
               },
             }}
           >
+            <MenuItem value="*">All</MenuItem>
             <MenuItem value="doctor">Doctor</MenuItem>
             <MenuItem value="owner">Owner</MenuItem>
             <MenuItem value="grooming">Grooming</MenuItem>
+            <MenuItem value="boarding">Boarding</MenuItem>
           </Select>
         </FormControl>
         <Box sx={{ height: 400, minHeight: 300 }}>

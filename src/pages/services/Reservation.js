@@ -47,7 +47,7 @@ const Reservation = () => {
                     {service.title}
                   </Typography>
                   <Typography variant="body2" color="textSecondary">
-                    by {row?.name || 'N/A'} <span style={{ color: '#FFD700' }}>★★★★★</span> <Typography variant="body2" component="span" color="primary">(10 Reviews)</Typography>
+                    by {row?.name || 'N/A'} <span style={{ color: '#FFD700' }}>★★★★★</span> <Typography variant="body2" component="span" color="primary">({row?.has_review?.length || 0} Reviews)</Typography>
                   </Typography>
                   <Box mt={1} display="flex" alignItems="center">
                     {/* <Typography variant="body2" color="textSecondary" component="div">

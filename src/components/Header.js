@@ -250,7 +250,7 @@ export default function PrimarySearchAppBar({ isDarkTheme, setIsDarkTheme }) {
           <DarkModeOutlinedIcon fontSize="small" />
         </ListItemIcon>
         Dark mode
-        <Switch defaultChecked={false} onChange={(e) => setIsDarkTheme(!isDarkTheme)} sx={{ position: 'absolute', right: 0 }} />
+        <Switch defaultChecked={true} onChange={(e) => setIsDarkTheme(!isDarkTheme)} sx={{ position: 'absolute', right: 0 }} />
       </MenuItem>
       <Divider />
 
